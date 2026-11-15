@@ -2116,7 +2116,8 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
       ) : null}
 
       <section className="grid gap-4">
-        <div className="card p-5" data-match-panel="general">
+        <div className="card p-5">
+          <div data-match-panel="general">
           <div className="mb-4">
             <h2 className="text-base font-semibold text-white">Forma reciente</h2>
             <p className="text-xs leading-relaxed text-mist-500">
@@ -2347,6 +2348,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               ) : null}
             </div>
           ) : null}
+          </div>
 
           <div data-match-panel="posiciones">
             <StandingsPanel
