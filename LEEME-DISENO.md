@@ -29,6 +29,21 @@ No incluye la base de datos, claves, `node_modules`, `.next` ni los scripts del 
 5. Mantener el modo claro por defecto y el modo oscuro con el botón existente.
 6. No introducir librerías de UI nuevas sin consultarlo.
 
+## Base de datos
+
+La app usa SQLite en:
+
+```
+data/predicciones.db
+```
+
+- **En tu PC:** está en `C:\Users\PC\Documents\predicciones\data\predicciones.db`.
+- **En GitHub:** no está. El `.gitignore` excluye `data/*.db`, así que tus datos no se suben.
+- **En Bolt.new:** si ejecuta la app, creará una base **vacía** dentro de su propio entorno, en `data/predicciones.db`. Esa base no se sincroniza con tu PC ni con GitHub.
+- **En esta copia:** la carpeta `data/` está vacía a propósito. Solo se incluye el directorio para que SQLite pueda crear el archivo.
+
+Si quieres que Bolt vea la app con datos, hay que darle una base de demostración o usar las capturas de las secciones.
+
 ## Para ejecutarla
 
 No incluye `data/predicciones.db` ni `.env.local` por privacidad.
