@@ -634,10 +634,10 @@ export default async function Home({
                 <div className="flex items-center justify-between border-b border-ink-800 px-4 py-3">
                   <LeagueTag code={code} logo={leagueLogos.get(code)} />
                   <Link
-                    href={`/ligas/${code}`}
+                    href={`/?liga=${code}&dia=todos#liga-${code}`}
                     className="text-[11px] text-mist-500 transition hover:text-mint-400"
                   >
-                    {matches.length} partidos · ver liga
+                    {matches.length} partidos · ver todos
                   </Link>
                 </div>
                 <div>

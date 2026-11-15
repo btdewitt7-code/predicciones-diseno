@@ -25,13 +25,10 @@ export default async function LeaguesPage() {
           const summary = byCode.get(league.code);
           const logo = leagueLogos.get(league.code);
           const upcoming = summary?.upcoming ?? 0;
-
-          return (
-            <Link
-              key={league.code}
-              href={`/ligas/${league.code}`}
-              className="group flex items-center gap-3 rounded-2xl border border-ink-800 bg-ink-900/80 p-3.5 transition hover:border-win-400/40 hover:bg-ink-850"
-            >
+          const cardClass =
+            "group flex items-center gap-3 rounded-2xl border border-ink-800 bg-ink-900/80 p-3.5 transition";
+          const body = (
+            <>
               <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-ink-850 ring-1 ring-ink-800">
                 {logo ? (
                   <img
@@ -68,14 +65,36 @@ export default async function LeaguesPage() {
                   Próx.
                 </span>
               </span>
+            </>
+          );
+
+          if (upcoming === 0) {
+            return (
+              <div
+                key={league.code}
+                className={`${cardClass} opacity-60`}
+                title="Sin partidos próximos cargados"
+              >
+                {body}
+              </div>
+            );
+          }
+
+          return (
+            <Link
+              key={league.code}
+              href={`/?liga=${league.code}&dia=todos#liga-${league.code}`}
+              className={`${cardClass} hover:border-win-400/40 hover:bg-ink-850`}
+            >
+              {body}
             </Link>
           );
         })}
       </div>
 
       <p className="text-xs leading-relaxed text-mist-500">
-        «Próx.» son los partidos próximos cargados para esa competición. Toca una liga para ver sus
-        promedios, la tabla de posiciones y los partidos disponibles.
+        «Próx.» son los partidos próximos cargados. Toca una liga con partidos para ir directo a su
+        lista en la página principal.
       </p>
     </div>
   );
