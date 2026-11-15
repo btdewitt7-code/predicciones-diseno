@@ -1,0 +1,52 @@
+{
+  "name": "predicciones",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "ingest": "tsx scripts/ingest.ts",
+    "train": "tsx scripts/train.ts",
+    "train-cups": "tsx scripts/train-cups.ts",
+    "train-cups-conmebol": "tsx scripts/train-cups-conmebol.ts",
+    "freeze": "tsx scripts/freeze-predictions.ts",
+    "backtest": "tsx scripts/backtest.ts",
+    "backtest-ht": "tsx scripts/backtest-ht.ts",
+    "backtest-uen": "tsx scripts/backtest-uen.ts",
+    "backtest-cups": "tsx scripts/backtest-cups.ts",
+    "backtest-conmebol": "tsx scripts/backtest-conmebol.ts",
+    "archivo-mundial-clubes": "tsx scripts/archive-cwc-2025.ts",
+    "calibrate": "tsx scripts/calibrate.ts",
+    "injuries": "tsx scripts/ingest-injuries.ts",
+    "backup": "tsx scripts/backup.ts",
+    "alineaciones": "tsx scripts/ingest-lineups.ts",
+    "ajuste-lineup": "tsx scripts/adjust-lineups.ts",
+    "cuotas-copas": "tsx scripts/ingest-cup-cards.ts",
+    "goals": "tsx scripts/backfill-goals.ts",
+    "refresh": "tsx scripts/ingest.ts --fixtures-only && tsx scripts/sync-results.ts && tsx scripts/sync-live-once.ts --hours=72 && tsx scripts/backfill-espn-stats.ts --days=14 && tsx scripts/veto-losses.ts && tsx scripts/ingest-odds.ts && tsx scripts/ingest-cup-cards.ts && tsx scripts/ingest-injuries.ts && tsx scripts/ingest-lineups.ts && tsx scripts/train.ts && tsx scripts/train-cups.ts && tsx scripts/train-cups-conmebol.ts && tsx scripts/notify-first-half.ts && tsx scripts/notify-plays.ts",
+    "notify": "tsx scripts/notify-first-half.ts",
+    "avisos": "tsx scripts/notify-plays.ts",
+    "resumen": "tsx scripts/notify-summary.ts",
+    "usuario": "tsx scripts/user.ts",
+    "uso": "tsx scripts/api-usage.ts",
+    "veto": "tsx scripts/veto.ts",
+    "vetos": "tsx scripts/veto-losses.ts",
+    "setup": "tsx scripts/ingest.ts && tsx scripts/ingest-injuries.ts && tsx scripts/ingest-lineups.ts && tsx scripts/train.ts && tsx scripts/backtest.ts"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.18.0",
+    "next": "16.4.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.0"
+  }
+}

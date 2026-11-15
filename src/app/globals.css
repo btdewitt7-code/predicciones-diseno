@@ -1,0 +1,365 @@
+﻿@import "tailwindcss";
+
+@theme {
+  --color-ink-950: #eae6df;
+  --color-ink-900: #f9f8f6;
+  --color-ink-850: #efece6;
+  --color-ink-800: #e4dfd6;
+  --color-ink-700: #d8d1c6;
+  --color-ink-600: #c7bfb3;
+  --color-mist-500: #7a736b;
+  --color-mist-400: #7a736b;
+  --color-mist-300: #5c554d;
+  --color-mist-200: #3d3a36;
+  --color-mint-500: #b4a89b;
+  --color-mint-400: #5c554d;
+  --color-mint-300: #3d3a36;
+  --color-win-500: #5b7c99;
+  --color-win-400: #5b7c99;
+  --color-cyan-400: #a39a8f;
+  --color-amber-300: #8a5a12;
+  --color-amber-400: #b7791f;
+  --color-rose-300: #9e3b35;
+  --color-rose-400: #c2413a;
+}
+
+html {
+  color-scheme: light;
+  --color-date-bg: rgba(56, 189, 248, 0.1);
+  --color-date-border: rgba(56, 189, 248, 0.6);
+  --color-date-accent: #0284c7;
+  --color-date-text: #3d3a36;
+  --color-date-pill-bg: rgba(56, 189, 248, 0.15);
+  --color-date-pill-text: #0369a1;
+}
+
+html.dark {
+  color-scheme: dark;
+  --color-ink-950: #171411;
+  --color-ink-900: #221e1a;
+  --color-ink-850: #2a2520;
+  --color-ink-800: #332d27;
+  --color-ink-700: #443b33;
+  --color-ink-600: #5a4f45;
+  --color-mist-500: #a79c90;
+  --color-mist-400: #b8ada0;
+  --color-mist-300: #d6cdc2;
+  --color-mist-200: #f5f1ea;
+  --color-mint-500: #b4a89b;
+  --color-mint-400: #d6cdc2;
+  --color-mint-300: #f5f1ea;
+  --color-win-500: #5b7c99;
+  --color-win-400: #7fa1bf;
+  --color-cyan-400: #8a9a91;
+  --color-amber-300: #f0c674;
+  --color-amber-400: #d6a24a;
+  --color-rose-300: #f0a99b;
+  --color-rose-400: #e08a7a;
+  --color-date-bg: rgba(56, 189, 248, 0.16);
+  --color-date-border: rgba(56, 189, 248, 0.55);
+  --color-date-accent: #7dd3fc;
+  --color-date-text: #f5f1ea;
+  --color-date-pill-bg: rgba(56, 189, 248, 0.22);
+  --color-date-pill-text: #bae6fd;
+}
+
+body {
+  background-color: #eae6df;
+  background-image:
+    linear-gradient(rgba(122, 115, 107, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(122, 115, 107, 0.06) 1px, transparent 1px),
+    radial-gradient(900px 500px at 50% -10%, rgba(180, 168, 155, 0.2), transparent 65%);
+  background-size: 28px 28px, 28px 28px, auto;
+  background-repeat: repeat, repeat, no-repeat;
+  color: #3d3a36;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* En modo claro, "white" pasa a ser el texto principal (nunca blanco puro). */
+.text-white,
+[class*="text-white/"] {
+  color: #3d3a36 !important;
+}
+
+html.dark body {
+  background-color: #171411;
+  background-image:
+    linear-gradient(rgba(180, 168, 155, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(180, 168, 155, 0.05) 1px, transparent 1px),
+    radial-gradient(900px 500px at 50% -10%, rgba(91, 124, 153, 0.18), transparent 65%);
+  background-size: 28px 28px, 28px 28px, auto;
+  background-repeat: repeat, repeat, no-repeat;
+  color: #f5f1ea;
+}
+
+html.dark .text-white,
+html.dark [class*="text-white/"] {
+  color: #f5f1ea !important;
+}
+
+html.dark .card {
+  background: #221e1a;
+  border-color: #3a332c;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+html.dark .match-hero,
+html.dark .home-hero {
+  background:
+    radial-gradient(620px 280px at 50% 0%, rgba(91, 124, 153, 0.18), transparent 70%),
+    linear-gradient(135deg, #221e1a 0%, #1d1916 55%, #181512 100%);
+}
+
+/* Puntitos tenues del color del acento, como trama de fondo. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.55;
+  background-image: radial-gradient(rgba(96, 165, 250, 0.28) 1px, transparent 1.25px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(95% 75% at 50% 18%, #000 8%, transparent 88%);
+  -webkit-mask-image: radial-gradient(95% 75% at 50% 18%, #000 8%, transparent 88%);
+}
+
+::selection {
+  background: rgba(96, 165, 250, 0.25);
+}
+
+.card {
+  background: #f9f8f6;
+  border: 1px solid #e4dfd6;
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px rgba(61, 58, 54, 0.04);
+}
+
+.match-hero,
+.home-hero {
+  background:
+    radial-gradient(620px 280px at 50% 0%, rgba(180, 168, 155, 0.18), transparent 70%),
+    linear-gradient(135deg, #f9f8f6 0%, #f4f1ec 55%, #efece6 100%);
+}
+
+.scroll-thin::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: var(--color-ink-600);
+  border-radius: 999px;
+}
+
+/* ---------- AnimaciÃ³n de gol ---------- */
+.goal-root {
+  position: relative;
+}
+
+.goal-root-card {
+  border-radius: 1rem;
+}
+
+.goal-root-card.goal-flash {
+  animation: goal-card-flash 1.7s ease-out;
+}
+
+@keyframes goal-card-flash {
+  0% {
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+  }
+  12% {
+    box-shadow:
+      0 0 0 2px rgba(74, 222, 128, 0.65),
+      0 0 44px rgba(74, 222, 128, 0.28);
+  }
+  55% {
+    box-shadow:
+      0 0 0 2px rgba(74, 222, 128, 0.32),
+      0 0 26px rgba(74, 222, 128, 0.14);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+  }
+}
+
+.goal-root-row.goal-flash {
+  animation: goal-row-flash 1.5s ease-out;
+}
+
+/* La fila envuelta conserva el borde inferior salvo en la Ãºltima. */
+.goal-root-row:last-child > a {
+  border-bottom-width: 0;
+}
+
+@keyframes goal-row-flash {
+  0% {
+    background-color: transparent;
+    box-shadow: inset 3px 0 0 0 rgba(74, 222, 128, 0);
+  }
+  15% {
+    background-color: rgba(74, 222, 128, 0.08);
+    box-shadow: inset 3px 0 0 0 rgba(74, 222, 128, 0.8);
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: inset 3px 0 0 0 rgba(74, 222, 128, 0);
+  }
+}
+
+.goal-badge {
+  position: absolute;
+  left: 50%;
+  top: -10px;
+  z-index: 20;
+  transform: translate(-50%, -6px) scale(0.86);
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #86efac, #4ade80);
+  color: #06210f;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 8px 24px rgba(74, 222, 128, 0.35);
+  animation: goal-badge-in 2.2s ease-out forwards;
+}
+
+@keyframes goal-badge-in {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -6px) scale(0.8);
+  }
+  12% {
+    opacity: 1;
+    transform: translate(-50%, 2px) scale(1.06);
+  }
+  22% {
+    transform: translate(-50%, 0) scale(1);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -8px) scale(0.96);
+  }
+}
+
+.goal-root-row .goal-badge {
+  left: 50%;
+  right: auto;
+  top: 0;
+  transform: translate(-50%, 0) scale(0.86);
+  padding: 2px 8px;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  animation: goal-badge-row 2.2s ease-out forwards;
+}
+
+@keyframes goal-badge-row {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 2px) scale(0.8);
+  }
+  12% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1.08);
+  }
+  22% {
+    transform: translate(-50%, 0) scale(1);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -4px) scale(0.96);
+  }
+}
+
+.goal-flash [data-goal-score] {
+  animation: goal-score-bump 0.9s cubic-bezier(0.2, 1.6, 0.4, 1);
+}
+
+@keyframes goal-score-bump {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.22);
+    color: #4ade80;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.goal-confetti {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+  border-radius: 1rem;
+  pointer-events: none;
+}
+
+.goal-confetti i {
+  position: absolute;
+  top: -8px;
+  width: 6px;
+  height: 10px;
+  border-radius: 2px;
+  opacity: 0.9;
+  animation-name: goal-confetti-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes goal-confetti-fall {
+  from {
+    transform: translateY(-10px) rotate(0deg);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(210px) rotate(420deg);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .goal-root-card.goal-flash,
+  .goal-root-row.goal-flash,
+  .goal-flash [data-goal-score],
+  .goal-badge,
+  .goal-confetti i {
+    animation: none;
+  }
+  .goal-badge {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Ancho del contenido: 80% en escritorio, con tope. */
+.app-shell {
+  width: 100%;
+  max-width: 1450px;
+  margin-inline: auto;
+}
+
+@media (min-width: 1024px) {
+  .app-shell {
+    width: 84%;
+  }
+}
+
+
+/* Paneles de la pagina de partido: General visible; MatchTabs controla el resto. */
+[data-match-panel] {
+  display: none;
+}
+[data-match-panel="general"] {
+  display: block;
+}
