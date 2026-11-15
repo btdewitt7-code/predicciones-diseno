@@ -17,6 +17,7 @@ type Standing = {
   goal_diff: number;
   points: number;
   updated_at: string;
+  logo_url: string | null;
 };
 
 function sameTeam(a: string, b: string): boolean {
@@ -143,11 +144,23 @@ export function StandingsPanel({
                           {row.rank}
                         </td>
                         <td
-                          className={`max-w-[180px] truncate py-2 pr-2 ${
+                          className={`py-2 pr-2 ${
                             highlighted ? "font-semibold text-white" : "text-mist-300"
                           }`}
                         >
-                          {displayTeam(row.team)}
+                          <div className="flex min-w-0 items-center gap-2">
+                            {row.logo_url ? (
+                              <img
+                                src={row.logo_url}
+                                alt=""
+                                loading="lazy"
+                                className="size-5 shrink-0 object-contain"
+                              />
+                            ) : (
+                              <span className="size-5 shrink-0 rounded-full bg-ink-800" />
+                            )}
+                            <span className="min-w-0 truncate">{displayTeam(row.team)}</span>
+                          </div>
                         </td>
                         <td className="py-2 text-right tabular-nums text-mist-400">
                           {row.played}
