@@ -2,6 +2,7 @@ node_modules
 .next
 out
 data/*.db
+!data/predicciones.db
 data/*.db-*
 data/*.json
 data/archive/

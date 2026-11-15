@@ -40,7 +40,10 @@ data/predicciones.db
 - **En tu PC:** está en `C:\Users\PC\Documents\predicciones\data\predicciones.db`.
 - **En GitHub:** no está. El `.gitignore` excluye `data/*.db`, así que tus datos no se suben.
 - **En Bolt.new:** si ejecuta la app, creará una base **vacía** dentro de su propio entorno, en `data/predicciones.db`. Esa base no se sincroniza con tu PC ni con GitHub.
-- **En esta copia:** la carpeta `data/` está vacía a propósito. Solo se incluye el directorio para que SQLite pueda crear el archivo.
+- **En esta copia:** incluye una base **demo** en `data/predicciones.db`, con 2.512 partidos, 797 predicciones de liga, 90 de copa y 3 jugadas de ejemplo. **No contiene tus usuarios, tus jugadas ni tus datos personales.**
+- **Usuario demo:** `demo@demo.com`
+- **Contraseña demo:** `demo1234`
+- **No reemplazar** esa base por la real dentro del repo: la demo es solo para que Bolt pueda ver las pantallas con datos.
 
 Si quieres que Bolt vea la app con datos, hay que darle una base de demostración o usar las capturas de las secciones.
 
