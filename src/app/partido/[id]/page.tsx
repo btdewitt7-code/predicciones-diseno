@@ -27,6 +27,7 @@ import { pickSide, teamSimilarity } from "@/lib/teamMatch";
 import { LEAGUE_BY_CODE } from "@/lib/leagues";
 import { dateShort, dateTimeLabel, dayKey, fairProbabilities, fullDate, num, pct, timeOf } from "@/lib/format";
 import { MatchTabs } from "@/components/match-tabs";
+import { StandingsPanel } from "@/components/standings-panel";
 import { LeagueTag, ResultChip, TeamBadge } from "@/components/ui";
 import { LiveAutoRefresh } from "@/components/live-auto-refresh";
 import { GoalFlash } from "@/components/goal-flash";
@@ -1322,10 +1323,12 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                 { id: "tiros", label: "Tiros" },
                 { id: "corners", label: "Córners" },
                 { id: "tarjetas", label: "Tarjetas" },
+                { id: "posiciones", label: "Posiciones" },
                 { id: "h2h", label: "H2H" },
               ]
             : [
                 { id: "general", label: "General" },
+                { id: "posiciones", label: "Posiciones" },
                 { id: "h2h", label: "H2H" },
               ]
         }
@@ -2344,6 +2347,15 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               ) : null}
             </div>
           ) : null}
+
+          <div data-match-panel="posiciones">
+            <StandingsPanel
+              leagueCode={match.league_code}
+              leagueName={league?.name ?? match.league_code}
+              homeTeam={match.home_team}
+              awayTeam={match.away_team}
+            />
+          </div>
 
           <div data-match-panel="h2h">
             <h3 className="mt-6 mb-2 text-xs font-semibold uppercase tracking-wide text-mist-500">

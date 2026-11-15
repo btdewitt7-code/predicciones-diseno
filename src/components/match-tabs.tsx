@@ -57,6 +57,14 @@ function TabIcon({ id }: { id: string }) {
       </svg>
     );
   }
+  if (id === "posiciones") {
+    return (
+      <svg {...common}>
+        <path d="M5 4h14v16H5z" />
+        <path d="M8 8h8M8 12h8M8 16h5" />
+      </svg>
+    );
+  }
   return (
     <svg {...common} strokeWidth={2.4}>
       <path d="M4 20V10M9 20V6M14 20v-8M19 20V4" />
@@ -74,6 +82,7 @@ export function MatchTabs({ tabs }: { tabs: MatchTab[] }) {
       });
     };
     apply();
+    window.dispatchEvent(new CustomEvent("match-tab-change", { detail: active }));
     // La página puede refrescarse en vivo: reaplicamos cuando cambie el DOM.
     const observer = new MutationObserver(apply);
     observer.observe(document.body, { childList: true, subtree: true });
