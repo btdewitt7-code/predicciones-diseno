@@ -80,6 +80,13 @@ export function MatchTabs({ tabs }: { tabs: MatchTab[] }) {
       document.querySelectorAll<HTMLElement>("[data-match-panel]").forEach((panel) => {
         panel.style.display = panel.dataset.matchPanel === active ? "block" : "none";
       });
+      document.querySelectorAll<HTMLElement>("[data-match-panel-except]").forEach((panel) => {
+        const except = (panel.dataset.matchPanelExcept ?? "")
+          .split(",")
+          .map((value) => value.trim())
+          .filter(Boolean);
+        panel.style.display = except.includes(active) ? "none" : "block";
+      });
     };
     apply();
     window.dispatchEvent(new CustomEvent("match-tab-change", { detail: active }));
