@@ -63,7 +63,7 @@ export default async function RootLayout({
         </Script>
 
         <div className="min-h-screen lg:flex">
-          <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r border-ink-800/80 bg-ink-950/90 px-3 py-4 lg:flex">
+          <aside className="sticky top-0 hidden h-screen w-56 shrink-0 flex-col border-r border-ink-800/80 bg-ink-950/90 px-3 py-4 lg:flex">
             <Link href="/" className="flex shrink-0 items-center gap-2.5 px-2">
               <span className="grid size-9 place-items-center rounded-xl bg-mint-500/15 text-mint-400 ring-1 ring-mint-500/30">
                 <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.8">
