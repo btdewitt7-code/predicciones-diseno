@@ -792,6 +792,152 @@ export async function getLineups(matchId: number): Promise<LineupRow[]> {
   return res.rows as unknown as LineupRow[];
 }
 
+export type LineupRotationSide = {
+  side: "home" | "away";
+  team: string;
+  status: "confirmed" | "partial" | "none";
+  sample: number;
+  currentStarters: number;
+  usualInXI: number;
+  changes: number;
+  missing: string[];
+  rotation: "baja" | "media" | "alta" | null;
+  formation: string | null;
+};
+
+export type MatchLineupRotation = {
+  home: LineupRotationSide;
+  away: LineupRotationSide;
+};
+
+/**
+ * Compara el XI actual con el XI más repetido en los últimos partidos.
+ * Solo usa datos previos al partido; no modifica probabilidades.
+ */
+export async function getLineupRotation(
+  match: MatchRow,
+  current: LineupRow[],
+  limit = 5,
+): Promise<MatchLineupRotation> {
+  const db = getDb();
+
+  const buildSide = async (
+    side: "home" | "away",
+    team: string,
+  ): Promise<LineupRotationSide> => {
+    const starters = current
+      .filter((row) => row.side === side && Number(row.starter) === 1)
+      .map((row) => row.player)
+      .slice(0, 11);
+    const formation =
+      current.find((row) => row.side === side && row.formation)?.formation ?? null;
+
+    const base: LineupRotationSide = {
+      side,
+      team,
+      status: starters.length >= 10 ? "confirmed" : starters.length > 0 ? "partial" : "none",
+      sample: 0,
+      currentStarters: starters.length,
+      usualInXI: starters.length,
+      changes: 0,
+      missing: [],
+      rotation: null,
+      formation,
+    };
+
+    if (starters.length === 0) return base;
+
+    const previous = async (sameLeague: boolean) => {
+      const res = await db.execute({
+        sql: `SELECT id, kickoff, home_team, away_team FROM matches
+              WHERE status = 'played' AND kickoff < ?
+                AND (home_team = ? OR away_team = ?)
+                ${sameLeague ? "AND league_code = ?" : ""}
+                AND EXISTS (SELECT 1 FROM lineups l WHERE l.match_id = matches.id)
+              ORDER BY kickoff DESC LIMIT ?`,
+        args: sameLeague
+          ? [match.kickoff, team, team, match.league_code, limit]
+          : [match.kickoff, team, team, limit],
+      });
+      return res.rows.map((row) => ({
+        id: Number(row.id),
+        home: String(row.home_team),
+        away: String(row.away_team),
+      }));
+    };
+
+    let matches = await previous(true);
+    if (matches.length < 3) matches = await previous(false);
+    if (matches.length === 0) return base;
+
+    const ids = matches.map((item) => item.id);
+    const rows = await db.execute({
+      sql: `SELECT match_id, side, player FROM lineups
+            WHERE match_id IN (${ids.map(() => "?").join(",")})
+              AND starter = 1`,
+      args: ids,
+    });
+
+    const byMatch = new Map<number, { home: Set<string>; away: Set<string> }>();
+    for (const item of matches) {
+      byMatch.set(item.id, { home: new Set(), away: new Set() });
+    }
+    for (const row of rows.rows) {
+      const entry = byMatch.get(Number(row.match_id));
+      if (!entry) continue;
+      const sideKey = String(row.side) === "home" ? "home" : "away";
+      entry[sideKey].add(String(row.player));
+    }
+
+    const counts = new Map<string, number>();
+    let sample = 0;
+    for (const item of matches) {
+      const entry = byMatch.get(item.id);
+      if (!entry) continue;
+      const teamSide = item.home === team ? "home" : "away";
+      const players = entry[teamSide];
+      if (players.size === 0) continue;
+      sample += 1;
+      for (const player of players) {
+        counts.set(player, (counts.get(player) ?? 0) + 1);
+      }
+    }
+    if (sample === 0) return base;
+
+    const usual = [...counts.entries()]
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .slice(0, 11)
+      .map(([player]) => player);
+
+    const currentSet = new Set(starters);
+    const usualSet = new Set(usual);
+    const changes = starters.filter((player) => !usualSet.has(player)).length;
+    const missing = usual.filter((player) => !currentSet.has(player));
+
+    if (sample < 3 || starters.length < 10) {
+      return { ...base, sample, usualInXI: starters.length - changes, changes, missing };
+    }
+
+    return {
+      ...base,
+      status: "confirmed",
+      sample,
+      currentStarters: starters.length,
+      usualInXI: starters.length - changes,
+      changes,
+      missing,
+      rotation: changes <= 1 ? "baja" : changes <= 3 ? "media" : "alta",
+    };
+  };
+
+  const [home, away] = await Promise.all([
+    buildSide("home", match.home_team),
+    buildSide("away", match.away_team),
+  ]);
+
+  return { home, away };
+}
+
 export type LineupAdjustmentRow = {
   match_id: number;
   home_attack: number;
