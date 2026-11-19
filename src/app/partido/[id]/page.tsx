@@ -1449,7 +1449,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                   </p>
                 </div>
               ) : !isCup ? (
-                <p className="mt-4 text-[11px] text-mist-500">
+                <p className="mt-4 text-ui-body-sm text-mist-500">
                   Sin cuotas de mercado para comparar en este partido.
                 </p>
               ) : null}

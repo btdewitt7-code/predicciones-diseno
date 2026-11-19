@@ -75,6 +75,43 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Escala tipográfica de la app. Ver docs/tipografia.md. */
+:root {
+  --font-ui-micro: 12px;
+  --font-ui-caption: 12px;
+  --font-ui-body-sm: 13px;
+  --font-ui-body: 14px;
+  --font-ui-card-title: 16px;
+  --font-ui-section: 18px;
+  --font-ui-page: 24px;
+  --font-ui-hero: 30px;
+}
+
+.text-ui-micro {
+  font-size: var(--font-ui-micro);
+}
+.text-ui-caption {
+  font-size: var(--font-ui-caption);
+}
+.text-ui-body-sm {
+  font-size: var(--font-ui-body-sm);
+}
+.text-ui-body {
+  font-size: var(--font-ui-body);
+}
+.text-ui-card-title {
+  font-size: var(--font-ui-card-title);
+}
+.text-ui-section {
+  font-size: var(--font-ui-section);
+}
+.text-ui-page {
+  font-size: var(--font-ui-page);
+}
+.text-ui-hero {
+  font-size: var(--font-ui-hero);
+}
+
 /* En modo claro, "white" pasa a ser el texto principal (nunca blanco puro). */
 .text-white,
 [class*="text-white/"] {

@@ -28,6 +28,7 @@ No incluye la base de datos, claves, `node_modules`, `.next` ni los scripts del 
 4. Mantener el español de la interfaz y el tono actual.
 5. Mantener el modo claro por defecto y el modo oscuro con el botón existente.
 6. No introducir librerías de UI nuevas sin consultarlo.
+7. **Tipografía:** seguir `docs/tipografia.md`. Usar los tokens `text-ui-*`. No usar `text-[10px]` ni `text-[11px]` en contenido nuevo.
 
 ## Base de datos
 
