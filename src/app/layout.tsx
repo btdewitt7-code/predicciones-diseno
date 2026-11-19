@@ -141,8 +141,6 @@ export default async function RootLayout({
                     {user ? (
                       <>
                         <div className="hidden lg:flex lg:items-center lg:gap-2">
-                          {user.isAdmin ? <RefreshButton /> : null}
-                          <ThemeToggle />
                           <UserBadge user={user} />
                           <LogoutButton />
                         </div>
