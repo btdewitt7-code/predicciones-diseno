@@ -216,7 +216,6 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
                 <img
                   src={match.image}
                   alt=""
-                  loading="lazy"
                   className="pointer-events-none absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-105"
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/10" />

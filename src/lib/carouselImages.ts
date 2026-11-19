@@ -17,7 +17,7 @@ function findFile(baseName: string): string | null {
   const dir = path.join(process.cwd(), "public", "carousel");
   for (const extension of EXTENSIONS) {
     const file = `${baseName}${extension}`;
-    if (fs.existsSync(path.join(dir, file))) return `/carousel/${file}`;
+    if (fs.existsSync(path.join(dir, file))) return `/api/foto/${file}`;
   }
   return null;
 }

@@ -20,6 +20,7 @@
     "calibrate": "tsx scripts/calibrate.ts",
     "injuries": "tsx scripts/ingest-injuries.ts",
     "backup": "tsx scripts/backup.ts",
+    "fotos": "tsx scripts/carousel-photos.ts",
     "alineaciones": "tsx scripts/ingest-lineups.ts",
     "ajuste-lineup": "tsx scripts/adjust-lineups.ts",
     "cuotas-copas": "tsx scripts/ingest-cup-cards.ts",
