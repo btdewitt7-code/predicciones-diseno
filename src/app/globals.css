@@ -115,12 +115,14 @@ body {
 /* En móvil la escala baja un paso para no sentirse gigante. */
 @media (max-width: 640px) {
   :root {
-    --font-ui-card-title: 15px;
-    --font-ui-section: 16px;
-    --font-ui-body: 13px;
-    --font-ui-body-sm: 12px;
-    --font-ui-page: 22px;
-    --font-ui-hero: 26px;
+    --font-ui-micro: 10px;
+    --font-ui-caption: 10px;
+    --font-ui-body-sm: 10px;
+    --font-ui-body: 11px;
+    --font-ui-card-title: 13px;
+    --font-ui-section: 14px;
+    --font-ui-page: 20px;
+    --font-ui-hero: 24px;
   }
 }
 

@@ -6,29 +6,29 @@ Objetivo: que el tamaño de letra no se decida a ojo en cada tarjeta. Toda la ap
 
 | Token | PC | Móvil | Uso |
 |---|---|---|---|
-| `text-ui-micro` | **12 px** | **12 px** | Solo etiquetas de badge, leyendas y datos auxiliares muy cortos |
-| `text-ui-caption` | **12 px** | **12 px** | Metadatos: fechas, horas, fuentes, notas secundarias |
-| `text-ui-body-sm` | **13 px** | **12 px** | Texto compacto de tarjetas, descripciones y avisos |
-| `text-ui-body` | **14 px** | **13 px** | Texto principal, filas de tablas y párrafos |
-| `text-ui-card-title` | **17 px** | **15 px** | Título de tarjeta |
-| `text-ui-section` | **18 px** | **16 px** | Título de sección |
-| `text-ui-page` | **24 px** | **22 px** | Título de página |
-| `text-ui-hero` | **30 px** | **26 px** | Números grandes y marcadores |
+| `text-ui-micro` | **12 px** | **10 px** | Solo etiquetas de badge, leyendas y datos auxiliares muy cortos |
+| `text-ui-caption` | **12 px** | **10 px** | Metadatos: fechas, horas, fuentes, notas secundarias |
+| `text-ui-body-sm` | **13 px** | **10 px** | Texto compacto de tarjetas, descripciones y avisos |
+| `text-ui-body` | **14 px** | **11 px** | Texto principal, filas de tablas y párrafos |
+| `text-ui-card-title` | **17 px** | **13 px** | Título de tarjeta |
+| `text-ui-section` | **18 px** | **14 px** | Título de sección |
+| `text-ui-page` | **24 px** | **20 px** | Título de página |
+| `text-ui-hero` | **30 px** | **24 px** | Números grandes y marcadores |
 
 ## Reglas
 
-1. **Nada de texto de contenido por debajo de 12 px.**  
-   Si no cabe, se cambia el layout, no se achica la letra.
-2. **Títulos de tarjeta:** 17 px en PC · 15 px en móvil.
-3. **Títulos de sección:** 18 px en PC · 16 px en móvil.
-4. **Títulos de página:** 24 px en PC · 22 px en móvil.
-5. **Texto de tarjetas y avisos:** 13–14 px en PC · 12–13 px en móvil.
+1. **PC:** nada de texto de contenido por debajo de 12 px.
+   **Móvil:** mínimo 10 px por ajuste de pantalla pequeña.
+2. **Títulos de tarjeta:** 17 px en PC · 13 px en móvil.
+3. **Títulos de sección:** 18 px en PC · 14 px en móvil.
+4. **Títulos de página:** 24 px en PC · 20 px en móvil.
+5. **Texto de tarjetas y avisos:** 13–14 px en PC · 10–11 px en móvil.
 6. **Metadatos y leyendas:** 12 px.
 7. **Badges:** 12 px. Nunca 9–10 px para algo que el usuario necesite leer.
 8. **Números KPI:** 24–30 px según el espacio.
 9. **Modo claro y oscuro usan la misma escala.**
-10. **No usar `text-[10px]` ni `text-[11px]` en contenido nuevo.**  
-    Si se toca una tarjeta vieja, migrarla a los tokens.
+10. **No usar `text-[10px]` ni `text-[11px]` directos en contenido nuevo.**  
+    En móvil se llega a esos tamaños con los tokens responsive, no con clases fijas.
 
 ## Cómo se usa
 
