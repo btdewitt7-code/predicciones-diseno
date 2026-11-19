@@ -109,10 +109,10 @@ export function DragScroll({
       onPointerLeave={endDrag}
       onClickCapture={onClickCapture}
       onDragStart={(event) => event.preventDefault()}
-      className={`cursor-grab select-none overflow-x-auto active:cursor-grabbing ${
+      className={`select-none overflow-x-auto ${
         showBar
           ? "scroll-thin"
-          : "[-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          : "cursor-grab active:cursor-grabbing [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       } ${className}`}
     >
       {children}
