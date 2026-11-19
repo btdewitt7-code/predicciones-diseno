@@ -19,6 +19,7 @@ export type CarouselMatch = {
   draw: string;
   away: string;
   live: boolean;
+  image?: string | null;
 };
 
 function TeamLogo({ name, logo }: { name: string; logo?: string | null }) {
@@ -208,18 +209,42 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
             key={match.id}
             href={`/partido/${match.id}`}
             data-carousel-card
-            className="card group flex w-[82vw] max-w-[320px] shrink-0 snap-start flex-col overflow-hidden transition hover:border-mint-500/35 sm:w-[300px]"
+            className="card group relative flex w-[82vw] max-w-[320px] shrink-0 snap-start flex-col overflow-hidden transition hover:border-mint-500/35 sm:w-[300px]"
           >
-            <div className="flex items-center justify-between gap-2 border-b border-ink-800/70 px-3 py-2.5">
-              <span className="flex min-w-0 items-center gap-1.5 text-[10px] text-mist-500">
+            {match.image ? (
+              <>
+                <img
+                  src={match.image}
+                  alt=""
+                  loading="lazy"
+                  className="pointer-events-none absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-105"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/10" />
+              </>
+            ) : null}
+
+            <div
+              className={`relative z-10 flex items-center justify-between gap-2 px-3 py-2.5 ${
+                match.image ? "border-b border-white/15" : "border-b border-ink-800/70"
+              }`}
+            >
+              <span
+                className={`flex min-w-0 items-center gap-1.5 text-[10px] ${
+                  match.image ? "text-[#ece6dc]" : "text-mist-500"
+                }`}
+              >
                 {match.leagueLogo ? (
                   <img src={match.leagueLogo} alt="" className="size-4 object-contain" loading="lazy" />
                 ) : null}
                 <span className="truncate">{match.leagueName}</span>
               </span>
-              <span className="shrink-0 text-[10px] text-mist-500">
+              <span
+                className={`shrink-0 text-[10px] ${
+                  match.image ? "text-[#ece6dc]" : "text-mist-500"
+                }`}
+              >
                 {match.live ? (
-                  <span className="mr-1 rounded bg-rose-400/15 px-1.5 py-0.5 font-semibold text-rose-300">
+                  <span className="mr-1 rounded bg-rose-400/20 px-1.5 py-0.5 font-semibold text-rose-200">
                     EN VIVO
                   </span>
                 ) : null}
@@ -227,34 +252,70 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
               </span>
             </div>
 
-            <div className="flex flex-1 items-center justify-between gap-2 px-3 py-7">
+            <div className="relative z-10 flex flex-1 items-center justify-between gap-2 px-3 py-7">
               <div className="flex min-w-0 flex-1 flex-col items-center gap-1.5 text-center">
                 <TeamLogo name={match.homeTeam} logo={match.homeLogo} />
-                <span className="w-full truncate text-xs font-semibold text-white">
+                <span
+                  className={`w-full truncate text-xs font-semibold ${
+                    match.image ? "text-[#fff] drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]" : "text-white"
+                  }`}
+                >
                   {match.homeTeam}
                 </span>
               </div>
-              <span className="shrink-0 text-[10px] uppercase tracking-wide text-mist-500">vs</span>
+              <span
+                className={`shrink-0 text-[10px] uppercase tracking-wide ${
+                  match.image ? "text-[#d6cec2]" : "text-mist-500"
+                }`}
+              >
+                vs
+              </span>
               <div className="flex min-w-0 flex-1 flex-col items-center gap-1.5 text-center">
                 <TeamLogo name={match.awayTeam} logo={match.awayLogo} />
-                <span className="w-full truncate text-xs font-semibold text-white">
+                <span
+                  className={`w-full truncate text-xs font-semibold ${
+                    match.image ? "text-[#fff] drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]" : "text-white"
+                  }`}
+                >
                   {match.awayTeam}
                 </span>
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-1 border-t border-ink-800/70 px-3 py-2.5 text-center text-[10px]">
+            <div
+              className={`relative z-10 grid grid-cols-3 gap-1 px-3 py-2.5 text-center text-[10px] ${
+                match.image ? "border-t border-white/15 bg-black/45" : "border-t border-ink-800/70"
+              }`}
+            >
               <div>
-                <span className="block text-mist-500">L</span>
-                <span className="font-semibold tabular-nums text-win-400">{match.home}</span>
+                <span className={`block ${match.image ? "text-[#cfc7bb]" : "text-mist-500"}`}>L</span>
+                <span
+                  className={`font-semibold tabular-nums ${
+                    match.image ? "text-[#9ed3b0]" : "text-win-400"
+                  }`}
+                >
+                  {match.home}
+                </span>
               </div>
               <div>
-                <span className="block text-mist-500">X</span>
-                <span className="font-semibold tabular-nums text-mist-300">{match.draw}</span>
+                <span className={`block ${match.image ? "text-[#cfc7bb]" : "text-mist-500"}`}>X</span>
+                <span
+                  className={`font-semibold tabular-nums ${
+                    match.image ? "text-[#fff]" : "text-mist-300"
+                  }`}
+                >
+                  {match.draw}
+                </span>
               </div>
               <div>
-                <span className="block text-mist-500">V</span>
-                <span className="font-semibold tabular-nums text-mist-300">{match.away}</span>
+                <span className={`block ${match.image ? "text-[#cfc7bb]" : "text-mist-500"}`}>V</span>
+                <span
+                  className={`font-semibold tabular-nums ${
+                    match.image ? "text-[#fff]" : "text-mist-300"
+                  }`}
+                >
+                  {match.away}
+                </span>
               </div>
             </div>
           </Link>

@@ -26,6 +26,7 @@ import { GoalFlash } from "@/components/goal-flash";
 import { UpcomingCarousel, type CarouselMatch } from "@/components/upcoming-carousel";
 import { HomeAlerts } from "@/components/home-alerts";
 import { buildHomeAlerts } from "@/lib/alerts";
+import { carouselImage } from "@/lib/carouselImages";
 import { HomeStats } from "@/components/home-stats";
 import { DragScroll } from "@/components/drag-scroll";
 
@@ -275,6 +276,7 @@ export default async function Home({
       draw: pct(prediction?.draw),
       away: pct(prediction?.away_win),
       live: Number.isFinite(kickoffMs) && kickoffMs <= Date.now() && Date.now() - kickoffMs < 2.5 * 3600_000,
+      image: carouselImage(match.home_team, match.away_team, match.league_code),
     };
   });
 
