@@ -16,7 +16,7 @@ export function DragScroll({
   showBar?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const drag = useRef({ active: false, startX: 0, startLeft: 0, moved: false });
+  const drag = useRef({ active: false, startX: 0, startLeft: 0, moved: false, captured: false });
   const velocity = useRef(0);
   const lastPoint = useRef({ x: 0, time: 0 });
   const glide = useRef<number | null>(null);
@@ -60,12 +60,8 @@ export function DragScroll({
       startX: event.clientX,
       startLeft: el.scrollLeft,
       moved: false,
+      captured: false,
     };
-    try {
-      el.setPointerCapture(event.pointerId);
-    } catch {
-      /* puntero sintetico */
-    }
   };
 
   const onPointerMove = (event: PointerEvent<HTMLDivElement>) => {
@@ -76,7 +72,17 @@ export function DragScroll({
     if (dt > 0) velocity.current = -(event.clientX - lastPoint.current.x) / dt;
     lastPoint.current = { x: event.clientX, time: now };
     const delta = event.clientX - drag.current.startX;
-    if (Math.abs(delta) > 5) drag.current.moved = true;
+    if (!drag.current.captured && Math.abs(delta) > 5) {
+      drag.current.moved = true;
+      // Capturamos solo al arrastrar: si capturamos al pulsar, el clic
+      // se queda en el contenedor y el enlace nunca se abre.
+      try {
+        el.setPointerCapture(event.pointerId);
+        drag.current.captured = true;
+      } catch {
+        /* puntero sintetico */
+      }
+    }
     el.scrollLeft = drag.current.startLeft - delta;
   };
 
@@ -84,10 +90,13 @@ export function DragScroll({
     const el = ref.current;
     if (!drag.current.active) return;
     drag.current.active = false;
-    try {
-      if (el?.hasPointerCapture(event.pointerId)) el.releasePointerCapture(event.pointerId);
-    } catch {
-      /* puntero sintetico */
+    if (drag.current.captured) {
+      drag.current.captured = false;
+      try {
+        if (el?.hasPointerCapture(event.pointerId)) el.releasePointerCapture(event.pointerId);
+      } catch {
+        /* puntero sintetico */
+      }
     }
     if (drag.current.moved && Math.abs(velocity.current) > 0.12) startGlide();
   };
