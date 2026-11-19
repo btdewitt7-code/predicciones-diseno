@@ -39,7 +39,7 @@ export function buildHomeAlerts({
   const candidates = alertCandidates(matches);
   const valuePicks = findValue(candidates, marketOdds, {
     minEdge: 0.06,
-    minProb: 0.4,
+    minProb: 0.6,
     maxOdds: 6,
   });
   const valueCount = valuePicks.length;
@@ -68,7 +68,7 @@ export function buildHomeAlerts({
     .filter(
       (match) =>
         match.prediction &&
-        match.prediction.ht_over05 >= 0.75 &&
+        match.prediction.ht_over05 >= 0.7 &&
         !alertedMatchIds.has(match.id) &&
         !isHtVetoed(htVetoed, match.league_code, match.home_team) &&
         !isHtVetoed(htVetoed, match.league_code, match.away_team),
