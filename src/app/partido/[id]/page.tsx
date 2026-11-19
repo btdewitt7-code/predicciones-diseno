@@ -1457,7 +1457,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
             <div className="card p-5" data-match-panel="goles">
               <h2 className="mb-1 text-ui-card-title font-semibold text-white">Goles y ambos marcan</h2>
-              <p className="mb-4 text-[11px] text-mist-500">
+              <p className="mb-4 text-ui-body-sm text-mist-500">
                 Primera cifra: más de / sí. Segunda: menos de / no.
               </p>
 
@@ -1477,7 +1477,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
             <div className="card p-5" data-match-panel="goles">
               <h2 className="mb-1 text-ui-card-title font-semibold text-white">Marcadores más probables</h2>
-              <p className="mb-4 text-[11px] text-mist-500">
+              <p className="mb-4 text-ui-body-sm text-mist-500">
                 Los seis resultados exactos con mayor probabilidad.
               </p>
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -1847,7 +1847,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           <section className="grid gap-4">
             <div className="card p-5" data-match-panel="corners">
               <h2 className="mb-1 text-ui-card-title font-semibold text-white">Córners</h2>
-              <p className="mb-4 text-[11px] text-mist-500">
+              <p className="mb-4 text-ui-body-sm text-mist-500">
                 Más de / menos de la línea. Totales esperados arriba.
               </p>
 
@@ -1914,7 +1914,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
             <div className="card p-5" data-match-panel="tiros">
               <h2 className="mb-1 text-ui-card-title font-semibold text-white">Remates al arco</h2>
-              <p className="mb-4 text-[11px] text-mist-500">
+              <p className="mb-4 text-ui-body-sm text-mist-500">
                 Remates a puerta esperados. Más de / menos de la línea.
               </p>
 
@@ -1943,7 +1943,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
             <div className="card p-5" data-match-panel="tiros">
               <h2 className="mb-1 text-ui-card-title font-semibold text-white">Remates</h2>
-              <p className="mb-4 text-[11px] text-mist-500">
+              <p className="mb-4 text-ui-body-sm text-mist-500">
                 Remates totales esperados (todos los tiros, no solo al arco). Más de / menos de.
               </p>
 
@@ -1981,7 +1981,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
             <div className="card p-5" data-match-panel="tarjetas">
               <h2 className="mb-1 text-ui-card-title font-semibold text-white">Tarjetas</h2>
-              <p className="mb-4 text-[11px] text-mist-500">
+              <p className="mb-4 text-ui-body-sm text-mist-500">
                 Amarillas y rojas esperadas (cada roja cuenta). Más de / menos de.
               </p>
 
@@ -2128,7 +2128,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
             {prediction.ht_over05 > 0 ? (
               <div className="card p-5" data-match-panel="goles">
                 <h2 className="mb-1 text-ui-card-title font-semibold text-white">Primer tiempo</h2>
-                <p className="mb-4 text-[11px] text-mist-500">
+                <p className="mb-4 text-ui-body-sm text-mist-500">
                   Goles esperados antes del descanso. Más de / menos de.
                 </p>
 
@@ -2150,7 +2150,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
             (homeHalfHistory.length > 0 || awayHalfHistory.length > 0) ? (
               <div className="card p-5" data-match-panel="goles">
                 <h2 className="mb-1 text-ui-card-title font-semibold text-white">1T reciente</h2>
-                <p className="mb-4 text-[11px] text-mist-500">
+                <p className="mb-4 text-ui-body-sm text-mist-500">
                   Últimos 5 partidos con gol antes del descanso: minuto del primer gol y marcador al
                   descanso.
                 </p>
