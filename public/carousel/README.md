@@ -1,76 +1,71 @@
 # Fotos del carrusel
 
-Las tarjetas de "próximos partidos" usan una foto de fondo si existe el archivo.
-No hay base de datos: se busca por nombre.
+Las tarjetas usan una foto de fondo si existe el archivo. Prioridad:
 
-## Descarga automática (una sola vez)
+1. **Partido exacto**: `local-visitante.ext`
+2. **Liga**: `liga-<código>.ext`
+3. Sin foto: la tarjeta queda con el diseño normal.
 
-1. Edita `public/carousel/fuentes.json` y agrega las fotos que quieras:
+Los nombres se arman sin acentos, en minúsculas y con guiones:
+`São Paulo vs Fluminense` → `sao-paulo-fluminense.jpg`.
+
+## Descarga automática (recomendado)
+
+```bash
+npm run fotos -- --auto 20
+```
+
+Busca **fotos de los equipos** (fanart / banner, 1280×720) en TheSportsDB para los
+partidos de **hoy y mañana**, y las guarda una sola vez. Si el archivo ya existe, no
+lo vuelve a bajar.
+
+- `--force` para volver a bajarlas todas.
+- TheSportsDB tiene límite de peticiones: si responde **429**, espera unos minutos y
+  vuelve a ejecutar. Las que ya bajaste se conservan.
+
+Se puede definir una clave propia en `.env.local`:
+
+```
+SPORTSDB_KEY=tu_clave
+```
+
+## Modo lista (para los que no tienen foto)
+
+```bash
+npm run fotos -- --listar
+```
+
+Genera/actualiza `fuentes.json` con los partidos de hoy y mañana así:
 
 ```json
 [
-  { "home": "Sao Paulo", "away": "Fluminense", "url": "https://..." },
-  { "home": "Boca Juniors", "away": "River Plate", "url": "https://..." }
+  { "home": "Aarhus", "away": "Lyngby", "buscar": "Aarhus Lyngby festejo jugadores", "url": "" }
 ]
 ```
 
-2. Ejecuta:
+Pegas la URL de una foto de cualquiera de los dos equipos en `url` y ejecutas:
 
 ```bash
 npm run fotos
 ```
 
-Baja solo las que faltan, las guarda como `local-visitante.jpg` y anota la fuente en
-`creditos.txt`. Con `npm run fotos -- --force` las vuelve a bajar todas.
-
-También existe el modo automático, que busca imágenes de club en TheSportsDB:
-
-```bash
-npm run fotos -- --auto 10
-```
-
-Ese servicio tiene límite de peticiones (responde 429 si te pasas), así que el modo
-lista es el más confiable.
-
-## Prioridad
-
-1. **Partido exacto**: `local-visitante.ext`
-2. **Liga**: `liga-<código>.ext`
-3. Si no hay ninguna, la tarjeta queda con el diseño normal (sin foto).
-
-## Cómo se arma el nombre
-
-Sin acentos, en minúsculas y con guiones:
-
-| Equipo / liga | Archivo |
-|---|---|
-| São Paulo vs Fluminense | `sao-paulo-fluminense.jpg` |
-| Vasco vs Internacional | `vasco-internacional.jpg` |
-| LaLiga | `liga-sp1.jpg` |
-| Major League Soccer | `liga-mls.jpg` |
-
-Los códigos de liga son los de `src/lib/leagues.ts` (por ejemplo `E0`, `SP1`, `MLS`).
-Extensiones válidas: `.jpg`, `.jpeg`, `.png`, `.webp`.
+Baja solo las que faltan y anota la fuente en `creditos.txt`.
 
 ## Tamaño recomendado
 
-- **1200 × 800 px** o similar, horizontal.
-- Menos de 300 KB (JPG calidad 80 o WebP).
-- Lo importante (jugadores, celebración) arriba o al centro: la parte baja queda
-  oscurecida por el degradado.
+- Horizontal, 1280×720 o similar.
+- Menos de 300 KB (JPG calidad 80 / WebP).
+- Lo importante (jugadores, celebración) arriba o al centro: abajo va el degradado.
 
 ## De dónde sacar las fotos
 
-- **Unsplash / Pexels**: gratis, uso comercial.
-- **Prensa oficial del club**: sirve para un proyecto personal, no para vender.
-- **Flickr / Wikimedia**: revisa la licencia; el script anota la fuente en `creditos.txt`.
-- **API-Football `/venues`**: si tu plan lo incluye, trae foto del estadio.
-
-No uses imágenes de Google ni capturas de casas de apuestas si vas a publicar el
-proyecto: tienen derechos. Para uso personal es tu decisión.
+- **TheSportsDB**: fanart de clubes (lo usa el modo automático).
+- **Unsplash / Pexels**: ambiente de fútbol, gratis.
+- **Prensa oficial del club**: ideal para uso personal.
+- **Google Imágenes**: para un proyecto personal es tu decisión; evita publicarlo así.
 
 ## Notas técnicas
 
 - Las fotos se sirven por `/api/foto/<archivo>`, que lee la carpeta al vuelo:
   puedes agregar o borrar imágenes **sin recompilar**.
-- `fuentes.json` y `creditos.txt` son solo de apoyo; no se muestran en la app.
+- `fuentes.json` y `creditos.txt` son de apoyo; no se muestran en la app.

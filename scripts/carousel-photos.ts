@@ -20,10 +20,15 @@ const CREDITS = path.join(DIR, "creditos.txt");
 const EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp"];
 const SPORTSDB_KEY = process.env.SPORTSDB_KEY ?? "123";
 
-type Source = { home: string; away: string; url: string };
+type Source = { home: string; away: string; buscar?: string; url: string };
 
 type SportsTeam = {
   strTeam?: string;
+  strFanart1?: string | null;
+  strFanart2?: string | null;
+  strFanart3?: string | null;
+  strFanart4?: string | null;
+  strBanner?: string | null;
   strTeamFanart1?: string | null;
   strTeamFanart2?: string | null;
   strTeamFanart3?: string | null;
@@ -125,6 +130,11 @@ async function searchTeam(name: string): Promise<SportsTeam | null> {
 function pickImage(team: SportsTeam | null): string | null {
   if (!team) return null;
   return (
+    team.strFanart1 ||
+    team.strFanart2 ||
+    team.strFanart3 ||
+    team.strFanart4 ||
+    team.strBanner ||
     team.strTeamFanart1 ||
     team.strTeamFanart2 ||
     team.strTeamFanart3 ||
@@ -135,13 +145,53 @@ function pickImage(team: SportsTeam | null): string | null {
   );
 }
 
+async function listMatches() {
+  const { getDb } = await import("../src/lib/db");
+  const db = getDb();
+  const result = await db.execute({
+    sql: `SELECT home_team, away_team, kickoff
+          FROM matches
+          WHERE status = 'scheduled'
+            AND date(kickoff) IN (date('now'), date('now', '+1 day'))
+          ORDER BY kickoff
+          LIMIT 30`,
+    args: [],
+  });
+
+  const rows = result.rows as unknown as { home_team: string; away_team: string; kickoff: string }[];
+  let previous: Source[] = [];
+  try {
+    previous = JSON.parse(fs.readFileSync(SOURCES, "utf8")) as Source[];
+  } catch {
+    previous = [];
+  }
+
+  const byKey = new Map(previous.map((item) => [`${imageSlug(item.home)}-${imageSlug(item.away)}`, item]));
+  const list: Source[] = rows.map((row) => {
+    const key = `${imageSlug(row.home_team)}-${imageSlug(row.away_team)}`;
+    const existing = byKey.get(key);
+    return {
+      home: row.home_team,
+      away: row.away_team,
+      buscar: existing?.buscar ?? `${row.home_team} ${row.away_team} festejo jugadores`,
+      url: existing?.url ?? "",
+    };
+  });
+
+  fs.writeFileSync(SOURCES, JSON.stringify(list, null, 2) + "\r\n", "utf8");
+  console.log(`Lista actualizada: ${list.length} partidos de hoy y ma?ana en`);
+  console.log(`  ${SOURCES}`);
+  console.log("Pega la URL de cada foto en \"url\" y ejecuta npm run fotos.");
+}
+
 async function fromSportsDb(limit: number, force: boolean) {
   const { getDb } = await import("../src/lib/db");
   const db = getDb();
   const result = await db.execute({
     sql: `SELECT home_team, away_team, league_code
           FROM matches
-          WHERE status = 'scheduled' AND kickoff >= datetime('now')
+          WHERE status = 'scheduled'
+            AND date(kickoff) IN (date('now'), date('now', '+1 day'))
           ORDER BY kickoff
           LIMIT ?`,
     args: [limit],
@@ -194,6 +244,11 @@ async function fromSportsDb(limit: number, force: boolean) {
 async function main() {
   const args = process.argv.slice(2);
   fs.mkdirSync(DIR, { recursive: true });
+
+  if (args.includes("--listar")) {
+    await listMatches();
+    return;
+  }
 
   if (args.includes("--auto")) {
     const limitArg = args.find((value) => /^\d+$/.test(value));
