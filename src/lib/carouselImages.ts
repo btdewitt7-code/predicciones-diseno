@@ -17,7 +17,12 @@ function findFile(baseName: string): string | null {
   const dir = path.join(process.cwd(), "public", "carousel");
   for (const extension of EXTENSIONS) {
     const file = `${baseName}${extension}`;
-    if (fs.existsSync(path.join(dir, file))) return `/api/foto/${file}`;
+    const full = path.join(dir, file);
+    if (fs.existsSync(full)) {
+      // La versión evita que el navegador muestre una foto vieja con el mismo nombre.
+      const version = Math.round(fs.statSync(full).mtimeMs);
+      return `/api/foto/${file}?v=${version}`;
+    }
   }
   return null;
 }

@@ -99,6 +99,9 @@ async function fromSources(force: boolean) {
       skipped += 1;
       continue;
     }
+    if (!item.url || !/^https?:\/\//.test(item.url)) {
+      continue;
+    }
     console.log(`→ ${item.home} vs ${item.away}`);
     const file = await download(item.url, base);
     if (file) {
@@ -111,11 +114,20 @@ async function fromSources(force: boolean) {
   console.log(`\nListo: ${saved} nuevas, ${skipped} ya existían.`);
 }
 
-async function searchTeam(name: string): Promise<SportsTeam | null> {
-  const url = `https://www.thesportsdb.com/api/v1/json/${SPORTSDB_KEY}/searchteams.php?t=${encodeURIComponent(name)}`;
+async function searchTeam(name: string, attempt = 0): Promise<SportsTeam | null> {
+  const ALIASES: Record<string, string> = {
+    Aarhus: "AGF Aarhus",
+  };
+  const query = ALIASES[name] ?? name;
+  const url = `https://www.thesportsdb.com/api/v1/json/${SPORTSDB_KEY}/searchteams.php?t=${encodeURIComponent(query)}`;
   try {
     const res = await fetch(url, { headers: { "User-Agent": "dogebets/1.0" } });
     if (res.status === 429) {
+      if (attempt < 2) {
+        console.log("  límite alcanzado, esperando 25 s…");
+        await sleep(25000);
+        return searchTeam(name, attempt + 1);
+      }
       console.log("  TheSportsDB: límite alcanzado (429). Prueba más tarde o usa fuentes.json.");
       return null;
     }
@@ -219,7 +231,7 @@ async function fromSportsDb(limit: number, force: boolean) {
       if (!cache.has(team)) {
         const found = await searchTeam(team);
         cache.set(team, pickImage(found));
-        await sleep(1200);
+        await sleep(1500);
       }
       url = cache.get(team) ?? null;
       if (url) break;
