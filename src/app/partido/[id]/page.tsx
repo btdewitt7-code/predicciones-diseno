@@ -1417,13 +1417,13 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           <section className="grid gap-4">
             <div className="card p-5" data-match-panel="general">
               <h2 className="mb-4 text-ui-card-title font-semibold text-white">Resultado final (1X2)</h2>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid max-w-2xl grid-cols-3 gap-2">
                 {[
                   { label: "Local", value: prediction.home_win, tone: "text-win-400" },
                   { label: "Empate", value: prediction.draw, tone: "text-mist-300" },
                   { label: "Visitante", value: prediction.away_win, tone: "text-mist-400" },
                 ].map((item) => (
-                  <div key={item.label} className="rounded-xl border border-ink-700 bg-ink-850 p-3 text-center">
+                  <div key={item.label} className="rounded-xl border border-ink-700 bg-ink-850 p-2.5 text-center">
                     <div className="text-[10px] uppercase tracking-wide text-mist-500">{item.label}</div>
                     <div className={`mt-1 text-lg font-semibold tabular-nums sm:text-xl ${item.tone}`}>
                       {pct(item.value)}
