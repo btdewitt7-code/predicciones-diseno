@@ -333,7 +333,7 @@ function FormStat({ label, value, tone }: { label: string; value: string; tone?:
 function SummaryIcon({
   kind,
 }: {
-  kind: "goals" | "btts" | "xg" | "cards" | "corners" | "shots" | "sot";
+  kind: "over15" | "over25" | "btts" | "xg" | "cards" | "corners" | "shots" | "sot";
 }) {
   const common = {
     viewBox: "0 0 24 24",
@@ -400,6 +400,17 @@ function SummaryIcon({
   );
 }
 
+const SUMMARY_ICONS: Record<string, string> = {
+  over15: "/summary/over15.png",
+  over25: "/summary/over25.png",
+  btts: "/summary/btts.png",
+  xg: "/summary/xg.png",
+  cards: "/summary/cards.png",
+  corners: "/summary/corners.png",
+  shots: "/summary/shots.png",
+  sot: "/summary/sot.png",
+};
+
 function SummaryCard({
   label,
   value,
@@ -413,13 +424,26 @@ function SummaryCard({
   bar: number;
   left: string;
   right: string;
-  kind: "goals" | "btts" | "xg" | "cards" | "corners" | "shots" | "sot";
+  kind: "over15" | "over25" | "btts" | "xg" | "cards" | "corners" | "shots" | "sot";
 }) {
+  const icon = SUMMARY_ICONS[kind];
   return (
     <div className="card flex h-full flex-col p-2.5 sm:p-4">
       <div className="flex items-start justify-between gap-1.5 sm:gap-2">
         <div className="flex min-w-0 items-center gap-1.5 text-[10px] leading-tight text-mist-300 sm:gap-2 sm:text-xs">
-          <SummaryIcon kind={kind} />
+          {icon ? (
+            <img
+              src={icon}
+              alt=""
+              width={24}
+              height={24}
+              loading="lazy"
+              decoding="async"
+              className="size-5 shrink-0 object-contain sm:size-6"
+            />
+          ) : (
+            <SummaryIcon kind={kind} />
+          )}
           <span className="min-w-0">{label}</span>
         </div>
         <span className="shrink-0 text-[18px] font-semibold tabular-nums text-white sm:text-[22px]">
@@ -1508,7 +1532,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                   bar={prediction.over15 * 100}
                   left="Modelo"
                   right={leagueLabel(pct(leagueAverages?.over15))}
-                  kind="goals"
+                  kind="over15"
                 />
                 <SummaryCard
                   label="Más de 2.5 goles"
@@ -1516,7 +1540,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                   bar={prediction.over25 * 100}
                   left="Modelo"
                   right={leagueLabel(pct(leagueAverages?.over25))}
-                  kind="goals"
+                  kind="over25"
                 />
                 <SummaryCard
                   label="Ambos marcan"
