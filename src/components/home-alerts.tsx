@@ -24,19 +24,19 @@ export function HomeAlerts({
   trainedAt: string | null;
   resultsAt: string | null;
 }) {
-  const visible = alerts.slice(0, 5);
+  const visible = alerts;
 
   return (
     <div className="card overflow-hidden">
       <div className="border-b border-ink-800 px-4 py-3">
         <h2 className="text-ui-card-title font-semibold text-white">Alertas</h2>
-        <p className="text-ui-caption text-mist-500">Lo que conviene mirar ahora.</p>
+        <p className="text-ui-caption text-mist-500">Solo partidos de hoy.</p>
       </div>
 
       {visible.length === 0 ? (
         <p className="px-4 py-5 text-ui-body-sm text-mist-500">Sin alertas por ahora.</p>
       ) : (
-        <div className="divide-y divide-ink-800/70">
+        <div className="divide-y divide-ink-800/70 max-h-[46vh] overflow-y-auto scroll-thin">
           {visible.map((alert) => {
             const kind = KIND[alert.kind];
             return (

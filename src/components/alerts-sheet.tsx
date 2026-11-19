@@ -140,7 +140,7 @@ export function AlertsSheet() {
           <div>
             <h2 className="text-base font-semibold tracking-tight text-white">Alertas</h2>
             <p className="text-[11px] text-mist-500">
-              Lo que conviene mirar ahora.
+              Solo partidos de hoy.
               {ageLabel ? <span className="text-mist-500"> · {ageLabel}</span> : null}
             </p>
           </div>
