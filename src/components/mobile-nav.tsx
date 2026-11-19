@@ -3,13 +3,19 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { NavLinks } from "@/components/nav-links";
 import { RefreshButton } from "@/components/refresh-button";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 export function MobileNav({ isAdmin }: { isAdmin: boolean }) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     setOpen(false);
@@ -43,7 +49,8 @@ export function MobileNav({ isAdmin }: { isAdmin: boolean }) {
         </svg>
       </button>
 
-      {open ? (
+      {mounted && open
+        ? createPortal(
         <div className="fixed inset-0 z-50 lg:hidden">
           <button
             type="button"
@@ -114,8 +121,10 @@ export function MobileNav({ isAdmin }: { isAdmin: boolean }) {
               <ThemeToggle />
             </div>
           </div>
-        </div>
-      ) : null}
+        </div>,
+            document.body,
+          )
+        : null}
     </>
   );
 }
