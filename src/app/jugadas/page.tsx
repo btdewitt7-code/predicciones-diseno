@@ -64,12 +64,12 @@ export default async function CombosPage({
 
       <header className="space-y-2">
         <div className="flex gap-1.5 text-xs">
-          <span className="rounded-lg border border-mint-500/40 bg-mint-500/10 px-2.5 py-1 font-medium text-mint-400">
+          <span className="rounded-lg border border-mint-500/40 bg-mint-500/10 px-3 py-1.5 font-medium text-mint-400">
             Seguras
           </span>
           <Link
             href="/sonadoras"
-            className="rounded-lg border border-ink-700 bg-ink-850 px-2.5 py-1 text-mist-300 transition hover:border-mint-500/40 hover:text-white"
+            className="rounded-lg border border-ink-700 bg-ink-850 px-3 py-2 text-mist-300 transition hover:border-mint-500/40 hover:text-white"
           >
             Soñadoras
           </Link>
@@ -224,7 +224,7 @@ export default async function CombosPage({
             {currentPage > 1 ? (
               <Link
                 href={pageHref(currentPage - 1)}
-                className="rounded-lg border border-ink-700 bg-ink-850 px-3 py-1.5 text-mist-300 transition hover:border-mint-500/40 hover:text-white"
+                className="rounded-lg border border-ink-700 bg-ink-850 px-3 py-2 text-mist-300 transition hover:border-mint-500/40 hover:text-white"
               >
                 ← Anterior
               </Link>
@@ -252,7 +252,7 @@ export default async function CombosPage({
             {currentPage < totalPages ? (
               <Link
                 href={pageHref(currentPage + 1)}
-                className="rounded-lg border border-ink-700 bg-ink-850 px-3 py-1.5 text-mist-300 transition hover:border-mint-500/40 hover:text-white"
+                className="rounded-lg border border-ink-700 bg-ink-850 px-3 py-2 text-mist-300 transition hover:border-mint-500/40 hover:text-white"
               >
                 Siguiente →
               </Link>

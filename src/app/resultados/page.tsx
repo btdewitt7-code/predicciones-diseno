@@ -149,7 +149,7 @@ export default async function ComboResultsPage({
             <Link
               key={option}
               href={hrefFor({ dias: option })}
-              className={`rounded-lg border px-2.5 py-1 transition ${
+              className={`rounded-lg border px-3 py-1.5 transition ${
                 range === option
                   ? "border-mint-500/40 bg-mint-500/10 text-mint-400"
                   : "border-ink-700 bg-ink-850 text-mist-300 hover:border-mint-500/40 hover:text-white"
@@ -172,7 +172,7 @@ export default async function ComboResultsPage({
                 <Link
                   key={key}
                   href={hrefFor({ fuente: key, pagina: 1 })}
-                  className={`rounded-lg border px-2.5 py-1 transition ${
+                  className={`rounded-lg border px-3 py-1.5 transition ${
                     active
                       ? "border-win-400/50 bg-win-400/15 font-semibold text-win-400"
                       : "border-win-400/25 bg-win-400/5 text-win-400/80 hover:border-win-400/50 hover:text-win-400"
@@ -188,7 +188,7 @@ export default async function ComboResultsPage({
               tipo: typeFilter === "multi" ? "todas" : "combinadas",
               pagina: 1,
             })}
-            className={`ml-2 rounded-lg border px-3 py-1 font-semibold transition ${
+            className={`ml-2 rounded-lg border px-3 py-1.5 font-semibold transition ${
               typeFilter === "multi"
                 ? "border-amber-400/60 bg-amber-400/20 text-amber-300"
                 : "border-amber-400/40 bg-amber-400/10 text-amber-300 hover:bg-amber-400/20"
@@ -284,7 +284,7 @@ export default async function ComboResultsPage({
                                 </span>
                                 <Link
                                   href={`/partido/${item.leg.matchId}`}
-                                  className="min-w-0 truncate font-medium text-mist-200 hover:text-white"
+                                  className="inline-flex min-h-6 min-w-0 items-center truncate font-medium text-mist-200 hover:text-white"
                                 >
                                   {item.leg.market}
                                 </Link>

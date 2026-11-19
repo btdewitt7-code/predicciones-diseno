@@ -52,7 +52,7 @@ export function CleanSavedButton({ days }: { days: number }) {
         type="button"
         onClick={clean}
         disabled={busy}
-        className="rounded-lg border border-rose-400/30 bg-rose-400/10 px-2.5 py-1 text-rose-300 transition hover:border-rose-400/50 hover:text-rose-200 disabled:cursor-wait disabled:opacity-60"
+        className="rounded-lg border border-rose-400/30 bg-rose-400/10 px-2.5 py-1.5 text-rose-300 transition hover:border-rose-400/50 hover:text-rose-200 disabled:cursor-wait disabled:opacity-60"
       >
         {busy ? "Borrando…" : "Limpiar antiguas"}
       </button>

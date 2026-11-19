@@ -28,7 +28,7 @@ export function RemoveSavedButton({ id }: { id: number }) {
       onClick={remove}
       disabled={busy}
       title="Quitar de guardadas"
-      className="rounded-lg border border-ink-700 bg-ink-850 px-2 py-1 text-[10px] text-mist-400 transition hover:border-rose-400/40 hover:text-rose-300 disabled:opacity-60"
+      className="rounded-lg border border-ink-700 bg-ink-850 px-2.5 py-1.5 text-[10px] text-mist-400 transition hover:border-rose-400/40 hover:text-rose-300 disabled:opacity-60"
     >
       {busy ? "Quitando…" : "Quitar"}
     </button>

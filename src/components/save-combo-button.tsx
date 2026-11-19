@@ -95,7 +95,7 @@ export function SaveComboButton({
       onClick={saved ? remove : save}
       disabled={busy}
       title={saved ? "Clic para quitar de guardadas" : "Guardar jugada"}
-      className={`shrink-0 rounded-lg border px-2.5 py-1 text-[11px] transition disabled:cursor-default ${
+      className={`shrink-0 rounded-lg border px-3 py-1.5 text-[11px] transition disabled:cursor-default ${
         status === "saved"
           ? "border-win-500/40 bg-win-500/10 text-win-400 hover:border-rose-400/40 hover:bg-rose-400/10 hover:text-rose-300"
           : status === "error"
