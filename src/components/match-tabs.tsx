@@ -4,6 +4,16 @@ import { useEffect, useState } from "react";
 
 export type MatchTab = { id: string; label: string };
 
+const TAB_ICONS: Record<string, string> = {
+  general: "/tabs/general.png",
+  goles: "/tabs/goles.png",
+  tiros: "/tabs/tiros.png",
+  corners: "/tabs/corners.png",
+  tarjetas: "/tabs/tarjetas.png",
+  posiciones: "/tabs/posiciones.png",
+  h2h: "/tabs/h2h.png",
+};
+
 function TabIcon({ id }: { id: string }) {
   const common = {
     viewBox: "0 0 24 24",
@@ -112,7 +122,18 @@ export function MatchTabs({ tabs }: { tabs: MatchTab[] }) {
                 : "border-b-2 border-b-transparent text-mist-400 hover:text-mist-300"
             }`}
           >
-            <TabIcon id={tab.id} />
+            {TAB_ICONS[tab.id] ? (
+              <img
+                src={TAB_ICONS[tab.id]}
+                alt=""
+                width={20}
+                height={20}
+                decoding="async"
+                className="size-5 shrink-0 object-contain"
+              />
+            ) : (
+              <TabIcon id={tab.id} />
+            )}
             {tab.label}
           </button>
         );
