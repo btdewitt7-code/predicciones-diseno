@@ -26,6 +26,7 @@ import { LiveAutoRefresh } from "@/components/live-auto-refresh";
 import { GoalFlash } from "@/components/goal-flash";
 import { UpcomingCarousel, type CarouselMatch } from "@/components/upcoming-carousel";
 import { HomeAlerts, type HomeAlert } from "@/components/home-alerts";
+import { HomeStats } from "@/components/home-stats";
 
 export const dynamic = "force-dynamic";
 
@@ -460,69 +461,17 @@ export default async function Home({
       <UpcomingCarousel matches={featuredMatches} />
       <div className="grid items-start gap-6 min-[1150px]:grid-cols-[minmax(0,1fr)_300px]">
         <div className="min-w-0 space-y-8">
-      <section className="home-hero relative overflow-hidden rounded-2xl border border-ink-800 p-5 sm:p-6">
-        <div className="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
-          <div className="min-w-0 space-y-3">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-2 rounded-full border border-mint-500/30 bg-mint-500/10 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-wide text-mint-400">
-                <span className="size-1.5 rounded-full bg-mint-400" />
-                Dixon-Coles + Montecarlo Sim
-              </span>
-              <span className="text-[10px] text-mist-500">
-                Actualizado: {trainedAt ? dateTimeLabel(trainedAt) : "—"}
-              </span>
-            </div>
-
-            <h1 className="text-2xl font-semibold leading-tight tracking-tight text-white sm:text-3xl lg:text-4xl">
-              Probabilidades antes del pitido inicial
-            </h1>
-
-            <p className="max-w-2xl text-sm leading-relaxed text-mist-400">
-              Sin cuotas infladas de casas de apuestas: cada porcentaje proviene de simular 10.000
-              iteraciones sobre {counts.played.toLocaleString("es-ES")} partidos históricos.
-            </p>
-
-            {query ? (
-              <p className="text-xs text-mist-400">
-                {searchResults.length} resultados para{" "}
-                <span className="text-white">“{query}”</span> ·{" "}
-                <Link
-                  href={hrefFor({ liga: leagueFilter, dia: selectedDay, orden: order === "hora" ? "hora" : undefined })}
-                  className="text-mint-400 hover:underline"
-                >
-                  limpiar
-                </Link>
-              </p>
-            ) : null}
-          </div>
-
-          <div className="grid grid-cols-3 gap-2 sm:gap-3 xl:shrink-0">
-            {[
-              { label: "Probabilidades/modelo", value: counts.played.toLocaleString("es-ES") },
-              { label: "Precisos", value: String(allUpcoming.length) },
-              { label: "Value Bets", value: String(valueCount), highlight: true },
-            ].map((item) => (
-              <div
-                key={item.label}
-                className={`min-w-0 rounded-xl border px-3 py-2.5 ${
-                  item.highlight
-                    ? "border-win-500/30 bg-win-500/10"
-                    : "border-ink-700 bg-ink-850/70"
-                }`}
-              >
-                <div className="min-w-0 break-words text-[8px] uppercase leading-tight tracking-wide text-mist-500 [overflow-wrap:anywhere]">{item.label}</div>
-                <div
-                  className={`mt-1 truncate text-lg font-semibold tabular-nums ${
-                    item.highlight ? "text-win-400" : "text-white"
-                  }`}
-                >
-                  {item.value}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {query ? (
+        <p className="text-xs text-mist-400">
+          {searchResults.length} resultados para <span className="text-white">“{query}”</span> ·{" "}
+          <Link
+            href={hrefFor({ liga: leagueFilter, dia: selectedDay, orden: order === "hora" ? "hora" : undefined })}
+            className="text-mint-400 hover:underline"
+          >
+            limpiar
+          </Link>
+        </p>
+      ) : null}
 
       {query ? (
         <section>
@@ -766,11 +715,19 @@ export default async function Home({
         </div>
 
         <aside className="min-w-0 min-[1150px]:sticky min-[1150px]:top-20 min-[1150px]:self-start">
-          <HomeAlerts
-            alerts={alerts}
-            trainedAt={trainedAt ? dateTimeLabel(trainedAt) : null}
-            resultsAt={resultsSyncAt ? dateTimeLabel(resultsSyncAt) : null}
-          />
+          <div className="space-y-4">
+            <HomeStats
+              played={counts.played.toLocaleString("es-ES")}
+              upcoming={allUpcoming.length}
+              valueBets={valueCount}
+              trainedAt={trainedAt ? dateTimeLabel(trainedAt) : null}
+            />
+            <HomeAlerts
+              alerts={alerts}
+              trainedAt={trainedAt ? dateTimeLabel(trainedAt) : null}
+              resultsAt={resultsSyncAt ? dateTimeLabel(resultsSyncAt) : null}
+            />
+          </div>
         </aside>
       </div>
     </div>
