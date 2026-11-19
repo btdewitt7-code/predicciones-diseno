@@ -68,23 +68,33 @@ export function TeamBadge({
   );
 }
 
-export function LeagueTag({ code, logo }: { code: string; logo?: string | null }) {
+export function LeagueTag({
+  code,
+  logo,
+  size = "sm",
+}: {
+  code: string;
+  logo?: string | null;
+  size?: "sm" | "md";
+}) {
   const league = LEAGUE_BY_CODE[code];
-  if (!league) return <span className="text-xs text-mist-500">{code}</span>;
+  const textClass = size === "md" ? "text-ui-body-lg" : "text-ui-body";
+  const iconClass = size === "md" ? "size-5 sm:size-[22px]" : "size-5";
+  if (!league) return <span className={`${textClass} text-mist-500`}>{code}</span>;
   return (
-    <span className="inline-flex items-center gap-2 text-xs text-mist-400">
+    <span className={`inline-flex items-center gap-2 ${textClass} text-mist-400`}>
       {logo ? (
         <img
           src={logo}
           alt=""
-          width={16}
-          height={16}
+          width={20}
+          height={20}
           loading="lazy"
           decoding="async"
-          className="size-4 shrink-0 object-contain"
+          className={`${iconClass} shrink-0 object-contain`}
         />
       ) : (
-        <span className="rounded bg-ink-800 px-1 py-0.5 text-[9px] font-semibold tracking-wide text-mist-400 ring-1 ring-ink-700">
+        <span className="rounded bg-ink-800 px-1 py-0.5 text-ui-micro font-semibold tracking-wide text-mist-400 ring-1 ring-ink-700">
           {league.tag}
         </span>
       )}

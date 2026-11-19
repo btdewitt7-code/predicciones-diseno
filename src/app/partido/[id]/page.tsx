@@ -1006,7 +1006,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           title="Ver partidos de esta competición"
           className="transition hover:opacity-80"
         >
-          <LeagueTag code={match.league_code} logo={leagueLogos.get(match.league_code)} />
+          <LeagueTag code={match.league_code} logo={leagueLogos.get(match.league_code)} size="md" />
         </Link>
       </div>
 

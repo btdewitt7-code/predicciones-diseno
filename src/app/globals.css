@@ -81,6 +81,7 @@ body {
   --font-ui-caption: 12px;
   --font-ui-body-sm: 13px;
   --font-ui-body: 14px;
+  --font-ui-body-lg: 16px;
   --font-ui-card-title: 17px;
   --font-ui-section: 18px;
   --font-ui-page: 24px;
@@ -98,6 +99,9 @@ body {
 }
 .text-ui-body {
   font-size: var(--font-ui-body);
+}
+.text-ui-body-lg {
+  font-size: var(--font-ui-body-lg);
 }
 .text-ui-card-title {
   font-size: var(--font-ui-card-title);
@@ -119,6 +123,7 @@ body {
     --font-ui-caption: 11px;
     --font-ui-body-sm: 11px;
     --font-ui-body: 12px;
+    --font-ui-body-lg: 13px;
     --font-ui-card-title: 14px;
     --font-ui-section: 15px;
     --font-ui-page: 21px;

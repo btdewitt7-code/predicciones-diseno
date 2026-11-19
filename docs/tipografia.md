@@ -10,6 +10,7 @@ Objetivo: que el tamaño de letra no se decida a ojo en cada tarjeta. Toda la ap
 | `text-ui-caption` | **12 px** | **11 px** | Metadatos: fechas, horas, fuentes, notas secundarias |
 | `text-ui-body-sm` | **13 px** | **11 px** | Texto compacto de tarjetas, descripciones y avisos |
 | `text-ui-body` | **14 px** | **12 px** | Texto principal, filas de tablas y párrafos |
+| `text-ui-body-lg` | **16 px** | **13 px** | Etiquetas de liga destacadas |
 | `text-ui-card-title` | **17 px** | **14 px** | Título de tarjeta |
 | `text-ui-section` | **18 px** | **15 px** | Título de sección |
 | `text-ui-page` | **24 px** | **21 px** | Título de página |
