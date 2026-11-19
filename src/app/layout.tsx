@@ -161,7 +161,7 @@ export default async function RootLayout({
                           <LogoutButton />
                         </div>
                         <div className="flex items-center gap-2 lg:hidden">
-                          <UserBadge user={user} compact />
+                          <UserBadge user={user} />
                           <LogoutButton compact />
                         </div>
                       </>
@@ -169,7 +169,7 @@ export default async function RootLayout({
                   </div>
                 </div>
 
-                <SearchForm className="mt-2 flex lg:hidden" />
+                <SearchForm className="mt-3 flex lg:hidden" />
               </div>
             </header>
 

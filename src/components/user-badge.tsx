@@ -19,7 +19,7 @@ export function UserBadge({
       >
         {initial}
       </span>
-      {compact ? null : <span className="max-w-40 truncate">{label}</span>}
+      {compact ? null : <span className="max-w-24 truncate sm:max-w-40">{label}</span>}
     </span>
   );
 }
