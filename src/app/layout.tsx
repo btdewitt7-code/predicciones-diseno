@@ -63,7 +63,7 @@ export default async function RootLayout({
         </Script>
 
         <div className="min-h-screen lg:flex">
-          <aside className="sticky top-0 hidden h-screen w-48 shrink-0 flex-col border-r border-ink-800/80 bg-ink-950/90 px-2.5 py-4 lg:flex">
+          <aside className="sticky top-0 hidden h-screen w-44 shrink-0 flex-col border-r border-ink-800/80 bg-ink-950/90 px-2.5 py-4 lg:flex">
             <Link href="/" className="flex shrink-0 items-center gap-2.5 px-2">
               <span className="grid size-9 place-items-center rounded-xl bg-mint-500/15 text-mint-400 ring-1 ring-mint-500/30">
                 <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -183,9 +183,9 @@ export default async function RootLayout({
               </div>
             </header>
 
-            <main className="mx-auto w-full max-w-[1450px] px-4 py-6 sm:px-6">{children}</main>
+            <main className="mx-auto w-full max-w-[1660px] px-4 py-6 sm:px-6">{children}</main>
 
-            <footer className="mx-auto w-full max-w-[1450px] px-4 pb-10 pt-2 text-xs text-mist-500 sm:px-6">
+            <footer className="mx-auto w-full max-w-[1660px] px-4 pb-10 pt-2 text-xs text-mist-500 sm:px-6">
               Proyecto personal de análisis. Las probabilidades son estimaciones, no garantías.
             </footer>
           </div>
