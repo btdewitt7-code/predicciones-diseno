@@ -173,7 +173,7 @@ export default async function RootLayout({
               </div>
             </header>
 
-            <main className="mx-auto w-full max-w-[1660px] px-4 pb-24 pt-3 sm:px-6 sm:pt-4 lg:pb-6 lg:pt-6">{children}</main>
+            <main className="mx-auto w-full max-w-[1660px] px-4 pb-24 pt-3 sm:px-6 lg:pb-6">{children}</main>
 
             <footer className="mx-auto w-full max-w-[1660px] px-4 pb-24 pt-2 text-xs text-mist-500 sm:px-6 lg:pb-10">
               Proyecto personal de análisis. Las probabilidades son estimaciones, no garantías.

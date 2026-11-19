@@ -23,10 +23,10 @@ export type CarouselMatch = {
 
 function TeamLogo({ name, logo }: { name: string; logo?: string | null }) {
   if (logo) {
-    return <img src={logo} alt="" className="size-9 object-contain" loading="lazy" />;
+    return <img src={logo} alt="" className="size-10 object-contain" loading="lazy" />;
   }
   return (
-    <span className="grid size-9 place-items-center rounded-full bg-ink-800 text-[10px] font-semibold text-mist-400">
+    <span className="grid size-10 place-items-center rounded-full bg-ink-800 text-[10px] font-semibold text-mist-400">
       {name.slice(0, 2).toUpperCase()}
     </span>
   );
@@ -202,7 +202,7 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
             data-carousel-card
             className="card group flex w-[80vw] max-w-[300px] shrink-0 snap-start flex-col overflow-hidden transition hover:border-mint-500/35 sm:w-[270px]"
           >
-            <div className="flex items-center justify-between gap-2 border-b border-ink-800/70 px-3 py-2">
+            <div className="flex items-center justify-between gap-2 border-b border-ink-800/70 px-3 py-2.5">
               <span className="flex min-w-0 items-center gap-1.5 text-[10px] text-mist-500">
                 {match.leagueLogo ? (
                   <img src={match.leagueLogo} alt="" className="size-4 object-contain" loading="lazy" />
@@ -219,7 +219,7 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
               </span>
             </div>
 
-            <div className="flex flex-1 items-center justify-between gap-2 px-3 py-4">
+            <div className="flex flex-1 items-center justify-between gap-2 px-3 py-6">
               <div className="flex min-w-0 flex-1 flex-col items-center gap-1.5 text-center">
                 <TeamLogo name={match.homeTeam} logo={match.homeLogo} />
                 <span className="w-full truncate text-xs font-semibold text-white">
@@ -235,7 +235,7 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-1 border-t border-ink-800/70 px-3 py-2 text-center text-[10px]">
+            <div className="grid grid-cols-3 gap-1 border-t border-ink-800/70 px-3 py-2.5 text-center text-[10px]">
               <div>
                 <span className="block text-mist-500">L</span>
                 <span className="font-semibold tabular-nums text-win-400">{match.home}</span>
