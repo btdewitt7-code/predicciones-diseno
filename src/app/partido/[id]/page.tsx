@@ -221,7 +221,8 @@ function RecentCountCard({
   return (
     <div className="card p-5" data-match-panel={panel}>
       <h2 className="mb-1 text-ui-card-title font-semibold text-white">{title}</h2>
-      <p className="mb-3 text-[13px] text-mist-500">{subtitle}</p>
+      <p className="mb-1 text-[13px] text-mist-500">{subtitle}</p>
+      <p className="mb-3 text-ui-caption text-mist-500">L = local · V = visitante</p>
       <div className="grid gap-2 sm:grid-cols-2">
         {[
           { team: homeTeam, data: home },
@@ -239,7 +240,7 @@ function RecentCountCard({
                 {data.rows.map((row) => (
                   <li key={row.id} className="flex items-center gap-2 text-[12px]">
                     <span className="min-w-0 flex-1 truncate text-mist-500">
-                      {row.isHome ? "vs" : "@"} {displayTeam(row.opponent)}
+                      {row.isHome ? "L" : "V"} {displayTeam(row.opponent)}
                     </span>
                     <span className="tabular-nums text-mist-400">
                       {row.own}-{row.opp}
@@ -1891,7 +1892,8 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
             <div className="card p-5" data-match-panel="corners">
               <h2 className="mb-1 text-ui-card-title font-semibold text-white">Córners recientes</h2>
               <p className="mb-3 text-[13px] text-mist-500">
-                Últimos 8 partidos de cada equipo. Formato: equipo-rival y total.
+                Últimos 8 partidos de cada equipo. Formato: equipo-rival y total. L = local · V =
+                visitante.
               </p>
               <div className="grid gap-2 sm:grid-cols-2">
                 {[
@@ -1915,7 +1917,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                         {data.rows.map((row) => (
                           <li key={row.id} className="flex items-center gap-2 text-[12px]">
                             <span className="min-w-0 flex-1 truncate text-mist-500">
-                              {row.isHome ? "vs" : "@"} {displayTeam(row.opponent)}
+                              {row.isHome ? "L" : "V"} {displayTeam(row.opponent)}
                             </span>
                             <span className="tabular-nums text-mist-400">
                               {row.own}-{row.opp}
@@ -2032,7 +2034,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               <h2 className="mb-1 text-ui-card-title font-semibold text-white">Tarjetas recientes</h2>
               <p className="mb-3 text-[13px] text-mist-500">
                 Últimos 8 partidos de cada equipo. Amarillas + rojas (R = roja); formato:
-                equipo-rival y total.
+                equipo-rival y total. L = local · V = visitante.
               </p>
               <div className="grid gap-2 sm:grid-cols-2">
                 {[
@@ -2056,7 +2058,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                         {data.rows.map((row) => (
                           <li key={row.id} className="flex items-center gap-2 text-[12px]">
                             <span className="min-w-0 flex-1 truncate text-mist-500">
-                              {row.isHome ? "vs" : "@"} {displayTeam(row.opponent)}
+                              {row.isHome ? "L" : "V"} {displayTeam(row.opponent)}
                             </span>
                             <span className="tabular-nums text-mist-400">
                               {row.ownYellow}
@@ -2089,7 +2091,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               <h2 className="mb-1 text-ui-card-title font-semibold text-white">Faltas recientes</h2>
               <p className="mb-3 text-[13px] text-mist-500">
                 Últimos 8 partidos. Faltas cometidas por cada equipo. Contexto: el modelo no calcula
-                faltas esperadas.
+                faltas esperadas. L = local · V = visitante.
               </p>
               <div className="grid gap-2 sm:grid-cols-2">
                 {[
@@ -2118,7 +2120,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                         {data.rows.map((row) => (
                           <li key={row.id} className="flex items-center gap-2 text-[12px]">
                             <span className="min-w-0 flex-1 truncate text-mist-500">
-                              {row.isHome ? "vs" : "@"} {displayTeam(row.opponent)}
+                              {row.isHome ? "L" : "V"} {displayTeam(row.opponent)}
                             </span>
                             <span className="tabular-nums text-mist-400">
                               {row.own}-{row.opp}
@@ -2176,7 +2178,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                 <h2 className="mb-1 text-ui-card-title font-semibold text-white">1T reciente</h2>
                 <p className="mb-4 text-ui-body-sm text-mist-500">
                   Últimos 5 partidos con gol antes del descanso: minuto del primer gol y marcador al
-                  descanso.
+                  descanso. L = local · V = visitante.
                 </p>
                 <div className="space-y-4">
                   {[
@@ -2198,7 +2200,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                                 {game.minute ?? "—"}
                               </span>
                               <span className="min-w-0 flex-1 truncate text-mist-400">
-                                {game.isHome ? "vs" : "@"} {displayTeam(game.opponent)}
+                                {game.isHome ? "L" : "V"} {displayTeam(game.opponent)}
                               </span>
                               <span className="shrink-0 tabular-nums text-mist-500">
                                 {game.htHome}-{game.htAway}
