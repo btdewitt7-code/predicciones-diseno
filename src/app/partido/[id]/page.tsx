@@ -432,7 +432,7 @@ function SummaryCard({
           style={{ width: `${Math.max(0, Math.min(100, bar))}%` }}
         />
       </div>
-      <div className="mt-1.5 flex flex-wrap items-center justify-between gap-x-2 gap-y-0.5 text-[9px] text-mist-500 sm:mt-2 sm:text-[11px]">
+      <div className="mt-1.5 flex flex-wrap items-center justify-between gap-x-2 gap-y-0.5 text-ui-body-sm text-mist-500 sm:mt-2">
         <span>{left}</span>
         <span>{right}</span>
       </div>
