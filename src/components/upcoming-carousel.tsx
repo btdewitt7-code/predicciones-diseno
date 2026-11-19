@@ -63,45 +63,14 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
   if (matches.length === 0) return null;
 
   return (
-    <section className="space-y-3">
-      <div className="flex items-end justify-between gap-3">
-        <div>
-          <h2 className="text-ui-section font-semibold text-white">Partidos destacados</h2>
-          <p className="text-ui-caption text-mist-500">
-            Próximos partidos y probabilidades del modelo.
-          </p>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <button
-            type="button"
-            onClick={() => move(-1)}
-            aria-label="Anterior"
-            className="grid size-8 place-items-center rounded-lg border border-ink-700 bg-ink-850 text-mist-400 transition hover:border-mint-500/40 hover:text-white"
-          >
-            <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            onClick={() => move(1)}
-            aria-label="Siguiente"
-            className="grid size-8 place-items-center rounded-lg border border-ink-700 bg-ink-850 text-mist-400 transition hover:border-mint-500/40 hover:text-white"
-          >
-            <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-        </div>
-      </div>
-
+    <section className="relative">
       <div
         ref={trackRef}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         onFocusCapture={() => setPaused(true)}
         onBlurCapture={() => setPaused(false)}
-        className="scroll-thin flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2"
+        className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {matches.map((match) => (
           <Link
@@ -160,6 +129,27 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
           </Link>
         ))}
       </div>
+
+      <button
+        type="button"
+        onClick={() => move(-1)}
+        aria-label="Anterior"
+        className="absolute left-1.5 top-1/2 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full border border-ink-700/80 bg-ink-950/85 text-white shadow-[0_6px_20px_-8px_rgba(0,0,0,0.7)] backdrop-blur transition hover:border-mint-500/40 hover:text-mint-300"
+      >
+        <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2.2">
+          <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        onClick={() => move(1)}
+        aria-label="Siguiente"
+        className="absolute right-1.5 top-1/2 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full border border-ink-700/80 bg-ink-950/85 text-white shadow-[0_6px_20px_-8px_rgba(0,0,0,0.7)] backdrop-blur transition hover:border-mint-500/40 hover:text-mint-300"
+      >
+        <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2.2">
+          <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
     </section>
   );
 }
