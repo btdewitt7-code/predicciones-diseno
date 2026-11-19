@@ -7,6 +7,7 @@ import {
   searchMatches,
   getTeamLogoMap,
   getUpcoming,
+  getConfirmedUpcomingLineups,
   type RatedMatch,
 } from "@/lib/queries";
 import { LEAGUES, LEAGUE_BY_CODE } from "@/lib/leagues";
@@ -16,12 +17,15 @@ import { displayTeam } from "@/lib/display";
 import { getMeta } from "@/lib/db";
 import { syncRecentResults } from "@/lib/resultsSync";
 import { findValue } from "@/lib/value";
+import { getHtVetoedSet, isHtVetoed } from "@/lib/veto";
 import { notifyStartupIfNeeded } from "@/lib/notifyMatches";
 import { notifyPlays } from "@/lib/notifyPlays";
 import { notifyDailySummary } from "@/lib/notifySummary";
 import { startNotifyScheduler } from "@/lib/notifyScheduler";
 import { LiveAutoRefresh } from "@/components/live-auto-refresh";
 import { GoalFlash } from "@/components/goal-flash";
+import { UpcomingCarousel, type CarouselMatch } from "@/components/upcoming-carousel";
+import { HomeAlerts, type HomeAlert } from "@/components/home-alerts";
 
 export const dynamic = "force-dynamic";
 
@@ -222,13 +226,16 @@ export default async function Home({
     .catch(() => undefined);
   startNotifyScheduler();
 
-  const [allUpcoming, allRecent, counts, trainedAt, teamLogos, leagueLogos] = await Promise.all([
+  const [allUpcoming, allRecent, counts, trainedAt, resultsSyncAt, teamLogos, leagueLogos, confirmedLineups, htVetoed] = await Promise.all([
     getUpcoming(leagueFilter),
     getRecentResults(40, leagueFilter),
     getCounts(),
     getMeta("trained_at"),
+    getMeta("results_sync_at"),
     getTeamLogoMap(),
     getLeagueLogoMap(),
+    getConfirmedUpcomingLineups(3),
+    getHtVetoedSet(),
   ]);
 
   const matchesQuery = (match: RatedMatch) => {
@@ -246,12 +253,131 @@ export default async function Home({
   const recent = allRecent.filter(matchesQuery).slice(0, 12);
   const searchResults = query ? await searchMatches(query, leagueFilter, 60) : [];
 
+  const featuredMatches: CarouselMatch[] = allUpcoming.slice(0, 10).map((match) => {
+    const league = LEAGUE_BY_CODE[match.league_code];
+    const prediction = match.prediction ?? match.cupPrediction;
+    const kickoffMs = Date.parse(`${match.kickoff}Z`);
+    return {
+      id: match.id,
+      leagueCode: match.league_code,
+      leagueName: league?.name ?? match.league_code,
+      leagueCountry: league?.country ?? "",
+      leagueLogo: leagueLogos.get(match.league_code),
+      day: dayLabel(match.kickoff),
+      time: timeOf(match.kickoff),
+      homeTeam: displayTeam(match.home_team),
+      awayTeam: displayTeam(match.away_team),
+      homeLogo: teamLogos.get(`${match.league_code}:${match.home_team}`),
+      awayLogo: teamLogos.get(`${match.league_code}:${match.away_team}`),
+      home: pct(prediction?.home_win),
+      draw: pct(prediction?.draw),
+      away: pct(prediction?.away_win),
+      live: Number.isFinite(kickoffMs) && kickoffMs <= Date.now() && Date.now() - kickoffMs < 2.5 * 3600_000,
+    };
+  });
+
   const marketOdds = await getMarketOdds(allUpcoming.map((match) => match.id));
-  const valueCount = findValue(
-    allUpcoming.filter((match) => Date.parse(`${match.kickoff}Z`) >= Date.now() - 30 * 60_000),
-    marketOdds,
-    { minEdge: 0.06, minProb: 0.4, maxOdds: 6 },
-  ).length;
+  const alertMatches = allUpcoming.filter(
+    (match) => Date.parse(`${match.kickoff}Z`) >= Date.now() - 30 * 60_000,
+  );
+  const valuePicks = findValue(alertMatches, marketOdds, {
+    minEdge: 0.06,
+    minProb: 0.4,
+    maxOdds: 6,
+  });
+  const valueCount = valuePicks.length;
+
+  // Alertas del panel derecho: Value → 1T → XI → probabilidad alta.
+  const alerts: HomeAlert[] = [];
+  const alertedMatchIds = new Set<number>();
+  const versus = (match: { home_team: string; away_team: string }) =>
+    `${displayTeam(match.home_team)} vs ${displayTeam(match.away_team)}`;
+  const slotLabel = (kickoff: string) => `${dayLabel(kickoff)} · ${timeOf(kickoff)}`;
+
+  const valueSeen = new Set<number>();
+  for (const pick of valuePicks) {
+    if (alerts.length >= 2) break;
+    if (valueSeen.has(pick.match.id)) continue;
+    valueSeen.add(pick.match.id);
+    alertedMatchIds.add(pick.match.id);
+    alerts.push({
+      key: `value-${pick.match.id}-${pick.label}`,
+      kind: "value",
+      title: versus(pick.match),
+      detail: `${pick.label} · cuota ${pick.odds.toFixed(2)} · +${Math.round(
+        pick.edge * 100,
+      )} pp · ${slotLabel(pick.match.kickoff)}`,
+      href: `/partido/${pick.match.id}`,
+    });
+  }
+
+  const firstHalf = alertMatches
+    .filter(
+      (match) =>
+        match.prediction &&
+        match.prediction.ht_over05 >= 0.75 &&
+        !alertedMatchIds.has(match.id) &&
+        !isHtVetoed(htVetoed, match.league_code, match.home_team) &&
+        !isHtVetoed(htVetoed, match.league_code, match.away_team),
+    )
+    .sort((a, b) => b.prediction!.ht_over05 - a.prediction!.ht_over05)
+    .slice(0, 2);
+
+  for (const match of firstHalf) {
+    alertedMatchIds.add(match.id);
+    alerts.push({
+      key: `1t-${match.id}`,
+      kind: "1t",
+      title: versus(match),
+      detail: `Gol en 1T +0.5 · ${pct(match.prediction?.ht_over05)} · ${slotLabel(
+        match.kickoff,
+      )}`,
+      href: `/partido/${match.id}`,
+    });
+  }
+
+  for (const lineup of confirmedLineups) {
+    if (alerts.length >= 5) break;
+    if (alertedMatchIds.has(lineup.match_id)) continue;
+    alertedMatchIds.add(lineup.match_id);
+    alerts.push({
+      key: `xi-${lineup.match_id}`,
+      kind: "lineup",
+      title: versus(lineup),
+      detail: `XI confirmado · ${lineup.starters} titulares · ${slotLabel(lineup.kickoff)}`,
+      href: `/partido/${lineup.match_id}`,
+    });
+  }
+
+  if (alerts.length < 5) {
+    const highProbability = alertMatches
+      .filter((match) => match.prediction && !alertedMatchIds.has(match.id))
+      .map((match) => {
+        const prediction = match.prediction!;
+        const best = [
+          { label: "Local", value: prediction.home_win },
+          { label: "Empate", value: prediction.draw },
+          { label: "Visitante", value: prediction.away_win },
+        ].sort((a, b) => b.value - a.value)[0];
+        return { match, best };
+      })
+      .filter((row) => row.best.value >= 0.75)
+      .sort((a, b) => b.best.value - a.best.value)
+      .slice(0, 5 - alerts.length);
+
+    for (const row of highProbability) {
+      alertedMatchIds.add(row.match.id);
+      alerts.push({
+        key: `high-${row.match.id}`,
+        kind: "high",
+        title: versus(row.match),
+        detail: `${row.best.label} · ${pct(row.best.value)} · ${slotLabel(
+          row.match.kickoff,
+        )}`,
+        href: `/partido/${row.match.id}`,
+      });
+    }
+  }
 
   const nowMs = Date.now();
   const hasLive = allUpcoming.some((match) => {
@@ -329,10 +455,13 @@ export default async function Home({
   );
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <LiveAutoRefresh active={hasLive} seconds={20} />
+      <UpcomingCarousel matches={featuredMatches} />
+      <div className="grid items-start gap-6 min-[1150px]:grid-cols-[minmax(0,1fr)_300px]">
+        <div className="min-w-0 space-y-8">
       <section className="home-hero relative overflow-hidden rounded-2xl border border-ink-800 p-5 sm:p-6">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
           <div className="min-w-0 space-y-3">
             <div className="flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-2 rounded-full border border-mint-500/30 bg-mint-500/10 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-wide text-mint-400">
@@ -353,37 +482,6 @@ export default async function Home({
               iteraciones sobre {counts.played.toLocaleString("es-ES")} partidos históricos.
             </p>
 
-            <form action="/" className="flex w-full max-w-md items-center gap-2 pt-1">
-              <label className="flex h-9 flex-1 items-center gap-2 rounded-lg border border-ink-700 bg-ink-850 px-2.5 transition focus-within:border-mint-500/50">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="size-3.5 shrink-0 text-mist-500"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                >
-                  <circle cx="11" cy="11" r="7" />
-                  <path d="m20 20-3.5-3.5" />
-                </svg>
-                <input
-                  type="search"
-                  name="q"
-                  defaultValue={query}
-                  placeholder="Buscar equipo o liga…"
-                  className="min-w-0 flex-1 bg-transparent text-xs text-white placeholder:text-mist-500 focus:outline-none"
-                />
-              </label>
-              {liga ? <input type="hidden" name="liga" value={liga} /> : null}
-              {order === "hora" ? <input type="hidden" name="orden" value="hora" /> : null}
-              <button
-                type="submit"
-                className="h-9 shrink-0 rounded-lg border border-ink-700 bg-ink-850 px-3 text-xs text-mist-300 transition hover:border-mint-500/40 hover:text-white"
-              >
-                Buscar
-              </button>
-            </form>
-
             {query ? (
               <p className="text-xs text-mist-400">
                 {searchResults.length} resultados para{" "}
@@ -398,7 +496,7 @@ export default async function Home({
             ) : null}
           </div>
 
-          <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:shrink-0">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 xl:shrink-0">
             {[
               { label: "Probabilidades/modelo", value: counts.played.toLocaleString("es-ES") },
               { label: "Precisos", value: String(allUpcoming.length) },
@@ -665,6 +763,16 @@ export default async function Home({
           ))}
         </div>
       </section>
+        </div>
+
+        <aside className="min-w-0 min-[1150px]:sticky min-[1150px]:top-20 min-[1150px]:self-start">
+          <HomeAlerts
+            alerts={alerts}
+            trainedAt={trainedAt ? dateTimeLabel(trainedAt) : null}
+            resultsAt={resultsSyncAt ? dateTimeLabel(resultsSyncAt) : null}
+          />
+        </aside>
+      </div>
     </div>
   );
 }

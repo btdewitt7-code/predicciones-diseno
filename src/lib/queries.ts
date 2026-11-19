@@ -941,6 +941,39 @@ export async function getLineupRotation(
   return { home, away };
 }
 
+export type ConfirmedLineupMatch = {
+  match_id: number;
+  home_team: string;
+  away_team: string;
+  kickoff: string;
+  starters: number;
+};
+
+/** Próximos partidos con alineación confirmada (20+ titulares cargados). */
+export async function getConfirmedUpcomingLineups(limit = 3): Promise<ConfirmedLineupMatch[]> {
+  const db = getDb();
+  const res = await db.execute({
+    sql: `SELECT m.id AS match_id, m.home_team, m.away_team, m.kickoff,
+                 SUM(CASE WHEN l.starter = 1 THEN 1 ELSE 0 END) AS starters
+          FROM matches m
+          JOIN lineups l ON l.match_id = m.id
+          WHERE m.status = 'scheduled'
+            AND m.kickoff BETWEEN datetime('now') AND datetime('now', '+8 hours')
+          GROUP BY m.id
+          HAVING starters >= 20
+          ORDER BY m.kickoff
+          LIMIT ?`,
+    args: [limit],
+  });
+  return res.rows.map((row) => ({
+    match_id: Number(row.match_id),
+    home_team: String(row.home_team),
+    away_team: String(row.away_team),
+    kickoff: String(row.kickoff),
+    starters: Number(row.starters ?? 0),
+  }));
+}
+
 export type LineupAdjustmentRow = {
   match_id: number;
   home_attack: number;
