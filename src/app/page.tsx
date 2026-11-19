@@ -16,8 +16,7 @@ import { LeagueTag, Pill, ProbBar, SectionTitle, TeamBadge } from "@/components/
 import { displayTeam } from "@/lib/display";
 import { getMeta } from "@/lib/db";
 import { syncRecentResults } from "@/lib/resultsSync";
-import { findValue } from "@/lib/value";
-import { getHtVetoedSet, isHtVetoed } from "@/lib/veto";
+import { getHtVetoedSet } from "@/lib/veto";
 import { notifyStartupIfNeeded } from "@/lib/notifyMatches";
 import { notifyPlays } from "@/lib/notifyPlays";
 import { notifyDailySummary } from "@/lib/notifySummary";
@@ -25,7 +24,8 @@ import { startNotifyScheduler } from "@/lib/notifyScheduler";
 import { LiveAutoRefresh } from "@/components/live-auto-refresh";
 import { GoalFlash } from "@/components/goal-flash";
 import { UpcomingCarousel, type CarouselMatch } from "@/components/upcoming-carousel";
-import { HomeAlerts, type HomeAlert } from "@/components/home-alerts";
+import { HomeAlerts } from "@/components/home-alerts";
+import { buildHomeAlerts } from "@/lib/alerts";
 import { HomeStats } from "@/components/home-stats";
 import { DragScroll } from "@/components/drag-scroll";
 
@@ -279,107 +279,12 @@ export default async function Home({
   });
 
   const marketOdds = await getMarketOdds(allUpcoming.map((match) => match.id));
-  const alertMatches = allUpcoming.filter(
-    (match) => Date.parse(`${match.kickoff}Z`) >= Date.now() - 30 * 60_000,
-  );
-  const valuePicks = findValue(alertMatches, marketOdds, {
-    minEdge: 0.06,
-    minProb: 0.4,
-    maxOdds: 6,
+  const { alerts, valueCount } = buildHomeAlerts({
+    matches: allUpcoming,
+    marketOdds,
+    confirmedLineups,
+    htVetoed,
   });
-  const valueCount = valuePicks.length;
-
-  // Alertas del panel derecho: Value → 1T → XI → probabilidad alta.
-  const alerts: HomeAlert[] = [];
-  const alertedMatchIds = new Set<number>();
-  const versus = (match: { home_team: string; away_team: string }) =>
-    `${displayTeam(match.home_team)} vs ${displayTeam(match.away_team)}`;
-  const slotLabel = (kickoff: string) => `${dayLabel(kickoff)} · ${timeOf(kickoff)}`;
-
-  const valueSeen = new Set<number>();
-  for (const pick of valuePicks) {
-    if (alerts.length >= 2) break;
-    if (valueSeen.has(pick.match.id)) continue;
-    valueSeen.add(pick.match.id);
-    alertedMatchIds.add(pick.match.id);
-    alerts.push({
-      key: `value-${pick.match.id}-${pick.label}`,
-      kind: "value",
-      title: versus(pick.match),
-      detail: `${pick.label} · cuota ${pick.odds.toFixed(2)} · +${Math.round(
-        pick.edge * 100,
-      )} pp · ${slotLabel(pick.match.kickoff)}`,
-      href: `/partido/${pick.match.id}`,
-    });
-  }
-
-  const firstHalf = alertMatches
-    .filter(
-      (match) =>
-        match.prediction &&
-        match.prediction.ht_over05 >= 0.75 &&
-        !alertedMatchIds.has(match.id) &&
-        !isHtVetoed(htVetoed, match.league_code, match.home_team) &&
-        !isHtVetoed(htVetoed, match.league_code, match.away_team),
-    )
-    .sort((a, b) => b.prediction!.ht_over05 - a.prediction!.ht_over05)
-    .slice(0, 2);
-
-  for (const match of firstHalf) {
-    alertedMatchIds.add(match.id);
-    alerts.push({
-      key: `1t-${match.id}`,
-      kind: "1t",
-      title: versus(match),
-      detail: `Gol en 1T +0.5 · ${pct(match.prediction?.ht_over05)} · ${slotLabel(
-        match.kickoff,
-      )}`,
-      href: `/partido/${match.id}`,
-    });
-  }
-
-  for (const lineup of confirmedLineups) {
-    if (alerts.length >= 5) break;
-    if (alertedMatchIds.has(lineup.match_id)) continue;
-    alertedMatchIds.add(lineup.match_id);
-    alerts.push({
-      key: `xi-${lineup.match_id}`,
-      kind: "lineup",
-      title: versus(lineup),
-      detail: `XI confirmado · ${lineup.starters} titulares · ${slotLabel(lineup.kickoff)}`,
-      href: `/partido/${lineup.match_id}`,
-    });
-  }
-
-  if (alerts.length < 5) {
-    const highProbability = alertMatches
-      .filter((match) => match.prediction && !alertedMatchIds.has(match.id))
-      .map((match) => {
-        const prediction = match.prediction!;
-        const best = [
-          { label: "Local", value: prediction.home_win },
-          { label: "Empate", value: prediction.draw },
-          { label: "Visitante", value: prediction.away_win },
-        ].sort((a, b) => b.value - a.value)[0];
-        return { match, best };
-      })
-      .filter((row) => row.best.value >= 0.75)
-      .sort((a, b) => b.best.value - a.best.value)
-      .slice(0, 5 - alerts.length);
-
-    for (const row of highProbability) {
-      alertedMatchIds.add(row.match.id);
-      alerts.push({
-        key: `high-${row.match.id}`,
-        kind: "high",
-        title: versus(row.match),
-        detail: `${row.best.label} · ${pct(row.best.value)} · ${slotLabel(
-          row.match.kickoff,
-        )}`,
-        href: `/partido/${row.match.id}`,
-      });
-    }
-  }
 
   const nowMs = Date.now();
   const hasLive = allUpcoming.some((match) => {

@@ -8,6 +8,7 @@ import { NavLinks } from "@/components/nav-links";
 import { NavIcon } from "@/components/nav-icons";
 import { MobileNav } from "@/components/mobile-nav";
 import { MobileTabBar } from "@/components/mobile-tabbar";
+import { AlertsSheet } from "@/components/alerts-sheet";
 import { UserBadge } from "@/components/user-badge";
 import { LogoutButton } from "@/components/logout-button";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -182,6 +183,7 @@ export default async function RootLayout({
         </div>
 
         {user ? <MobileTabBar /> : null}
+        {user ? <AlertsSheet /> : null}
         {user ? <BetSlip /> : null}
       </body>
     </html>
