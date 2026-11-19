@@ -100,7 +100,7 @@ export default async function ObservacionPage() {
                   </div>
                   <Link
                     href={`/partido/${row.matchId}`}
-                    className="text-[11px] text-mint-400 transition hover:underline"
+                    className="-my-1 inline-flex min-h-6 items-center text-[11px] text-mint-400 transition hover:underline"
                   >
                     Ver partido →
                   </Link>
@@ -171,7 +171,7 @@ export default async function ObservacionPage() {
                     </div>
                     <Link
                       href={`/partido/${alert.matchId}`}
-                      className="text-[11px] text-mint-400 transition hover:underline"
+                      className="-my-1 inline-flex min-h-6 items-center text-[11px] text-mint-400 transition hover:underline"
                     >
                       Ver partido →
                     </Link>
@@ -263,7 +263,7 @@ export default async function ObservacionPage() {
                 </div>
                 <Link
                   href={`/partido/${row.matchId}`}
-                  className="text-[11px] text-mint-400 transition hover:underline"
+                  className="-my-1 inline-flex min-h-6 items-center text-[11px] text-mint-400 transition hover:underline"
                 >
                   Ver partido →
                 </Link>
@@ -325,7 +325,7 @@ export default async function ObservacionPage() {
                   </div>
                   <Link
                     href={`/partido/${row.matchId}`}
-                    className="text-[11px] text-mint-400 transition hover:underline"
+                    className="-my-1 inline-flex min-h-6 items-center text-[11px] text-mint-400 transition hover:underline"
                   >
                     Ver partido →
                   </Link>
