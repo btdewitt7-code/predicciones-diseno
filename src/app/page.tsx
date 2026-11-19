@@ -715,7 +715,7 @@ export default async function Home({
       </section>
         </div>
 
-        <aside className="min-w-0 min-[1150px]:sticky min-[1150px]:top-20 min-[1150px]:self-start">
+        <aside id="alertas" className="min-w-0 scroll-mt-24 min-[1150px]:sticky min-[1150px]:top-20 min-[1150px]:self-start">
           <div className="space-y-4">
             <HomeStats
               played={counts.played.toLocaleString("es-ES")}

@@ -7,6 +7,7 @@ import { RefreshButton } from "@/components/refresh-button";
 import { NavLinks } from "@/components/nav-links";
 import { NavIcon } from "@/components/nav-icons";
 import { MobileNav } from "@/components/mobile-nav";
+import { MobileTabBar } from "@/components/mobile-tabbar";
 import { UserBadge } from "@/components/user-badge";
 import { LogoutButton } from "@/components/logout-button";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -172,14 +173,15 @@ export default async function RootLayout({
               </div>
             </header>
 
-            <main className="mx-auto w-full max-w-[1660px] px-4 py-6 sm:px-6">{children}</main>
+            <main className="mx-auto w-full max-w-[1660px] px-4 pb-24 pt-6 sm:px-6 lg:pb-6">{children}</main>
 
-            <footer className="mx-auto w-full max-w-[1660px] px-4 pb-10 pt-2 text-xs text-mist-500 sm:px-6">
+            <footer className="mx-auto w-full max-w-[1660px] px-4 pb-24 pt-2 text-xs text-mist-500 sm:px-6 lg:pb-10">
               Proyecto personal de análisis. Las probabilidades son estimaciones, no garantías.
             </footer>
           </div>
         </div>
 
+        {user ? <MobileTabBar /> : null}
         {user ? <BetSlip /> : null}
       </body>
     </html>

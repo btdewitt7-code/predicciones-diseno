@@ -89,7 +89,7 @@ export function BetSlip() {
   if (picks.length === 0) return null;
 
   return (
-    <div className="fixed bottom-3 right-3 z-40 w-[min(94vw,400px)]">
+    <div className="fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom))] right-3 z-40 w-[min(94vw,400px)] lg:bottom-3">
       {open ? (
         <div className="overflow-hidden rounded-2xl border border-ink-700 bg-ink-900 shadow-2xl">
           <div

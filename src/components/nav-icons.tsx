@@ -67,6 +67,12 @@ const paths: Record<string, ReactNode> = {
       <path d="M15.5 19.5a4.8 4.8 0 0 1 5.3-4.2" />
     </>
   ),
+  "/alertas": (
+    <>
+      <path d="M18 9.5a6 6 0 1 0-12 0c0 4.5-2 5.5-2 5.5h16s-2-1-2-5.5z" />
+      <path d="M10.3 19a2 2 0 0 0 3.4 0" />
+    </>
+  ),
 };
 
 export function NavIcon({ href, className = "size-4" }: IconProps & { href: string }) {
