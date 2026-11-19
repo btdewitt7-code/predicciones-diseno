@@ -259,7 +259,7 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
         aria-label="Anterior"
         aria-hidden={atStart}
         tabIndex={atStart ? -1 : 0}
-        className={`absolute left-1.5 top-1/2 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full border border-ink-700/80 bg-ink-950/85 text-white shadow-[0_6px_20px_-8px_rgba(0,0,0,0.7)] backdrop-blur transition-opacity duration-200 hover:border-mint-500/40 hover:text-mint-300 ${
+        className={`absolute left-1.5 top-[40%] z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full border border-ink-700/80 bg-ink-950/85 text-white shadow-[0_6px_20px_-8px_rgba(0,0,0,0.7)] backdrop-blur transition-opacity duration-200 hover:border-mint-500/40 hover:text-mint-300 ${
           atStart ? "pointer-events-none opacity-0" : "opacity-100"
         }`}
       >
@@ -273,7 +273,7 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
         aria-label="Siguiente"
         aria-hidden={atEnd}
         tabIndex={atEnd ? -1 : 0}
-        className={`absolute right-1.5 top-1/2 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full border border-ink-700/80 bg-ink-950/85 text-white shadow-[0_6px_20px_-8px_rgba(0,0,0,0.7)] backdrop-blur transition-opacity duration-200 hover:border-mint-500/40 hover:text-mint-300 ${
+        className={`absolute right-1.5 top-[40%] z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full border border-ink-700/80 bg-ink-950/85 text-white shadow-[0_6px_20px_-8px_rgba(0,0,0,0.7)] backdrop-blur transition-opacity duration-200 hover:border-mint-500/40 hover:text-mint-300 ${
           atEnd ? "pointer-events-none opacity-0" : "opacity-100"
         }`}
       >
