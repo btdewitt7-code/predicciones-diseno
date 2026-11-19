@@ -74,7 +74,7 @@ export function StandingsPanel({
   if (rows === null) {
     return (
       <div className="card p-5">
-        <h2 className="mb-1 text-[15px] font-semibold text-white">Tabla de posiciones</h2>
+        <h2 className="mb-1 text-ui-card-title font-semibold text-white">Tabla de posiciones</h2>
         <p className="text-[12px] text-mist-500">
           {failed ? "No se pudo cargar la tabla." : "Cargando tabla de posiciones…"}
         </p>
@@ -85,7 +85,7 @@ export function StandingsPanel({
   if (rows.length === 0) {
     return (
       <div className="card p-5">
-        <h2 className="mb-1 text-[15px] font-semibold text-white">Tabla de posiciones</h2>
+        <h2 className="mb-1 text-ui-card-title font-semibold text-white">Tabla de posiciones</h2>
         <p className="text-[12px] text-mist-500">
           No hay tabla de posiciones disponible para {leagueName}.
         </p>
@@ -104,7 +104,7 @@ export function StandingsPanel({
 
   return (
     <div className="card p-5">
-      <h2 className="mb-1 text-[15px] font-semibold text-white">Tabla de posiciones</h2>
+      <h2 className="mb-1 text-ui-card-title font-semibold text-white">Tabla de posiciones</h2>
       <p className="mb-4 text-[11px] text-mist-500">{leagueName}</p>
 
       <div className="space-y-5">
