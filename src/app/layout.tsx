@@ -8,6 +8,7 @@ import { NavLinks } from "@/components/nav-links";
 import { NavIcon } from "@/components/nav-icons";
 import { MobileNav } from "@/components/mobile-nav";
 import { MobileTabBar } from "@/components/mobile-tabbar";
+import { MobileSearch } from "@/components/mobile-search";
 import { AlertsSheet } from "@/components/alerts-sheet";
 import { UserBadge } from "@/components/user-badge";
 import { LogoutButton } from "@/components/logout-button";
@@ -153,7 +154,7 @@ export default async function RootLayout({
                   </Link>
 
                   {user ? (
-                    <SearchForm className="flex min-w-0 flex-1 max-w-[220px] sm:max-w-[280px] lg:max-w-md" />
+                    <SearchForm className="hidden lg:flex lg:max-w-md" />
                   ) : null}
 
                   <div className="ml-auto flex shrink-0 items-center gap-2">
@@ -164,6 +165,7 @@ export default async function RootLayout({
                           <LogoutButton />
                         </div>
                         <div className="flex items-center gap-2 lg:hidden">
+                          <MobileSearch />
                           <UserBadge user={user} />
                           <LogoutButton compact />
                         </div>
