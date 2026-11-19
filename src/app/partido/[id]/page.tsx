@@ -240,7 +240,7 @@ function RecentCountCard({
                 {data.rows.map((row) => (
                   <li key={row.id} className="flex items-center gap-2 text-[12px]">
                     <span className="min-w-0 flex-1 truncate text-mist-500">
-                      {row.isHome ? "L" : "V"} {displayTeam(row.opponent)}
+                      {row.isHome ? "L -" : "V -"} {displayTeam(row.opponent)}
                     </span>
                     <span className="tabular-nums text-mist-400">
                       {row.own}-{row.opp}
@@ -1917,7 +1917,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                         {data.rows.map((row) => (
                           <li key={row.id} className="flex items-center gap-2 text-[12px]">
                             <span className="min-w-0 flex-1 truncate text-mist-500">
-                              {row.isHome ? "L" : "V"} {displayTeam(row.opponent)}
+                              {row.isHome ? "L -" : "V -"} {displayTeam(row.opponent)}
                             </span>
                             <span className="tabular-nums text-mist-400">
                               {row.own}-{row.opp}
@@ -2058,7 +2058,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                         {data.rows.map((row) => (
                           <li key={row.id} className="flex items-center gap-2 text-[12px]">
                             <span className="min-w-0 flex-1 truncate text-mist-500">
-                              {row.isHome ? "L" : "V"} {displayTeam(row.opponent)}
+                              {row.isHome ? "L -" : "V -"} {displayTeam(row.opponent)}
                             </span>
                             <span className="tabular-nums text-mist-400">
                               {row.ownYellow}
@@ -2120,7 +2120,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                         {data.rows.map((row) => (
                           <li key={row.id} className="flex items-center gap-2 text-[12px]">
                             <span className="min-w-0 flex-1 truncate text-mist-500">
-                              {row.isHome ? "L" : "V"} {displayTeam(row.opponent)}
+                              {row.isHome ? "L -" : "V -"} {displayTeam(row.opponent)}
                             </span>
                             <span className="tabular-nums text-mist-400">
                               {row.own}-{row.opp}
@@ -2200,7 +2200,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                                 {game.minute ?? "—"}
                               </span>
                               <span className="min-w-0 flex-1 truncate text-mist-400">
-                                {game.isHome ? "L" : "V"} {displayTeam(game.opponent)}
+                                {game.isHome ? "L -" : "V -"} {displayTeam(game.opponent)}
                               </span>
                               <span className="shrink-0 tabular-nums text-mist-500">
                                 {game.htHome}-{game.htAway}
