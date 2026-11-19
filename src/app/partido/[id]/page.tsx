@@ -1573,12 +1573,12 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           <section className="card p-5" data-match-panel="general">
             <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
               <div>
-                <h2 className="text-[15px] font-semibold text-white">Rotación y XI base</h2>
-                <p className="text-[11px] text-mist-500">
+                <h2 className="text-base font-semibold text-white">Rotación y XI base</h2>
+                <p className="text-[13px] text-mist-500">
                   Comparado con el XI más repetido en los últimos 8 partidos, con peso reciente.
                 </p>
               </div>
-              <span className="text-[10px] text-mist-500">Solo contexto</span>
+              <span className="text-[12px] text-mist-500">Solo contexto</span>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2">
@@ -1598,10 +1598,10 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div className="min-w-0">
-                        <div className="truncate text-[13px] font-semibold text-white">
+                        <div className="truncate text-[15px] font-semibold text-white">
                           {team}
                         </div>
-                        <div className="text-[10px] text-mist-500">
+                        <div className="text-[12px] text-mist-500">
                           {side.status === "confirmed"
                             ? "Alineación confirmada"
                             : side.status === "partial"
@@ -1612,7 +1612,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                       </div>
                       {side.rotation ? (
                         <span
-                          className={`shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-semibold capitalize ${tone}`}
+                          className={`shrink-0 rounded-full border px-2 py-0.5 text-[11px] font-semibold capitalize ${tone}`}
                         >
                           Rotación {side.rotation}
                         </span>
@@ -1620,22 +1620,22 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                     </div>
 
                     {side.status === "none" ? (
-                      <p className="mt-2 text-[11px] text-mist-500">
+                      <p className="mt-2 text-[13px] text-mist-500">
                         Se actualiza cerca del partido.
                       </p>
                     ) : side.sample < 3 ? (
-                      <p className="mt-2 text-[11px] text-mist-500">
+                      <p className="mt-2 text-[13px] text-mist-500">
                         Muestra insuficiente ({side.sample} partidos).
                       </p>
                     ) : (
                       <>
-                        <p className="mt-2 text-[11px] text-mist-400">
+                        <p className="mt-2 text-[13px] text-mist-400">
                           <span className="font-semibold text-white">{side.usualInXI}/11</span>{" "}
                           del XI base ·{" "}
                           <span className="font-semibold text-white">{side.changes}</span> cambios
                         </p>
                         {side.missing.length > 0 ? (
-                          <p className="mt-1 text-[10px] leading-relaxed text-mist-500">
+                          <p className="mt-1 text-[12px] leading-relaxed text-mist-500">
                             Fuera del XI base:{" "}
                             <span className="text-mist-300">
                               {side.missing.slice(0, 3).map(displayTeam).join(", ")}
@@ -1651,7 +1651,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                 );
               })}
             </div>
-            <p className="mt-3 text-[10px] leading-relaxed text-mist-500">
+            <p className="mt-3 text-[13px] leading-relaxed text-mist-500">
               El XI base es una estimación con las alineaciones disponibles; no es una alineación
               oficial.
             </p>
