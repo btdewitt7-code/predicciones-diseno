@@ -39,6 +39,11 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
   const drag = useRef({ active: false, startX: 0, startLeft: 0, moved: false });
+  const velocity = useRef(0);
+  const lastPoint = useRef({ x: 0, time: 0 });
+  const glide = useRef<number | null>(null);
+
+  useEffect(() => () => cancelGlide(), []);
 
   // Oculta la flecha del lado en el que ya no queda nada por recorrer.
   useEffect(() => {
@@ -77,15 +82,55 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
   const move = (direction: -1 | 1) => {
     const track = trackRef.current;
     if (!track) return;
+    cancelGlide();
     const card = track.querySelector<HTMLElement>("[data-carousel-card]");
     const step = card ? card.offsetWidth + 12 : 280;
     track.scrollBy({ left: direction * step, behavior: "smooth" });
   };
 
-  const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
-    if (event.pointerType === "touch") return;
+  function cancelGlide() {
+    if (glide.current !== null) {
+      cancelAnimationFrame(glide.current);
+      glide.current = null;
+    }
+  }
+
+  function snapToNearest() {
     const track = trackRef.current;
     if (!track) return;
+    const card = track.querySelector<HTMLElement>("[data-carousel-card]");
+    const step = card ? card.offsetWidth + 12 : 282;
+    const max = track.scrollWidth - track.clientWidth;
+    const target = Math.min(max, Math.max(0, Math.round(track.scrollLeft / step) * step));
+    track.scrollTo({ left: target, behavior: "smooth" });
+  }
+
+  function startGlide() {
+    const run = () => {
+      const track = trackRef.current;
+      if (!track) return;
+      const v = velocity.current;
+      if (Math.abs(v) < 0.03) {
+        velocity.current = 0;
+        glide.current = null;
+        snapToNearest();
+        return;
+      }
+      track.scrollLeft += v * 16;
+      velocity.current = v * 0.93;
+      glide.current = requestAnimationFrame(run);
+    };
+    cancelGlide();
+    glide.current = requestAnimationFrame(run);
+  }
+
+  const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "touch" || event.button !== 0) return;
+    const track = trackRef.current;
+    if (!track) return;
+    cancelGlide();
+    velocity.current = 0;
+    lastPoint.current = { x: event.clientX, time: performance.now() };
     drag.current = {
       active: true,
       startX: event.clientX,
@@ -93,12 +138,16 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
       moved: false,
     };
     setDragging(true);
-    track.setPointerCapture(event.pointerId);
+    try { track.setPointerCapture(event.pointerId); } catch { /* puntero sintetico */ }
   };
 
   const onPointerMove = (event: PointerEvent<HTMLDivElement>) => {
     const track = trackRef.current;
     if (!track || !drag.current.active) return;
+    const now = performance.now();
+    const dt = now - lastPoint.current.time;
+    if (dt > 0) velocity.current = -(event.clientX - lastPoint.current.x) / dt;
+    lastPoint.current = { x: event.clientX, time: now };
     const delta = event.clientX - drag.current.startX;
     if (Math.abs(delta) > 5) drag.current.moved = true;
     track.scrollLeft = drag.current.startLeft - delta;
@@ -109,8 +158,12 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
     if (!drag.current.active) return;
     drag.current.active = false;
     setDragging(false);
-    if (track?.hasPointerCapture(event.pointerId)) {
-      track.releasePointerCapture(event.pointerId);
+    try { if (track?.hasPointerCapture(event.pointerId)) track.releasePointerCapture(event.pointerId); } catch { /* puntero sintetico */ }
+    if (!drag.current.moved) return;
+    if (Math.abs(velocity.current) > 0.12) {
+      startGlide();
+    } else {
+      snapToNearest();
     }
   };
 
@@ -138,7 +191,7 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
         onPointerLeave={endDrag}
         onClickCapture={onClickCapture}
         onDragStart={(event) => event.preventDefault()}
-        className={`flex snap-x snap-mandatory gap-3 overflow-x-auto pb-1 select-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
+        className={`flex gap-3 overflow-x-auto pb-1 select-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
           dragging ? "cursor-grabbing" : "cursor-grab"
         }`}
       >
@@ -147,7 +200,7 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
             key={match.id}
             href={`/partido/${match.id}`}
             data-carousel-card
-            className="card group flex w-[270px] shrink-0 snap-start flex-col overflow-hidden transition hover:border-mint-500/35"
+            className="card group flex w-[270px] shrink-0 flex-col overflow-hidden transition hover:border-mint-500/35"
           >
             <div className="flex items-center justify-between gap-2 border-b border-ink-800/70 px-3 py-2">
               <span className="flex min-w-0 items-center gap-1.5 text-[10px] text-mist-500">
