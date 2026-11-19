@@ -2450,20 +2450,20 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           </div>
 
           <div data-match-panel="h2h">
-            <h3 className="mt-6 mb-2 text-xs font-semibold uppercase tracking-wide text-mist-500">
+            <h3 className="mt-6 mb-2 text-ui-card-title font-semibold uppercase tracking-wide text-mist-500">
               Historial directo
             </h3>
             <div className="space-y-1.5">
             {h2h.length === 0 ? (
-              <p className="text-xs text-mist-500">Sin enfrentamientos previos en la base de datos.</p>
+              <p className="text-ui-body-sm text-mist-500">Sin enfrentamientos previos en la base de datos.</p>
             ) : (
               h2h.map((m) => (
-                <div key={m.id} className="flex items-center gap-2 text-xs text-mist-400">
-                  <span className="w-16 shrink-0 text-[10px] tabular-nums text-mist-500">
+                <div key={m.id} className="flex items-center gap-2 text-ui-body text-mist-400">
+                  <span className="w-16 shrink-0 text-ui-caption tabular-nums text-mist-500">
                     {dateShort(m.kickoff)}
                   </span>
                   <span className="min-w-0 flex-1 truncate text-right">{displayTeam(m.home_team)}</span>
-                  <span className="rounded bg-ink-800 px-1.5 py-0.5 font-semibold tabular-nums text-white">
+                  <span className="rounded bg-ink-800 px-1.5 py-0.5 text-ui-body font-semibold tabular-nums text-white">
                     {m.home_goals}-{m.away_goals}
                   </span>
                   <span className="min-w-0 flex-1 truncate">{displayTeam(m.away_team)}</span>
@@ -2481,7 +2481,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               : "En la competición"}
           </h2>
           {match.status === "played" ? (
-            <div className="space-y-2 text-xs">
+            <div className="space-y-2 text-ui-body">
               {[
                 ["Remates", match.home_shots, match.away_shots],
                 ["Remates al arco", match.home_sot, match.away_sot],
@@ -2492,14 +2492,14 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               ].map(([label, home, away]) => (
                 <div key={String(label)} className="flex items-center gap-3">
                   <span className="w-10 text-right font-semibold tabular-nums text-white">{home ?? "—"}</span>
-                  <div className="flex-1 text-center text-[10px] uppercase tracking-wide text-mist-500">
+                  <div className="flex-1 text-center text-ui-caption uppercase tracking-wide text-mist-500">
                     {label}
                   </div>
                   <span className="w-10 font-semibold tabular-nums text-white">{away ?? "—"}</span>
                 </div>
               ))}
               {match.referee ? (
-                <p className="pt-2 text-[11px] text-mist-500">Árbitro: {match.referee}</p>
+                <p className="pt-2 text-ui-caption text-mist-500">Árbitro: {match.referee}</p>
               ) : null}
             </div>
           ) : isCup ? (
