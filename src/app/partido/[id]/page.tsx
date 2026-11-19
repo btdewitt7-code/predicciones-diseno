@@ -1800,7 +1800,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                   const subs = players.filter((lineup) => lineup.starter !== 1);
 
                   return (
-                    <div key={side}>
+                    <div key={side} className="border-t border-ink-800/70 pt-4 first:border-0 first:pt-0 sm:border-0 sm:pt-0">
                       <div className="mb-2 flex items-center gap-2 text-ui-body-sm text-mist-400">
                         <TeamBadge
                           name={displayTeam(team)}
@@ -1836,8 +1836,8 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
                       {subs.length > 0 ? (
                         <details className="mt-2" suppressHydrationWarning>
-                          <summary className="cursor-pointer text-ui-body-sm text-mist-500">
-                            Suplentes ({subs.length})
+                          <summary className="-my-1 inline-flex cursor-pointer items-center gap-1 py-1 text-ui-body-sm text-mist-500 transition hover:text-mist-300">
+                            <span aria-hidden>▸</span> Suplentes ({subs.length})
                           </summary>
                           <ul className="mt-1 space-y-1">
                             {subs.map((player) => (
