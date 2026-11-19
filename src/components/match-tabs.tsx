@@ -106,7 +106,7 @@ export function MatchTabs({ tabs }: { tabs: MatchTab[] }) {
             type="button"
             onClick={() => setActive(tab.id)}
             aria-pressed={isActive}
-            className={`flex shrink-0 items-center gap-2 border-r border-ink-800 px-3 py-2.5 text-xs transition last:border-r-0 ${
+            className={`flex shrink-0 items-center gap-2 border-r border-ink-800 px-3 py-2.5 text-ui-body transition last:border-r-0 ${
               isActive
                 ? "border-b-2 border-b-mint-500 font-semibold text-mint-400"
                 : "border-b-2 border-b-transparent text-mist-400 hover:text-mist-300"
