@@ -1500,7 +1500,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
           {prediction ? (
             <div data-match-panel="general">
-              <h2 className="mb-2 text-ui-card-title font-semibold text-white">Probabilidades clave</h2>
+              <h2 className="mb-2 text-ui-section font-semibold text-white">Probabilidades clave</h2>
               <section className="grid grid-cols-2 gap-2 sm:gap-3">
                 <SummaryCard
                   label="Más de 1.5 goles"

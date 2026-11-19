@@ -11,7 +11,7 @@ Objetivo: que el tamaño de letra no se decida a ojo en cada tarjeta. Toda la ap
 | `text-ui-body-sm` | **13 px** | Texto compacto de tarjetas, descripciones y avisos |
 | `text-ui-body` | **14 px** | Texto principal, filas de tablas y párrafos |
 | `text-ui-card-title` | **18 px** | Título de tarjeta |
-| `text-ui-section` | **19 px** | Título de sección |
+| `text-ui-section` | **20 px** | Título de sección |
 | `text-ui-page` | **24 px** | Título de página |
 | `text-ui-hero` | **30 px** | Números grandes y marcadores |
 
@@ -20,7 +20,7 @@ Objetivo: que el tamaño de letra no se decida a ojo en cada tarjeta. Toda la ap
 1. **Nada de texto de contenido por debajo de 12 px.**  
    Si no cabe, se cambia el layout, no se achica la letra.
 2. **Títulos de tarjeta:** 18 px.
-3. **Títulos de sección:** 19 px.
+3. **Títulos de sección:** 20 px.
 4. **Títulos de página:** 24 px (en móvil puede bajar a 22 px excepcionalmente).
 5. **Texto de tarjetas y avisos:** 13–14 px.
 6. **Metadatos y leyendas:** 12 px.
