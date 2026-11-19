@@ -107,7 +107,7 @@ export function MatchTabs({ tabs }: { tabs: MatchTab[] }) {
   }, [active]);
 
   return (
-    <div className="scroll-thin -mx-1 flex flex-wrap items-center gap-0 border-b border-ink-800 px-1 sm:flex-nowrap sm:overflow-x-auto">
+    <div className="-mx-1 flex items-center gap-0 overflow-x-auto border-b border-ink-800 px-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       {tabs.map((tab) => {
         const isActive = tab.id === active;
         return (
