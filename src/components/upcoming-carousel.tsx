@@ -200,7 +200,7 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
             key={match.id}
             href={`/partido/${match.id}`}
             data-carousel-card
-            className="card group flex w-[270px] shrink-0 flex-col overflow-hidden transition hover:border-mint-500/35"
+            className="card group flex w-[80vw] max-w-[300px] shrink-0 snap-start flex-col overflow-hidden transition hover:border-mint-500/35 sm:w-[270px]"
           >
             <div className="flex items-center justify-between gap-2 border-b border-ink-800/70 px-3 py-2">
               <span className="flex min-w-0 items-center gap-1.5 text-[10px] text-mist-500">

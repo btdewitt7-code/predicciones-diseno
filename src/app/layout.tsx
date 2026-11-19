@@ -5,6 +5,7 @@ import { ensureSchemaOnce } from "@/lib/db";
 import { LEAGUES } from "@/lib/leagues";
 import { RefreshButton } from "@/components/refresh-button";
 import { NavLinks } from "@/components/nav-links";
+import { MobileNav } from "@/components/mobile-nav";
 import { UserBadge } from "@/components/user-badge";
 import { LogoutButton } from "@/components/logout-button";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -121,7 +122,9 @@ export default async function RootLayout({
           <div className="min-w-0 flex-1">
             <header className="sticky top-0 z-20 border-b border-ink-800/80 bg-ink-950/85 backdrop-blur">
               <div className="px-3 py-2.5 sm:px-4 lg:px-6">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
+                  {user ? <MobileNav isAdmin={user.isAdmin} /> : null}
+
                   <Link href="/" className="flex shrink-0 items-center gap-2 lg:hidden">
                     <span className="grid size-8 place-items-center rounded-lg bg-mint-500/15 text-mint-400 ring-1 ring-mint-500/30">
                       <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -145,8 +148,6 @@ export default async function RootLayout({
                           <LogoutButton />
                         </div>
                         <div className="flex items-center gap-2 lg:hidden">
-                          {user.isAdmin ? <RefreshButton /> : null}
-                          <ThemeToggle />
                           <UserBadge user={user} compact />
                           <LogoutButton compact />
                         </div>
@@ -156,30 +157,6 @@ export default async function RootLayout({
                 </div>
 
                 <SearchForm className="mt-2 flex lg:hidden" />
-
-                {user ? (
-                  <div className="mt-2 flex items-center gap-2 lg:hidden">
-                    <div className="scroll-thin -mx-1 min-w-0 flex-1 overflow-x-auto px-1 pb-0.5">
-                      <NavLinks />
-                    </div>
-                    {user.isAdmin ? (
-                      <div className="flex shrink-0 items-center gap-1 text-xs">
-                        <Link
-                          href="/observacion"
-                          className="whitespace-nowrap rounded-lg border border-ink-700 bg-ink-850 px-2 py-1 text-mist-400 transition hover:text-white"
-                        >
-                          Observación
-                        </Link>
-                        <Link
-                          href="/usuarios"
-                          className="whitespace-nowrap rounded-lg border border-ink-700 bg-ink-850 px-2 py-1 text-mist-400 transition hover:text-white"
-                        >
-                          Usuarios
-                        </Link>
-                      </div>
-                    ) : null}
-                  </div>
-                ) : null}
               </div>
             </header>
 
