@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent, type PointerEvent } from "react";
 
 export type CarouselMatch = {
   id: number;
@@ -35,9 +35,31 @@ function TeamLogo({ name, logo }: { name: string; logo?: string | null }) {
 export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [paused, setPaused] = useState(false);
+  const [dragging, setDragging] = useState(false);
+  const [atStart, setAtStart] = useState(true);
+  const [atEnd, setAtEnd] = useState(false);
+  const drag = useRef({ active: false, startX: 0, startLeft: 0, moved: false });
+
+  // Oculta la flecha del lado en el que ya no queda nada por recorrer.
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const sync = () => {
+      setAtStart(track.scrollLeft <= 4);
+      setAtEnd(track.scrollLeft + track.clientWidth >= track.scrollWidth - 4);
+    };
+    sync();
+    track.addEventListener("scroll", sync, { passive: true });
+    const observer = new ResizeObserver(sync);
+    observer.observe(track);
+    return () => {
+      track.removeEventListener("scroll", sync);
+      observer.disconnect();
+    };
+  }, [matches.length]);
 
   useEffect(() => {
-    if (paused || matches.length <= 1) return;
+    if (paused || dragging || matches.length <= 1) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const id = window.setInterval(() => {
@@ -50,7 +72,7 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
     }, 5500);
 
     return () => window.clearInterval(id);
-  }, [paused, matches.length]);
+  }, [paused, dragging, matches.length]);
 
   const move = (direction: -1 | 1) => {
     const track = trackRef.current;
@@ -58,6 +80,45 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
     const card = track.querySelector<HTMLElement>("[data-carousel-card]");
     const step = card ? card.offsetWidth + 12 : 280;
     track.scrollBy({ left: direction * step, behavior: "smooth" });
+  };
+
+  const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "touch") return;
+    const track = trackRef.current;
+    if (!track) return;
+    drag.current = {
+      active: true,
+      startX: event.clientX,
+      startLeft: track.scrollLeft,
+      moved: false,
+    };
+    setDragging(true);
+    track.setPointerCapture(event.pointerId);
+  };
+
+  const onPointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    const track = trackRef.current;
+    if (!track || !drag.current.active) return;
+    const delta = event.clientX - drag.current.startX;
+    if (Math.abs(delta) > 5) drag.current.moved = true;
+    track.scrollLeft = drag.current.startLeft - delta;
+  };
+
+  const endDrag = (event: PointerEvent<HTMLDivElement>) => {
+    const track = trackRef.current;
+    if (!drag.current.active) return;
+    drag.current.active = false;
+    setDragging(false);
+    if (track?.hasPointerCapture(event.pointerId)) {
+      track.releasePointerCapture(event.pointerId);
+    }
+  };
+
+  const onClickCapture = (event: MouseEvent<HTMLDivElement>) => {
+    if (!drag.current.moved) return;
+    event.preventDefault();
+    event.stopPropagation();
+    drag.current.moved = false;
   };
 
   if (matches.length === 0) return null;
@@ -70,7 +131,16 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
         onMouseLeave={() => setPaused(false)}
         onFocusCapture={() => setPaused(true)}
         onBlurCapture={() => setPaused(false)}
-        className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        onPointerLeave={endDrag}
+        onClickCapture={onClickCapture}
+        onDragStart={(event) => event.preventDefault()}
+        className={`flex snap-x snap-mandatory gap-3 overflow-x-auto pb-1 select-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
+          dragging ? "cursor-grabbing" : "cursor-grab"
+        }`}
       >
         {matches.map((match) => (
           <Link
@@ -134,7 +204,11 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
         type="button"
         onClick={() => move(-1)}
         aria-label="Anterior"
-        className="absolute left-1.5 top-1/2 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full border border-ink-700/80 bg-ink-950/85 text-white shadow-[0_6px_20px_-8px_rgba(0,0,0,0.7)] backdrop-blur transition hover:border-mint-500/40 hover:text-mint-300"
+        aria-hidden={atStart}
+        tabIndex={atStart ? -1 : 0}
+        className={`absolute left-1.5 top-1/2 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full border border-ink-700/80 bg-ink-950/85 text-white shadow-[0_6px_20px_-8px_rgba(0,0,0,0.7)] backdrop-blur transition-opacity duration-200 hover:border-mint-500/40 hover:text-mint-300 ${
+          atStart ? "pointer-events-none opacity-0" : "opacity-100"
+        }`}
       >
         <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2.2">
           <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
@@ -144,7 +218,11 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
         type="button"
         onClick={() => move(1)}
         aria-label="Siguiente"
-        className="absolute right-1.5 top-1/2 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full border border-ink-700/80 bg-ink-950/85 text-white shadow-[0_6px_20px_-8px_rgba(0,0,0,0.7)] backdrop-blur transition hover:border-mint-500/40 hover:text-mint-300"
+        aria-hidden={atEnd}
+        tabIndex={atEnd ? -1 : 0}
+        className={`absolute right-1.5 top-1/2 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full border border-ink-700/80 bg-ink-950/85 text-white shadow-[0_6px_20px_-8px_rgba(0,0,0,0.7)] backdrop-blur transition-opacity duration-200 hover:border-mint-500/40 hover:text-mint-300 ${
+          atEnd ? "pointer-events-none opacity-0" : "opacity-100"
+        }`}
       >
         <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2.2">
           <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
