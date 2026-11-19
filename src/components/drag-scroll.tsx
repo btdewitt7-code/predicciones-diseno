@@ -9,9 +9,11 @@ import { useEffect, useRef, type MouseEvent, type PointerEvent, type ReactNode }
 export function DragScroll({
   children,
   className = "",
+  showBar = false,
 }: {
   children: ReactNode;
   className?: string;
+  showBar?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const drag = useRef({ active: false, startX: 0, startLeft: 0, moved: false });
@@ -107,7 +109,11 @@ export function DragScroll({
       onPointerLeave={endDrag}
       onClickCapture={onClickCapture}
       onDragStart={(event) => event.preventDefault()}
-      className={`cursor-grab select-none overflow-x-auto active:cursor-grabbing [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${className}`}
+      className={`cursor-grab select-none overflow-x-auto active:cursor-grabbing ${
+        showBar
+          ? "scroll-thin"
+          : "[-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      } ${className}`}
     >
       {children}
     </div>

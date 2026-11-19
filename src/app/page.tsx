@@ -590,7 +590,7 @@ export default async function Home({
       ) : null}
 
       <section>
-        <DragScroll className="-mx-1 flex gap-1.5 px-1 pb-1">
+        <DragScroll showBar className="-mx-1 flex gap-1.5 px-1 pb-2">
           <Link
             href={hrefFor({ dia: selectedDay, q: query, orden: order === "hora" ? "hora" : undefined })}
             className={`shrink-0 rounded-lg border px-2.5 py-1 text-xs transition ${
