@@ -60,7 +60,7 @@ export function buildHomeAlerts({
       detail: `${pick.label} · cuota ${pick.odds.toFixed(2)} · +${Math.round(
         pick.edge * 100,
       )} pp · ${slotLabel(pick.match.kickoff)}`,
-      href: `/partido/${pick.match.id}`,
+      href: `/valor?q=${encodeURIComponent(pick.match.home_team)}`,
     });
   }
 
@@ -85,7 +85,7 @@ export function buildHomeAlerts({
       detail: `Gol en 1T +0.5 · ${pct(match.prediction?.ht_over05)} · ${slotLabel(
         match.kickoff,
       )}`,
-      href: `/partido/${match.id}`,
+      href: `/primer-tiempo?q=${encodeURIComponent(match.home_team)}`,
     });
   }
 
