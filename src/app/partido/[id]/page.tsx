@@ -2212,13 +2212,13 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
             <h2 className="text-ui-card-title font-semibold text-white">Forma reciente</h2>
             <p className="text-xs leading-relaxed text-mist-500">
               {isCup ? "Posición en la competición y promedio" : "Promedio"} por partido en los
-              últimos {Math.max(homeForm.length, awayForm.length) || 5}. Entre paréntesis, el total.
+              últimos {Math.max(homeRecent8.length, awayRecent8.length) || 8}. Entre paréntesis, el total.
             </p>
           </div>
           <div className="space-y-3">
             {[
-              { team: match.home_team, matches: homeForm },
-              { team: match.away_team, matches: awayForm },
+              { team: match.home_team, matches: homeRecent8 },
+              { team: match.away_team, matches: awayRecent8 },
             ].map(({ team, matches }) => {
               const stats = formStats(matches, team);
               const standing =
