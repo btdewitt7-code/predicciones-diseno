@@ -112,6 +112,18 @@ body {
   font-size: var(--font-ui-hero);
 }
 
+/* En móvil la escala baja un paso para no sentirse gigante. */
+@media (max-width: 640px) {
+  :root {
+    --font-ui-card-title: 15px;
+    --font-ui-section: 16px;
+    --font-ui-body: 13px;
+    --font-ui-body-sm: 12px;
+    --font-ui-page: 22px;
+    --font-ui-hero: 26px;
+  }
+}
+
 /* En modo claro, "white" pasa a ser el texto principal (nunca blanco puro). */
 .text-white,
 [class*="text-white/"] {
