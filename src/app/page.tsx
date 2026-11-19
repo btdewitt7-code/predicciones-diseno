@@ -363,7 +363,11 @@ export default async function Home({
 
   return (
     <div className="space-y-4">
-      <LiveAutoRefresh active={hasLive} seconds={20} />
+      <LiveAutoRefresh
+        active={hasLive || alerts.length > 0}
+        seconds={hasLive ? 20 : 60}
+        pollLive={hasLive}
+      />
       <UpcomingCarousel matches={featuredMatches} />
       <div className="grid items-start gap-6 min-[1150px]:grid-cols-[minmax(0,1fr)_300px]">
         <div className="min-w-0 space-y-4">

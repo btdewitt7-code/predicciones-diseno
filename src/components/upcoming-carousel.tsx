@@ -23,10 +23,10 @@ export type CarouselMatch = {
 
 function TeamLogo({ name, logo }: { name: string; logo?: string | null }) {
   if (logo) {
-    return <img src={logo} alt="" className="size-10 object-contain" loading="lazy" />;
+    return <img src={logo} alt="" className="size-11 object-contain" loading="lazy" />;
   }
   return (
-    <span className="grid size-10 place-items-center rounded-full bg-ink-800 text-[10px] font-semibold text-mist-400">
+    <span className="grid size-11 place-items-center rounded-full bg-ink-800 text-[10px] font-semibold text-mist-400">
       {name.slice(0, 2).toUpperCase()}
     </span>
   );
@@ -208,7 +208,7 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
             key={match.id}
             href={`/partido/${match.id}`}
             data-carousel-card
-            className="card group flex w-[80vw] max-w-[300px] shrink-0 snap-start flex-col overflow-hidden transition hover:border-mint-500/35 sm:w-[270px]"
+            className="card group flex w-[82vw] max-w-[320px] shrink-0 snap-start flex-col overflow-hidden transition hover:border-mint-500/35 sm:w-[300px]"
           >
             <div className="flex items-center justify-between gap-2 border-b border-ink-800/70 px-3 py-2.5">
               <span className="flex min-w-0 items-center gap-1.5 text-[10px] text-mist-500">
@@ -227,7 +227,7 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
               </span>
             </div>
 
-            <div className="flex flex-1 items-center justify-between gap-2 px-3 py-6">
+            <div className="flex flex-1 items-center justify-between gap-2 px-3 py-7">
               <div className="flex min-w-0 flex-1 flex-col items-center gap-1.5 text-center">
                 <TeamLogo name={match.homeTeam} logo={match.homeLogo} />
                 <span className="w-full truncate text-xs font-semibold text-white">

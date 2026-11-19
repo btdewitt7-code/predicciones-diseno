@@ -10,9 +10,12 @@ import { useRouter } from "next/navigation";
 export function LiveAutoRefresh({
   active,
   seconds = 20,
+  pollLive = true,
 }: {
   active: boolean;
   seconds?: number;
+  /** Si es false solo refresca la página, sin pedir marcadores en vivo. */
+  pollLive?: boolean;
 }) {
   const router = useRouter();
 
@@ -23,10 +26,12 @@ export function LiveAutoRefresh({
 
     const tick = async () => {
       if (document.visibilityState === "hidden") return;
-      try {
-        await fetch("/api/live", { cache: "no-store" });
-      } catch {
-        // sin conexión: se reintenta en el siguiente ciclo
+      if (pollLive) {
+        try {
+          await fetch("/api/live", { cache: "no-store" });
+        } catch {
+          // sin conexión: se reintenta en el siguiente ciclo
+        }
       }
       if (!cancelled) router.refresh();
     };
@@ -39,7 +44,7 @@ export function LiveAutoRefresh({
       cancelled = true;
       clearInterval(timer);
     };
-  }, [active, seconds, router]);
+  }, [active, seconds, pollLive, router]);
 
   return null;
 }

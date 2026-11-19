@@ -32,6 +32,7 @@ export function AlertsSheet() {
   const [data, setData] = useState<Payload | null>(null);
   const [loading, setLoading] = useState(false);
   const [fetchedAt, setFetchedAt] = useState(0);
+  const [now, setNow] = useState(Date.now());
 
   const close = useCallback(() => {
     setOpen(false);
@@ -47,7 +48,7 @@ export function AlertsSheet() {
       setData(json);
       setFetchedAt(Date.now());
     } catch {
-      setData(null);
+      // Si falla el refresco, se mantiene lo último que se mostró.
     } finally {
       setLoading(false);
     }
@@ -66,6 +67,22 @@ export function AlertsSheet() {
   useEffect(() => {
     if (!open) return;
     if (!data || Date.now() - fetchedAt > 60_000) void load();
+  }, [open, data, fetchedAt, load]);
+
+  // Mientras la hoja está abierta: reloj para el "hace X" y refresco cada minuto.
+  useEffect(() => {
+    if (!open) return;
+    setNow(Date.now());
+    const ticker = window.setInterval(() => setNow(Date.now()), 1000);
+    const refresh = window.setInterval(() => void load(), 60_000);
+    return () => {
+      window.clearInterval(ticker);
+      window.clearInterval(refresh);
+    };
+  }, [open, load]);
+
+  useEffect(() => {
+    if (!open) return;
     const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const onKey = (event: KeyboardEvent) => {
@@ -76,11 +93,18 @@ export function AlertsSheet() {
       document.body.style.overflow = previous;
       window.removeEventListener("keydown", onKey);
     };
-  }, [open, data, fetchedAt, load, close]);
+  }, [open, close]);
 
   if (!mounted) return null;
 
   const alerts = data?.alerts ?? [];
+  const ageSeconds = fetchedAt > 0 ? Math.max(0, Math.floor((now - fetchedAt) / 1000)) : null;
+  const ageLabel =
+    ageSeconds === null
+      ? null
+      : ageSeconds < 60
+        ? `hace ${ageSeconds} s`
+        : `hace ${Math.floor(ageSeconds / 60)} min`;
   const stats = [
     { label: "Partidos", value: data ? data.upcoming.toLocaleString("es-ES") : "—" },
     { label: "Histórico", value: data ? data.played.toLocaleString("es-ES") : "—" },
@@ -115,7 +139,10 @@ export function AlertsSheet() {
         <div className="flex items-start justify-between gap-3">
           <div>
             <h2 className="text-base font-semibold tracking-tight text-white">Alertas</h2>
-            <p className="text-[11px] text-mist-500">Lo que conviene mirar ahora.</p>
+            <p className="text-[11px] text-mist-500">
+              Lo que conviene mirar ahora.
+              {ageLabel ? <span className="text-mist-500"> · {ageLabel}</span> : null}
+            </p>
           </div>
           <button
             type="button"
