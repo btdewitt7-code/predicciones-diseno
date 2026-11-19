@@ -153,7 +153,7 @@ export default async function RootLayout({
                   </Link>
 
                   {user ? (
-                    <SearchForm className="flex min-w-0 flex-1 lg:max-w-2xl" />
+                    <SearchForm className="flex min-w-0 flex-1 max-w-[220px] sm:max-w-[280px] lg:max-w-md" />
                   ) : null}
 
                   <div className="ml-auto flex shrink-0 items-center gap-2">
