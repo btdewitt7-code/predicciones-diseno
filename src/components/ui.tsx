@@ -80,6 +80,8 @@ export function LeagueTag({
   const league = LEAGUE_BY_CODE[code];
   const textClass = size === "md" ? "text-ui-body-lg" : "text-ui-body";
   const iconClass = size === "md" ? "size-5 sm:size-[22px]" : "size-5";
+  const lightBadge = ["UEL", "UECL", "UEN"].includes(code);
+  const invertLogo = code === "UCL";
   if (!league) return <span className={`${textClass} text-mist-500`}>{code}</span>;
   return (
     <span className={`inline-flex items-center gap-2 ${textClass} text-mist-400`}>
@@ -91,7 +93,9 @@ export function LeagueTag({
           height={20}
           loading="lazy"
           decoding="async"
-          className={`${iconClass} shrink-0 object-contain`}
+          className={`${iconClass} shrink-0 object-contain ${
+            lightBadge ? "league-logo-badge" : ""
+          } ${invertLogo ? "league-logo-invert" : ""}`}
         />
       ) : (
         <span className="rounded bg-ink-800 px-1 py-0.5 text-ui-micro font-semibold tracking-wide text-mist-400 ring-1 ring-ink-700">

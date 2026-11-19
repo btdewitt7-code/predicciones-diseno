@@ -81,7 +81,7 @@ body {
   --font-ui-caption: 12px;
   --font-ui-body-sm: 13px;
   --font-ui-body: 14px;
-  --font-ui-body-lg: 16px;
+  --font-ui-body-lg: 15px;
   --font-ui-card-title: 17px;
   --font-ui-section: 18px;
   --font-ui-page: 24px;
@@ -123,7 +123,7 @@ body {
     --font-ui-caption: 11px;
     --font-ui-body-sm: 11px;
     --font-ui-body: 12px;
-    --font-ui-body-lg: 13px;
+    --font-ui-body-lg: 12px;
     --font-ui-card-title: 14px;
     --font-ui-section: 15px;
     --font-ui-page: 21px;
@@ -157,6 +157,16 @@ html.dark .card {
   background: #221e1a;
   border-color: #3a332c;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+html.dark .league-logo-badge {
+  background: #f5f1ea;
+  border-radius: 4px;
+  padding: 1px;
+}
+
+html.dark .league-logo-invert {
+  filter: invert(1) brightness(1.15);
 }
 
 html.dark .match-hero,
