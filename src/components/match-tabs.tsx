@@ -97,6 +97,18 @@ export function MatchTabs({ tabs }: { tabs: MatchTab[] }) {
           .filter(Boolean);
         panel.style.display = except.includes(active) ? "none" : "block";
       });
+      // Los contenedores que se quedan vacíos no deben seguir sumando espacio.
+      // Primero se muestran todos y después se ocultan los que quedan sin contenido,
+      // si no, uno oculto nunca vuelve a medir altura al cambiar de pestaña.
+      const wrappers = [...document.querySelectorAll<HTMLElement>("section")].filter((section) =>
+        section.querySelector("[data-match-panel]"),
+      );
+      wrappers.forEach((section) => {
+        section.style.display = "";
+      });
+      wrappers.forEach((section) => {
+        if (section.getBoundingClientRect().height === 0) section.style.display = "none";
+      });
     };
     apply();
     window.dispatchEvent(new CustomEvent("match-tab-change", { detail: active }));
@@ -107,7 +119,7 @@ export function MatchTabs({ tabs }: { tabs: MatchTab[] }) {
   }, [active]);
 
   return (
-    <div className="sticky top-[57px] z-10 -mx-1 flex items-center gap-0 overflow-x-auto border-b border-ink-800 bg-ink-950/95 px-1 backdrop-blur [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:top-[57px]">
+    <div className="sticky top-[57px] z-10 -mx-1 mb-2 flex items-center gap-0 overflow-x-auto border-b border-ink-800 bg-ink-950/95 px-1 backdrop-blur [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:top-[57px]">
       {tabs.map((tab) => {
         const isActive = tab.id === active;
         return (
