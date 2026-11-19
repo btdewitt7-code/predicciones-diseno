@@ -4,8 +4,8 @@ export const dynamic = "force-dynamic";
 
 export default function EntrarPage() {
   return (
-    <div className="mx-auto max-w-sm pt-10 sm:pt-16">
-      <div className="card space-y-5 p-6">
+    <div className="mx-auto flex min-h-[calc(100vh-9rem)] w-full max-w-sm items-center justify-center py-8">
+      <div className="card w-full space-y-5 p-6">
         <div>
           <h1 className="text-xl font-semibold tracking-tight text-white">Entrar</h1>
           <p className="mt-1 text-xs text-mist-400">

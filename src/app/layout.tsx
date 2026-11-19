@@ -151,7 +151,7 @@ export default async function RootLayout({
                     <span className="text-sm font-semibold tracking-tight text-white">Dogebets</span>
                   </Link>
 
-                  <SearchForm className="hidden lg:flex lg:max-w-2xl" />
+                  {user ? <SearchForm className="hidden lg:flex lg:max-w-2xl" /> : null}
 
                   <div className="ml-auto flex items-center gap-2">
                     {user ? (
@@ -169,7 +169,7 @@ export default async function RootLayout({
                   </div>
                 </div>
 
-                <SearchForm className="mt-3 flex lg:hidden" />
+                {user ? <SearchForm className="mt-3 flex lg:hidden" /> : null}
               </div>
             </header>
 
