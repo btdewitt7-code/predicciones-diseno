@@ -2230,11 +2230,11 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
       ) : null}
 
       <section className="grid gap-4">
-        <div className="card p-5">
+        <div className="card p-4 sm:p-5">
           <div data-match-panel-except="posiciones">
           <div className="mb-4">
             <h2 className="text-ui-card-title font-semibold text-white">Forma reciente</h2>
-            <p className="text-xs leading-relaxed text-mist-500">
+            <p className="text-[11px] leading-relaxed text-mist-500 sm:text-xs">
               {isCup ? "Posición en la competición y promedio" : "Promedio"} por partido en los
               últimos {Math.max(homeRecent8.length, awayRecent8.length) || 8}. Entre paréntesis, el total.
             </p>
@@ -2256,7 +2256,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                       logo={teamLogos.get(`${match.league_code}:${team}`)} plain
                     />
                     <div className="min-w-0">
-                      <div className="truncate text-[17px] text-mist-300">{displayTeam(team)}</div>
+                      <div className="truncate text-[15px] text-mist-300 sm:text-[17px]">{displayTeam(team)}</div>
                       {isCup && standing ? (
                         <div className="whitespace-nowrap text-ui-caption text-mist-500">
                           {standing.group_name
@@ -2272,7 +2272,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                     <FormStrip matches={matches} team={team} align="start" />
                   </div>
                   {stats ? (
-                    <div className="grid grid-cols-2 gap-x-6 gap-y-1.5 pt-1 text-ui-body xl:grid-cols-3">
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 pt-1 text-ui-body sm:gap-x-6 xl:grid-cols-3">
                       <FormStat
                         label="Goles a favor"
                         value={`${num(stats.goalsFor)} (${stats.goalsForTotal})`}
