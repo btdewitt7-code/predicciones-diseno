@@ -116,17 +116,17 @@ export function StandingsPanel({
               </h3>
             ) : null}
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[420px] text-left text-[12px]">
+              <table className="w-full table-fixed text-left text-[12px] sm:min-w-[420px] sm:table-auto">
                 <thead>
                   <tr className="border-b border-ink-800 text-[10px] uppercase tracking-wide text-mist-500">
-                    <th className="w-8 py-2 pr-2 text-right">#</th>
-                    <th className="py-2 pr-2">Equipo</th>
-                    <th className="w-10 py-2 text-right">PJ</th>
+                    <th className="w-7 py-2 pr-1 text-right">#</th>
+                    <th className="py-2 pr-1">Equipo</th>
+                    <th className="w-9 py-2 text-right">PJ</th>
                     <th className="hidden w-10 py-2 text-right sm:table-cell">G</th>
                     <th className="hidden w-10 py-2 text-right sm:table-cell">E</th>
                     <th className="hidden w-10 py-2 text-right sm:table-cell">P</th>
-                    <th className="w-12 py-2 text-right">DG</th>
-                    <th className="w-12 py-2 text-right">Pts</th>
+                    <th className="w-10 py-2 text-right">DG</th>
+                    <th className="w-10 py-2 text-right">Pts</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -140,15 +140,15 @@ export function StandingsPanel({
                           highlighted ? "bg-mint-500/10" : ""
                         }`}
                       >
-                        <td className="py-2 pr-2 text-right tabular-nums text-mist-500">
+                        <td className="py-2 pr-1 text-right tabular-nums text-mist-500">
                           {row.rank}
                         </td>
                         <td
-                          className={`py-2 pr-2 ${
+                          className={`py-2 pr-1 ${
                             highlighted ? "font-semibold text-white" : "text-mist-300"
                           }`}
                         >
-                          <div className="flex min-w-0 items-center gap-2">
+                          <div className="flex min-w-0 items-center gap-1.5">
                             {row.logo_url ? (
                               <img
                                 src={row.logo_url}
