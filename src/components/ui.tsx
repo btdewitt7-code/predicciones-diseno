@@ -151,7 +151,7 @@ export function Pill({
     warn: "border-amber-400/30 bg-amber-400/10 text-amber-400",
   };
   return (
-    <span className={`inline-flex items-center gap-1.5 rounded-lg border px-2 py-1 text-xs ${tones[tone]}`}>
+    <span className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg border px-1.5 py-1 text-[11px] sm:px-2 sm:text-xs ${tones[tone]}`}>
       <span className="text-mist-500">{label}</span>
       <span className={`font-semibold tabular-nums ${valueTone ?? ""}`}>{value}</span>
     </span>

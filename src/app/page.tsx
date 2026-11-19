@@ -141,7 +141,7 @@ function MatchRow({ match, logos }: { match: RatedMatch; logos: Map<string, stri
       </div>
 
       {p ? (
-        <div className="mt-2 flex flex-wrap items-center gap-1.5 pl-[58px] sm:hidden">
+        <div className="mt-2 flex flex-nowrap items-center gap-1 overflow-x-auto sm:hidden [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <MatchChips match={match} />
         </div>
       ) : null}
