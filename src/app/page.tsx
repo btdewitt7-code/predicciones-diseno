@@ -27,6 +27,7 @@ import { GoalFlash } from "@/components/goal-flash";
 import { UpcomingCarousel, type CarouselMatch } from "@/components/upcoming-carousel";
 import { HomeAlerts, type HomeAlert } from "@/components/home-alerts";
 import { HomeStats } from "@/components/home-stats";
+import { DragScroll } from "@/components/drag-scroll";
 
 export const dynamic = "force-dynamic";
 
@@ -456,11 +457,11 @@ export default async function Home({
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <LiveAutoRefresh active={hasLive} seconds={20} />
       <UpcomingCarousel matches={featuredMatches} />
       <div className="grid items-start gap-6 min-[1150px]:grid-cols-[minmax(0,1fr)_300px]">
-        <div className="min-w-0 space-y-8">
+        <div className="min-w-0 space-y-4">
       {query ? (
         <p className="text-xs text-mist-400">
           {searchResults.length} resultados para <span className="text-white">“{query}”</span> ·{" "}
@@ -526,7 +527,7 @@ export default async function Home({
 
       {dayKeys.length > 1 ? (
         <section>
-          <div className="scroll-thin flex gap-2 overflow-x-auto pb-1">
+          <DragScroll className="flex gap-2 pb-1">
             {dayKeys.map((key) => {
               const list = byDay.get(key) ?? [];
               const parts = dayParts(list[0].kickoff);
@@ -584,12 +585,12 @@ export default async function Home({
             >
               Ver calendario completo
             </Link>
-          </div>
+          </DragScroll>
         </section>
       ) : null}
 
       <section>
-        <div className="scroll-thin -mx-1 flex gap-1.5 overflow-x-auto px-1 pb-2">
+        <DragScroll className="-mx-1 flex gap-1.5 px-1 pb-1">
           <Link
             href={hrefFor({ dia: selectedDay, q: query, orden: order === "hora" ? "hora" : undefined })}
             className={`shrink-0 rounded-lg border px-2.5 py-1 text-xs transition ${
@@ -635,7 +636,7 @@ export default async function Home({
               {league.name}
             </Link>
           ))}
-        </div>
+        </DragScroll>
       </section>
 
       {order === "hora" ? (
