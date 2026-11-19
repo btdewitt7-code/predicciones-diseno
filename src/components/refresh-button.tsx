@@ -10,7 +10,7 @@ function formatElapsed(seconds: number): string {
   return `${Math.floor(safe / 60)}:${String(safe % 60).padStart(2, "0")}`;
 }
 
-export function RefreshButton() {
+export function RefreshButton({ compact = false }: { compact?: boolean }) {
   const router = useRouter();
   const [status, setStatus] = useState<Status>("idle");
   const [startedAt, setStartedAt] = useState<number | null>(null);
@@ -113,7 +113,9 @@ export function RefreshButton() {
       onClick={start}
       disabled={status === "running"}
       title="Descargar resultados, goleadores, bajas y reentrenar"
-      className={`inline-flex items-center gap-2 rounded-lg border px-2.5 py-1.5 text-xs tabular-nums transition disabled:cursor-wait ${
+      className={`inline-flex items-center gap-2 rounded-lg border transition disabled:cursor-wait ${
+        compact ? "size-9 justify-center" : "px-2.5 py-1.5 text-xs tabular-nums"
+      } ${
         status === "done"
           ? "border-win-500/40 bg-win-500/10 text-win-400"
           : status === "error"
@@ -133,7 +135,7 @@ export function RefreshButton() {
         <path d="M21 12a9 9 0 1 1-2.64-6.36" />
         <path d="M21 3v6h-6" />
       </svg>
-      <span className="hidden sm:inline">{label}</span>
+      <span className={compact ? "sr-only" : "hidden sm:inline"}>{label}</span>
     </button>
   );
 }

@@ -5,6 +5,7 @@ import { ensureSchemaOnce } from "@/lib/db";
 import { LEAGUES } from "@/lib/leagues";
 import { RefreshButton } from "@/components/refresh-button";
 import { NavLinks } from "@/components/nav-links";
+import { NavIcon } from "@/components/nav-icons";
 import { MobileNav } from "@/components/mobile-nav";
 import { UserBadge } from "@/components/user-badge";
 import { LogoutButton } from "@/components/logout-button";
@@ -64,9 +65,9 @@ export default async function RootLayout({
         </Script>
 
         <div className="min-h-screen lg:flex">
-          <aside className="sticky top-0 hidden h-screen w-44 shrink-0 flex-col border-r border-ink-800/80 bg-ink-950/90 px-2.5 py-4 lg:flex">
-            <Link href="/" className="flex shrink-0 items-center gap-2.5 px-2">
-              <span className="grid size-9 place-items-center rounded-xl bg-mint-500/15 text-mint-400 ring-1 ring-mint-500/30">
+          <aside className="sticky top-0 hidden h-screen w-14 shrink-0 flex-col border-r border-ink-800/80 bg-ink-950/90 px-1.5 py-4 lg:flex xl:w-44 xl:px-2.5">
+            <Link href="/" className="flex shrink-0 items-center justify-center gap-2.5 xl:justify-start xl:px-2">
+              <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-mint-500/15 text-mint-400 ring-1 ring-mint-500/30">
                 <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.8">
                   <ellipse cx="12" cy="16" rx="5" ry="4" />
                   <circle cx="5.5" cy="10" r="2" />
@@ -75,7 +76,7 @@ export default async function RootLayout({
                   <circle cx="18.5" cy="10" r="2" />
                 </svg>
               </span>
-              <span className="flex min-w-0 flex-col leading-tight">
+              <span className="hidden min-w-0 flex-col leading-tight xl:flex">
                 <span className="text-base font-semibold tracking-tight text-white">Dogebets</span>
                 <span className="truncate text-[10px] text-mist-500">Análisis de fútbol</span>
               </span>
@@ -83,28 +84,30 @@ export default async function RootLayout({
 
             {user ? (
               <div className="mt-6 min-h-0 flex-1 overflow-y-auto">
-                <div className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-wide text-mist-500">
+                <div className="mb-2 hidden px-2.5 text-[10px] font-semibold uppercase tracking-wide text-mist-500 xl:block">
                   Análisis
                 </div>
-                <NavLinks vertical />
+                <NavLinks vertical rail />
                 {user.isAdmin ? (
                   <div className="mt-4 border-t border-ink-800/70 pt-4">
-                    <div className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-wide text-mist-500">
+                    <div className="mb-2 hidden px-2.5 text-[10px] font-semibold uppercase tracking-wide text-mist-500 xl:block">
                       Admin
                     </div>
                     <Link
                       href="/observacion"
-                      className="flex items-center gap-2 rounded-lg border-l-2 border-transparent px-3 py-2 text-[13px] text-mist-400 transition hover:bg-ink-800 hover:text-white"
+                      title="Observación"
+                      className="flex items-center justify-center gap-2.5 rounded-lg border-l-2 border-transparent py-2 text-[13px] text-mist-400 transition hover:bg-ink-800 hover:text-white xl:justify-start xl:px-2.5"
                     >
-                      <span className="size-1.5 rounded-full bg-ink-600" />
-                      Observación
+                      <NavIcon href="/observacion" className="size-4" />
+                      <span className="hidden truncate xl:inline">Observación</span>
                     </Link>
                     <Link
                       href="/usuarios"
-                      className="flex items-center gap-2 rounded-lg border-l-2 border-transparent px-3 py-2 text-[13px] text-mist-400 transition hover:bg-ink-800 hover:text-white"
+                      title="Usuarios"
+                      className="flex items-center justify-center gap-2.5 rounded-lg border-l-2 border-transparent py-2 text-[13px] text-mist-400 transition hover:bg-ink-800 hover:text-white xl:justify-start xl:px-2.5"
                     >
-                      <span className="size-1.5 rounded-full bg-ink-600" />
-                      Usuarios
+                      <NavIcon href="/usuarios" className="size-4" />
+                      <span className="hidden truncate xl:inline">Usuarios</span>
                     </Link>
                   </div>
                 ) : null}
@@ -112,8 +115,17 @@ export default async function RootLayout({
             ) : null}
 
             <div className="mt-auto border-t border-ink-800/70 pt-3">
-              <div className="flex items-center gap-2">
-                {user?.isAdmin ? <RefreshButton /> : null}
+              <div className="flex flex-col items-center gap-2">
+                {user?.isAdmin ? (
+                  <>
+                    <span className="xl:hidden">
+                      <RefreshButton compact />
+                    </span>
+                    <span className="hidden xl:block">
+                      <RefreshButton />
+                    </span>
+                  </>
+                ) : null}
                 <ThemeToggle />
               </div>
             </div>
