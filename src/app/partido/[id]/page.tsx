@@ -1425,7 +1425,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                 ].map((item) => (
                   <div key={item.label} className="rounded-xl border border-ink-700 bg-ink-850 p-3 text-center">
                     <div className="text-[10px] uppercase tracking-wide text-mist-500">{item.label}</div>
-                    <div className={`mt-1 text-2xl font-semibold tabular-nums ${item.tone}`}>
+                    <div className={`mt-1 text-lg font-semibold tabular-nums sm:text-xl ${item.tone}`}>
                       {pct(item.value)}
                     </div>
                   </div>
