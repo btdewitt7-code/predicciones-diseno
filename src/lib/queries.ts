@@ -811,13 +811,14 @@ export type MatchLineupRotation = {
 };
 
 /**
- * Compara el XI actual con el XI más repetido en los últimos partidos.
+ * Compara el XI actual con el XI base de los últimos partidos.
+ * Pondera las titularidades por recencia (no hay minutos en la base).
  * Solo usa datos previos al partido; no modifica probabilidades.
  */
 export async function getLineupRotation(
   match: MatchRow,
   current: LineupRow[],
-  limit = 5,
+  limit = 8,
 ): Promise<MatchLineupRotation> {
   const db = getDb();
 
@@ -891,17 +892,19 @@ export async function getLineupRotation(
 
     const counts = new Map<string, number>();
     let sample = 0;
-    for (const item of matches) {
+    matches.forEach((item, index) => {
       const entry = byMatch.get(item.id);
-      if (!entry) continue;
+      if (!entry) return;
       const teamSide = item.home === team ? "home" : "away";
       const players = entry[teamSide];
-      if (players.size === 0) continue;
+      if (players.size === 0) return;
       sample += 1;
+      // El partido más reciente pesa más: 1, 0.8, 0.64...
+      const weight = Math.pow(0.8, index);
       for (const player of players) {
-        counts.set(player, (counts.get(player) ?? 0) + 1);
+        counts.set(player, (counts.get(player) ?? 0) + weight);
       }
-    }
+    });
     if (sample === 0) return base;
 
     const usual = [...counts.entries()]

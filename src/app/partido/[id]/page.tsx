@@ -1573,9 +1573,9 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           <section className="card p-5" data-match-panel="general">
             <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
               <div>
-                <h2 className="text-[15px] font-semibold text-white">Rotación y alineación</h2>
+                <h2 className="text-[15px] font-semibold text-white">Rotación y XI base</h2>
                 <p className="text-[11px] text-mist-500">
-                  Comparado con el XI más repetido en los últimos 5 partidos.
+                  Comparado con el XI más repetido en los últimos 8 partidos, con peso reciente.
                 </p>
               </div>
               <span className="text-[10px] text-mist-500">Solo contexto</span>
@@ -1631,12 +1631,12 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                       <>
                         <p className="mt-2 text-[11px] text-mist-400">
                           <span className="font-semibold text-white">{side.usualInXI}/11</span>{" "}
-                          habituales ·{" "}
+                          del XI base ·{" "}
                           <span className="font-semibold text-white">{side.changes}</span> cambios
                         </p>
                         {side.missing.length > 0 ? (
                           <p className="mt-1 text-[10px] leading-relaxed text-mist-500">
-                            Fuera del XI:{" "}
+                            Fuera del XI base:{" "}
                             <span className="text-mist-300">
                               {side.missing.slice(0, 3).map(displayTeam).join(", ")}
                               {side.missing.length > 3
@@ -1651,6 +1651,10 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                 );
               })}
             </div>
+            <p className="mt-3 text-[10px] leading-relaxed text-mist-500">
+              El XI base es una estimación con las alineaciones disponibles; no es una alineación
+              oficial.
+            </p>
           </section>
 
           {injuriesAt && hasInjuryCoverage ? (
