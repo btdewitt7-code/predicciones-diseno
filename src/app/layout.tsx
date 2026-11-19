@@ -45,7 +45,7 @@ function SearchForm({ className = "" }: { className?: string }) {
       </label>
       <button
         type="submit"
-        className="h-9 shrink-0 rounded-lg border border-ink-700 bg-ink-850 px-3 text-xs text-mist-300 transition hover:border-mint-500/40 hover:text-white"
+        className="hidden h-9 shrink-0 rounded-lg border border-ink-700 bg-ink-850 px-3 text-xs text-mist-300 transition hover:border-mint-500/40 hover:text-white sm:block"
       >
         Buscar
       </button>
@@ -152,9 +152,11 @@ export default async function RootLayout({
                     <span className="text-sm font-semibold tracking-tight text-white">Dogebets</span>
                   </Link>
 
-                  {user ? <SearchForm className="hidden lg:flex lg:max-w-2xl" /> : null}
+                  {user ? (
+                    <SearchForm className="flex min-w-0 flex-1 lg:max-w-2xl" />
+                  ) : null}
 
-                  <div className="ml-auto flex items-center gap-2">
+                  <div className="ml-auto flex shrink-0 items-center gap-2">
                     {user ? (
                       <>
                         <div className="hidden lg:flex lg:items-center lg:gap-2">
@@ -169,8 +171,6 @@ export default async function RootLayout({
                     ) : null}
                   </div>
                 </div>
-
-                {user ? <SearchForm className="mt-3 flex lg:hidden" /> : null}
               </div>
             </header>
 
