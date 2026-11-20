@@ -112,10 +112,10 @@ async function main() {
       };
 
       const first = await fixtureExists(row.id, key);
-      await sleep(700);
+      await sleep(6500);
       // Doble confirmación: solo se considera sobrante si la API lo niega dos veces.
       const exists = first === false ? await fixtureExists(row.id, key) : first;
-      await sleep(700);
+      await sleep(6500);
 
       const label = `${row.id} · ${row.kickoff.slice(11, 16)} · ${row.home_team} vs ${row.away_team}`;
       if (exists === true) {
