@@ -609,13 +609,11 @@ function matchTeam(name: string, known: string[]): string | null {
   return bestScore >= 0.7 ? best : null;
 }
 
-/** Próximos partidos desde ESPN (MLS, Perú y ligas grandes que falten en el CSV). */
+/** Próximos partidos desde ESPN para cualquier liga con slug (CSV incluido). */
 async function ingestEspnFixtures() {
-  // El CSV de football-data a veces no trae las ligas grandes: ESPN cubre el hueco.
-  const leagues = SCOPE.filter(
-    (league) =>
-      league.espnSlug && (league.extraFile || league.espnHistoryDays || league.tier === 1),
-  );
+  // El CSV de football-data a veces viene atrasado o sin algunas ligas:
+  // ESPN cubre el hueco para todas las competiciones con slug.
+  const leagues = SCOPE.filter((league) => league.espnSlug);
   if (leagues.length === 0) return;
 
   const now = Date.now();
