@@ -259,11 +259,11 @@ export default async function Home({
   const featuredToday = todayKey();
   const featuredTomorrow = dayKey(new Date(Date.now() + 86_400_000).toISOString());
 
-  // Carrusel: próximas 24 h, hasta 14 tarjetas.
+  // Carrusel: próximas 24 h con "Todas las ligas"; con filtro, los próximos de esa liga.
   const carouselEnd = Date.now() + 24 * 3600_000;
-  const carouselPool = allUpcoming.filter(
-    (match) => Date.parse(`${match.kickoff}Z`) <= carouselEnd,
-  );
+  const carouselPool = leagueFilter
+    ? allUpcoming
+    : allUpcoming.filter((match) => Date.parse(`${match.kickoff}Z`) <= carouselEnd);
 
   const tierOf = (code: string) => LEAGUE_BY_CODE[code]?.tier ?? 9;
   const carouselSorted = [...carouselPool].sort((a, b) => {
