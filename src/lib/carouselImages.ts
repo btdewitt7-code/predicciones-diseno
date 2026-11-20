@@ -28,6 +28,7 @@ const TEAM_ALIASES: Record<string, Record<string, string>> = {
     internazionale: "inter",
     "as-roma": "roma",
     "borussia-dortmund": "dortmund",
+    "vfb-stuttgart": "stuttgart",
   },
   uel: {
     "afc-bournemouth": "bournemouth",

@@ -117,3 +117,8 @@
 2026-11-20  hamburg*  https://www.getfootballnewsgermany.com/assets/hamburger-sv-v-vfb-stuttgart-bundesliga-scaled.jpg
 2026-11-20  hoffenheim*  https://assets.bundesliga.com/video/jw/5tu6y0Vp.jpg
 2026-11-20  leipzig-2*  https://img.redbull.com/images/c_limit,w_1500,h_1000/f_auto,q_auto/redbullcom/2025/5/29/xprncq1ocjontpesssxc/rb-leipzig-brazil-football-celebration-red-bull-team-2025
+2026-11-20  mainz*  https://assets.bundesliga.com/contender/2026/3/GettyImages-2270612869.jpg
+2026-11-20  schalke-04*  https://storage.schalke04.de/2018/01/180128_Naldo1-1440x810.jpg
+2026-11-20  stuttgart*  https://a.espncdn.com/photo/2026/1014/r1730844_1296x729_16-9.jpg
+2026-11-20  union-berlin*  https://dims.apnews.com/dims4/default/3f34ffc/2147483647/strip/true/crop/4000x3041+0+0/resize/599x455!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F4f%2F9d%2F9550de8ab1f8691de4388f118007%2F755a60524ba14f6285e6bb23230b1ed6
+2026-11-20  werder-bremen*  https://assets.bundesliga.com/contender/2025/2/imago1059906603.jpg
