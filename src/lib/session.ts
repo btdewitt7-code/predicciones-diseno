@@ -12,17 +12,30 @@ export type SessionUser = {
   isAdmin: boolean;
 };
 
-export async function createSession(userId: number): Promise<string> {
+export async function createSession(
+  userId: number,
+  expiresAt?: Date,
+): Promise<string> {
   const db = getDb();
   const token = randomBytes(32).toString("hex");
   const now = new Date();
-  const expires = new Date(now.getTime() + SESSION_DAYS * 86_400_000);
+  const expires = expiresAt ?? new Date(now.getTime() + SESSION_DAYS * 86_400_000);
   await db.execute({
     sql: `INSERT INTO sessions (token, user_id, created_at, expires_at)
           VALUES (?,?,?,?)`,
     args: [token, userId, now.toISOString(), expires.toISOString()],
   });
   return token;
+}
+
+/** Acceso temporal de invitado: se corta solo cuando vence el token. */
+function demoVencido(email: string): boolean {
+  const demoEmail = process.env.DEMO_EMAIL;
+  if (!demoEmail || email.toLowerCase() !== demoEmail.toLowerCase()) return false;
+  const until = process.env.DEMO_UNTIL;
+  if (!process.env.DEMO_TOKEN || !until) return true;
+  const time = Date.parse(until);
+  return !Number.isFinite(time) || Date.now() > time;
 }
 
 export async function currentUser(): Promise<SessionUser | null> {
@@ -39,9 +52,11 @@ export async function currentUser(): Promise<SessionUser | null> {
   });
   const row = res.rows[0];
   if (!row) return null;
+  const email = String(row.email);
+  if (demoVencido(email)) return null;
   return {
     id: Number(row.id),
-    email: String(row.email),
+    email,
     name: row.name === null ? null : String(row.name),
     isAdmin: Number(row.is_admin) === 1,
   };
