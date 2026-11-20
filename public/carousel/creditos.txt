@@ -81,3 +81,4 @@
 2026-11-20  santander*  https://assets.laliga.com/assets/2025/10/05/xlarge/0dd77a07de71fc0c25f6aab8b80c014b.jpeg
 2026-11-20  vallecano*  https://s.yimg.com/lo/mysterio/api/c06a6fdf72343e9bf00dc7faad29429349243b161e64f87132c7f41dffd658a8/lightyear_networkapi/resizefill_w1200_h675;quality_80;format_webp/https://media.zenfs.com/en/football_espana_articles_993/610af9760f29d55f2261dfc1891e5cae
 2026-11-20  espanol*  https://static1.ara.cat/clip/747b5f78-55a7-469c-b3d4-b8d09109835c_16-9-aspect-ratio_default_0.jpg
+2026-11-20  betis*  https://static.srpcdigital.com/styles/1037xauto/public/2026-10/1822705.jpeg.webp
