@@ -79,3 +79,4 @@
 2026-11-20  levante*  https://assets.laliga.com/assets/2025/05/25/large/458979e2381cafe9712c6b3337577aed.jpeg
 2026-11-20  malaga*  https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnb0nC8JzQjxW1Qqle0S-K-eIjh6sgJglK-X3f0yGUOk5GAdWEmaPTSVk8
 2026-11-20  santander*  https://assets.laliga.com/assets/2025/10/05/xlarge/0dd77a07de71fc0c25f6aab8b80c014b.jpeg
+2026-11-20  vallecano*  https://s.yimg.com/lo/mysterio/api/c06a6fdf72343e9bf00dc7faad29429349243b161e64f87132c7f41dffd658a8/lightyear_networkapi/resizefill_w1200_h675;quality_80;format_webp/https://media.zenfs.com/en/football_espana_articles_993/610af9760f29d55f2261dfc1891e5cae
