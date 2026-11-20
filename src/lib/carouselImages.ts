@@ -15,6 +15,21 @@ const TEAM_ALIASES: Record<string, Record<string, string>> = {
     liverpool: "liverpool-montevideo",
     "montevideo-wanderers": "wanderers",
   },
+  ucl: {
+    "manchester-city": "man-city",
+    "manchester-united": "man-united",
+    "atletico-madrid": "ath-madrid",
+    "real-betis": "betis",
+  },
+  uel: {
+    "afc-bournemouth": "bournemouth",
+    "celta-vigo": "celta",
+    "real-sociedad": "sociedad",
+    "brighton-hove-albion": "brighton",
+  },
+  uecl: {
+    "brighton-hove-albion": "brighton",
+  },
 };
 
 /** Convierte "São Paulo" en "sao-paulo" para usarlo como nombre de archivo. */
@@ -23,6 +38,7 @@ export function imageSlug(value: string): string {
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
+    .replace(/['\u2019]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 }
