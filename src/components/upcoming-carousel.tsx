@@ -229,7 +229,7 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
               key={match.id}
               href={`/partido/${match.id}`}
               data-carousel-card
-              className="card group relative flex h-[246px] w-[84vw] max-w-[322px] shrink-0 snap-start flex-col justify-end overflow-hidden transition hover:border-mint-500/35 sm:w-[302px]"
+              className="card group relative flex h-[246px] w-[88vw] max-w-[334px] shrink-0 snap-start flex-col justify-end overflow-hidden transition hover:border-mint-500/35 sm:w-[312px]"
             >
               {match.image ? (
                 <>
