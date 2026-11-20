@@ -2,6 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 
 const EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp"];
+const MAX_VARIANTS = 5;
+const DIR = path.join(process.cwd(), "public", "carousel");
 
 /** Convierte "São Paulo" en "sao-paulo" para usarlo como nombre de archivo. */
 export function imageSlug(value: string): string {
@@ -13,18 +15,28 @@ export function imageSlug(value: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-function findFile(baseName: string): string | null {
-  const dir = path.join(process.cwd(), "public", "carousel");
+/**
+ * Todas las variantes de un nombre: `base.jpg`, `base-2.jpg`, `base-3.jpg`…
+ * Así un equipo puede tener varias fotos y se elige una al azar.
+ */
+function findFiles(baseName: string): string[] {
+  const files: string[] = [];
   for (const extension of EXTENSIONS) {
-    const file = `${baseName}${extension}`;
-    const full = path.join(dir, file);
-    if (fs.existsSync(full)) {
-      // La versión evita que el navegador muestre una foto vieja con el mismo nombre.
-      const version = Math.round(fs.statSync(full).mtimeMs);
-      return `/api/foto/${file}?v=${version}`;
+    const first = `${baseName}${extension}`;
+    if (fs.existsSync(path.join(DIR, first))) files.push(first);
+    for (let index = 2; index <= MAX_VARIANTS; index += 1) {
+      const variant = `${baseName}-${index}${extension}`;
+      if (fs.existsSync(path.join(DIR, variant))) files.push(variant);
     }
   }
-  return null;
+  return files;
+}
+
+function pick(files: string[]): string | null {
+  if (files.length === 0) return null;
+  const file = files[Math.floor(Math.random() * files.length)];
+  const version = Math.round(fs.statSync(path.join(DIR, file)).mtimeMs);
+  return `/api/foto/${file}?v=${version}`;
 }
 
 /**
@@ -34,6 +46,8 @@ function findFile(baseName: string): string | null {
  * 3. Equipo visitante: `visitante.jpg`
  * 4. Liga: `liga-<código>.jpg`
  * 5. Sin imagen.
+ *
+ * Si hay varias variantes (`...-2.jpg`), se elige una al azar.
  */
 export function carouselImage(
   homeTeam: string,
@@ -41,10 +55,10 @@ export function carouselImage(
   leagueCode: string,
 ): string | null {
   return (
-    findFile(`${imageSlug(homeTeam)}-${imageSlug(awayTeam)}`) ??
-    findFile(imageSlug(homeTeam)) ??
-    findFile(imageSlug(awayTeam)) ??
-    findFile(`liga-${leagueCode.toLowerCase()}`) ??
+    pick(findFiles(`${imageSlug(homeTeam)}-${imageSlug(awayTeam)}`)) ??
+    pick(findFiles(imageSlug(homeTeam))) ??
+    pick(findFiles(imageSlug(awayTeam))) ??
+    pick(findFiles(`liga-${leagueCode.toLowerCase()}`)) ??
     null
   );
 }

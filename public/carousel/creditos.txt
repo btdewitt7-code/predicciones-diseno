@@ -37,3 +37,8 @@
 2026-11-20  al-hilal-al-diriyah.jpg / al-hilal.jpg  https://images.ctfassets.net/eyc25wndlima/6D40a7DgHD3FuYnbdImMeN/324d7ef3808ab3b3f9c76d2267199cea/Al-Hilal_vs_Al-Sadd.jpg
 2026-11-20  neom-sc-al-kholood.jpg / neom-sc.jpg  https://www.neom.com/content/dam/neom-sc/placeholder-images/225A1433%20Landscape.jpg
 2026-11-20  molde-bodo-glimt.jpg / bodo-glimt.jpg (reemplazo)  https://asmedia.epimg.net/les/20261014/74d8177476213c7f8b66449f43f3d6cf/49d519c1f56b0a967df3d95d9304bbdc_720.jpeg
+2026-11-20  alianza-lima-fc-cajamarca.jpg / alianza-lima.jpg  https://f.rpp-noticias.io/2025/02/15/433243_1706040.jpg
+2026-11-20  alianza-lima-fc-cajamarca-2.jpg / alianza-lima-2.jpg  https://www.elfutbolero.com.pe/image/elfutbolerocompe/jugadores-de-alianza-lima-celebrando-gol-foto-alianza-lima-1717363216.jpeg
+2026-11-20  sport-huancayo-universitario.jpg / universitario.jpg  https://depor.com/resizer/v2/AYTX5NBPQBB4JAUIQLI3U3MEAE.jpg
+2026-11-20  sport-huancayo-universitario-2.jpg / universitario-2.jpg  https://f.rpp-noticias.io/2026/09/12/563556_1907085.jpg
+2026-11-20  sport-huancayo.jpg / sport-huancayo-universitario-3.jpg  https://cdn.futbolperuano.com/sdi/2024/12/18/sport-huancayo-asegura-a-su-joven-promesa-goleadora-para-el-2025-1266823.jpg
