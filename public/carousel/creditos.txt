@@ -69,3 +69,4 @@
 2026-11-20  ath-bilbao*  https://static.independent.co.uk/2021/04/16/09/newFile-17.jpg
 2026-11-20  ath-madrid*  https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/4NL5DWRYX4I7DEGES5ZMP6V4AM_size-normalized.jpg
 2026-11-20  osasuna*  https://www.osasuna.es/public/Image/2025/10/1759531293saiz6846_jpg_ApaisadaHeader.webp
+2026-11-20  celta*  https://rccelta.es/app/uploads/2020/09/celebracion-gol-celta-espanyol-abanca-balaidos-vigo-liga-2018-2019.jpg
