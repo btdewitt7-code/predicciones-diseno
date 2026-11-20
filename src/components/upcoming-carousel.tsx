@@ -303,7 +303,7 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
                     <div
                       key={item.key}
                       className={`rounded-lg px-1 py-1.5 text-center ${
-                        photo ? "bg-black/50 backdrop-blur-sm" : "bg-ink-850"
+                        photo ? "bg-[#1b1815] ring-1 ring-white/10" : "bg-ink-850"
                       }`}
                     >
                       <span className={`block text-[11px] ${photo ? "text-white/55" : "text-mist-500"}`}>
