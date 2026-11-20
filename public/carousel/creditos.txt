@@ -33,3 +33,5 @@
 2026-11-20  velez-sarsfield-belgrano.jpg (reemplazo)  https://velez.com.ar/img/noticias/22/ct/img_20220620_230311.jpg
 2026-11-20  cobresal-audax-italiano.jpg / cobresal.jpg (reemplazo)  https://img.asmedia.epimg.net/resizer/v2/GAYXJHLZFZB25JOYET2VV4ARPU.jpg
 2026-11-20  palestino-union-la-calera.jpg / palestino.jpg (reemplazo)  https://img.asmedia.epimg.net/resizer/v2/WTRGDWIOEVDFBJKNIPBXGSZIZU.jpg
+2026-11-20  al-fayha-al-fateh.jpg / al-fayha.jpg  https://assets.the-afc.com/2023-24_ACL/Matches/Group_Stage/Group_A/MD5/Al_Fayha_v_Ahal_FC/Al-Fayha-v-Ahal-FC-(5).jpeg
+2026-11-20  al-hilal-al-diriyah.jpg / al-hilal.jpg  https://images.ctfassets.net/eyc25wndlima/6D40a7DgHD3FuYnbdImMeN/324d7ef3808ab3b3f9c76d2267199cea/Al-Hilal_vs_Al-Sadd.jpg
