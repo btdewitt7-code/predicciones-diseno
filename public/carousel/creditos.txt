@@ -122,3 +122,4 @@
 2026-11-20  stuttgart*  https://a.espncdn.com/photo/2026/1014/r1730844_1296x729_16-9.jpg
 2026-11-20  union-berlin*  https://dims.apnews.com/dims4/default/3f34ffc/2147483647/strip/true/crop/4000x3041+0+0/resize/599x455!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F4f%2F9d%2F9550de8ab1f8691de4388f118007%2F755a60524ba14f6285e6bb23230b1ed6
 2026-11-20  werder-bremen*  https://assets.bundesliga.com/contender/2025/2/imago1059906603.jpg
+2026-11-20  freiburg*  https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRUUGQ0OdCoG3UVdv1jm3v6TPDUY-KwmobZjByargYY_OfkYief
