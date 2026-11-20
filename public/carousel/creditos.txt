@@ -123,3 +123,17 @@
 2026-11-20  union-berlin*  https://dims.apnews.com/dims4/default/3f34ffc/2147483647/strip/true/crop/4000x3041+0+0/resize/599x455!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F4f%2F9d%2F9550de8ab1f8691de4388f118007%2F755a60524ba14f6285e6bb23230b1ed6
 2026-11-20  werder-bremen*  https://assets.bundesliga.com/contender/2025/2/imago1059906603.jpg
 2026-11-20  freiburg*  https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRUUGQ0OdCoG3UVdv1jm3v6TPDUY-KwmobZjByargYY_OfkYief
+2026-11-20  brest*  https://dims.apnews.com/dims4/default/2d8da2f/2147483647/strip/false/crop/2381x1587+0+0/resize/1200x800!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F44%2F93%2Fc2ba26273d03c319a04dbddef6bb%2F5bdc3b40c8924aa9903092df003ba2d1
+2026-11-20  lens*  https://i.guim.co.uk/img/media/16efd8dcb35e1949de860f2f1a01e54a0948a349/0_0_3439_2065/master/3439.jpg
+2026-11-20  le-havre*  https://a.espncdn.com/photo/2023/1216/r1267129_1296x729_16-9.jpg
+2026-11-20  le-mans*  https://www.idecsport.com/wp-content/uploads/2025/10/IMG_7521-1024x678.jpg
+2026-11-20  lille*  https://s2.dmcdn.net/v/XL9aM1dCEOU83MfSF
+2026-11-20  lyon*  https://assets.goal.com/images/v3/bltd7da6031b21d49f0/Lyon%20celebration%20.jpg
+2026-11-20  marseille*  https://static.srpcdigital.com/styles/1037xauto/public/2025-02/943382_0.jpeg.webp
+2026-11-20  monaco*  https://www.asmonaco.com/media/2024/05/celebration-slider-1.jpg
+2026-11-20  nantes*  https://assets-cms.thescore.com/uploads/image/file/833009/w1280xh720_GettyImages-2273598711.jpg
+2026-11-20  nice*  https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiEXYgPU3ktVDjrogB_SVm40ImDg6A3q3icNGNDLfvkHmV76LH
+2026-11-20  paris-fc*  https://livesport-ott-images.ssl.cdn.cra.cz/r900xfq60/24111543-b0df-42d4-a958-18404204e4e9.jpeg
+2026-11-20  psg*  https://s.france24.com/media/display/08ab89e4-123e-11f0-9c50-005056a90284/w:1280/p:16x9/000_399P33E.jpg
+2026-11-20  toulouse*  https://media.koobit.com/toulouse-celebrate-a-goal-v2-44512.jpg
+2026-11-20  rennes*  https://www.staderennais.com/sites/default/files/styles/16_9/private/2024-10/mk3_0980.jpg.webp

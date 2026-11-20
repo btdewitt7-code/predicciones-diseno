@@ -29,6 +29,7 @@ const TEAM_ALIASES: Record<string, Record<string, string>> = {
     "as-roma": "roma",
     "borussia-dortmund": "dortmund",
     "vfb-stuttgart": "stuttgart",
+    "paris-saint-germain": "psg",
   },
   uel: {
     "afc-bournemouth": "bournemouth",
@@ -37,9 +38,11 @@ const TEAM_ALIASES: Record<string, Record<string, string>> = {
     "brighton-hove-albion": "brighton",
     "ac-milan": "milan",
     "bayer-leverkusen": "leverkusen",
+    "stade-rennais": "rennes",
   },
   uecl: {
     "brighton-hove-albion": "brighton",
+    "as-monaco": "monaco",
   },
 };
 
