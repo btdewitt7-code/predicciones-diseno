@@ -227,6 +227,7 @@ async function fromSportsDb(limit: number, force: boolean) {
     }
 
     let url: string | null = null;
+    let usedTeam: string | null = null;
     for (const team of [row.home_team, row.away_team]) {
       if (!cache.has(team)) {
         const found = await searchTeam(team);
@@ -234,7 +235,10 @@ async function fromSportsDb(limit: number, force: boolean) {
         await sleep(1500);
       }
       url = cache.get(team) ?? null;
-      if (url) break;
+      if (url) {
+        usedTeam = team;
+        break;
+      }
     }
 
     if (!url) {
