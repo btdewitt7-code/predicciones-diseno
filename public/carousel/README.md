@@ -3,8 +3,13 @@
 Las tarjetas usan una foto de fondo si existe el archivo. Prioridad:
 
 1. **Partido exacto**: `local-visitante.ext`
-2. **Liga**: `liga-<código>.ext`
-3. Sin foto: la tarjeta queda con el diseño normal.
+2. **Equipo local**: `local.ext`
+3. **Equipo visitante**: `visitante.ext`
+4. **Liga**: `liga-<código>.ext`
+5. Sin foto: la tarjeta queda con el diseño normal.
+
+Así una foto guardada por equipo se reutiliza en todos sus partidos hasta que
+haya una específica del encuentro.
 
 Los nombres se arman sin acentos, en minúsculas y con guiones:
 `São Paulo vs Fluminense` → `sao-paulo-fluminense.jpg`.

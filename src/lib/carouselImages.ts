@@ -30,8 +30,10 @@ function findFile(baseName: string): string | null {
 /**
  * Foto de fondo del carrusel. Prioridad:
  * 1. Partido exacto: `local-visitante.jpg`
- * 2. Liga: `liga-<código>.jpg`
- * 3. Sin imagen.
+ * 2. Equipo local: `local.jpg`
+ * 3. Equipo visitante: `visitante.jpg`
+ * 4. Liga: `liga-<código>.jpg`
+ * 5. Sin imagen.
  */
 export function carouselImage(
   homeTeam: string,
@@ -40,6 +42,8 @@ export function carouselImage(
 ): string | null {
   return (
     findFile(`${imageSlug(homeTeam)}-${imageSlug(awayTeam)}`) ??
+    findFile(imageSlug(homeTeam)) ??
+    findFile(imageSlug(awayTeam)) ??
     findFile(`liga-${leagueCode.toLowerCase()}`) ??
     null
   );
