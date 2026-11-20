@@ -10,6 +10,7 @@ import { MobileNav } from "@/components/mobile-nav";
 import { MobileTabBar } from "@/components/mobile-tabbar";
 import { MobileSearch } from "@/components/mobile-search";
 import { AlertsSheet } from "@/components/alerts-sheet";
+import { KickoffAlerts } from "@/components/kickoff-alerts";
 import { UserBadge } from "@/components/user-badge";
 import { LogoutButton } from "@/components/logout-button";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -194,6 +195,7 @@ export default async function RootLayout({
 
         {user ? <MobileTabBar /> : null}
         {user ? <AlertsSheet /> : null}
+        {user ? <KickoffAlerts /> : null}
         {user ? <BetSlip /> : null}
       </body>
     </html>
