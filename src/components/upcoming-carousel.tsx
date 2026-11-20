@@ -19,15 +19,29 @@ export type CarouselMatch = {
   draw: string;
   away: string;
   live: boolean;
+  liveHome?: number | null;
+  liveAway?: number | null;
+  liveClock?: string | null;
   image?: string | null;
 };
 
-function TeamLogo({ name, logo }: { name: string; logo?: string | null }) {
+function TeamLogo({
+  name,
+  logo,
+  small = false,
+}: {
+  name: string;
+  logo?: string | null;
+  small?: boolean;
+}) {
+  const size = small ? "size-6" : "size-11";
   if (logo) {
-    return <img src={logo} alt="" className="size-11 object-contain" loading="lazy" />;
+    return <img src={logo} alt="" className={`${size} shrink-0 object-contain`} loading="lazy" />;
   }
   return (
-    <span className="grid size-11 place-items-center rounded-full bg-ink-800 text-[10px] font-semibold text-mist-400">
+    <span
+      className={`grid ${size} shrink-0 place-items-center rounded-full bg-ink-800 text-[10px] font-semibold text-mist-400`}
+    >
       {name.slice(0, 2).toUpperCase()}
     </span>
   );
@@ -204,121 +218,111 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
           dragging ? "cursor-grabbing" : "cursor-grab"
         }`}
       >
-        {matches.map((match) => (
-          <Link
-            key={match.id}
-            href={`/partido/${match.id}`}
-            data-carousel-card
-            className="card group relative flex w-[82vw] max-w-[320px] shrink-0 snap-start flex-col overflow-hidden transition hover:border-mint-500/35 sm:w-[300px]"
-          >
-            {match.image ? (
-              <>
-                <img
-                  src={match.image}
-                  alt=""
-                  className="pointer-events-none absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-105"
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/10" />
-              </>
-            ) : null}
-
-            <div
-              className={`relative z-10 flex items-center justify-between gap-2 px-3 py-2.5 ${
-                match.image ? "border-b border-white/15" : "border-b border-ink-800/70"
-              }`}
+        {matches.map((match) => {
+          const photo = Boolean(match.image);
+          const teams = [
+            { name: match.homeTeam, logo: match.homeLogo, score: match.liveHome ?? null },
+            { name: match.awayTeam, logo: match.awayLogo, score: match.liveAway ?? null },
+          ];
+          return (
+            <Link
+              key={match.id}
+              href={`/partido/${match.id}`}
+              data-carousel-card
+              className="card group relative flex h-[238px] w-[82vw] max-w-[320px] shrink-0 snap-start flex-col justify-end overflow-hidden transition hover:border-mint-500/35 sm:w-[300px]"
             >
+              {match.image ? (
+                <>
+                  <img
+                    src={match.image}
+                    alt=""
+                    className="pointer-events-none absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-105"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/10" />
+                </>
+              ) : null}
+
               <span
-                className={`flex min-w-0 items-center gap-1.5 text-[10px] ${
-                  match.image ? "text-[#ece6dc]" : "text-mist-500"
-                }`}
-              >
-                {match.leagueLogo ? (
-                  <img src={match.leagueLogo} alt="" className="size-4 object-contain" loading="lazy" />
-                ) : null}
-                <span className="truncate">{match.leagueName}</span>
-              </span>
-              <span
-                className={`shrink-0 text-[10px] ${
-                  match.image ? "text-[#ece6dc]" : "text-mist-500"
+                className={`absolute left-2.5 top-2.5 z-10 inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-[10px] font-semibold ${
+                  photo
+                    ? "bg-black/55 text-[#fff] backdrop-blur"
+                    : "bg-ink-850 text-mist-300 ring-1 ring-ink-700"
                 }`}
               >
                 {match.live ? (
-                  <span className="mr-1 rounded bg-rose-400/20 px-1.5 py-0.5 font-semibold text-rose-200">
+                  <>
+                    <span className="size-1.5 rounded-full bg-rose-400" />
                     EN VIVO
-                  </span>
-                ) : null}
-                {match.day} · {match.time}
+                    {match.liveClock ? (
+                      <span className={`font-normal ${photo ? "text-white/70" : "text-mist-500"}`}>
+                        {match.liveClock}
+                      </span>
+                    ) : null}
+                  </>
+                ) : (
+                  <>
+                    <svg viewBox="0 0 24 24" className="size-3" fill="currentColor" aria-hidden>
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                    {match.day} {match.time}
+                  </>
+                )}
               </span>
-            </div>
 
-            <div className="relative z-10 flex flex-1 items-center justify-between gap-2 px-3 py-7">
-              <div className="flex min-w-0 flex-1 flex-col items-center gap-1.5 text-center">
-                <TeamLogo name={match.homeTeam} logo={match.homeLogo} />
-                <span
-                  className={`w-full truncate text-xs font-semibold ${
-                    match.image ? "text-[#fff] drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]" : "text-white"
-                  }`}
-                >
-                  {match.homeTeam}
-                </span>
-              </div>
-              <span
-                className={`shrink-0 text-[10px] uppercase tracking-wide ${
-                  match.image ? "text-[#d6cec2]" : "text-mist-500"
-                }`}
-              >
-                vs
-              </span>
-              <div className="flex min-w-0 flex-1 flex-col items-center gap-1.5 text-center">
-                <TeamLogo name={match.awayTeam} logo={match.awayLogo} />
-                <span
-                  className={`w-full truncate text-xs font-semibold ${
-                    match.image ? "text-[#fff] drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]" : "text-white"
-                  }`}
-                >
-                  {match.awayTeam}
-                </span>
-              </div>
-            </div>
+              <div className="relative z-10 space-y-2 p-2.5">
+                <div className="space-y-1">
+                  {teams.map((team) => (
+                    <div key={team.name} className="flex items-center gap-2">
+                      <TeamLogo name={team.name} logo={team.logo} small />
+                      <span
+                        className={`min-w-0 flex-1 truncate text-[12px] font-semibold uppercase tracking-wide ${
+                          photo ? "text-[#fff] drop-shadow-[0_1px_3px_rgba(0,0,0,0.85)]" : "text-white"
+                        }`}
+                      >
+                        {team.name}
+                      </span>
+                      {team.score !== null ? (
+                        <span
+                          className={`shrink-0 text-base font-bold tabular-nums ${
+                            photo ? "text-[#fff]" : "text-white"
+                          }`}
+                        >
+                          {team.score}
+                        </span>
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
 
-            <div
-              className={`relative z-10 grid grid-cols-3 gap-1 px-3 py-2.5 text-center text-[10px] ${
-                match.image ? "border-t border-white/15 bg-black/45" : "border-t border-ink-800/70"
-              }`}
-            >
-              <div>
-                <span className={`block ${match.image ? "text-[#cfc7bb]" : "text-mist-500"}`}>L</span>
-                <span
-                  className={`font-semibold tabular-nums ${
-                    match.image ? "text-[#9ed3b0]" : "text-win-400"
-                  }`}
-                >
-                  {match.home}
-                </span>
+                <div className="grid grid-cols-3 gap-1.5">
+                  {[
+                    { key: "1", value: match.home },
+                    { key: "X", value: match.draw },
+                    { key: "2", value: match.away },
+                  ].map((item) => (
+                    <div
+                      key={item.key}
+                      className={`rounded-lg px-1 py-1.5 text-center ${
+                        photo ? "bg-black/50 backdrop-blur-sm" : "bg-ink-850"
+                      }`}
+                    >
+                      <span className={`block text-[9px] ${photo ? "text-white/55" : "text-mist-500"}`}>
+                        {item.key}
+                      </span>
+                      <span
+                        className={`block text-[13px] font-semibold tabular-nums ${
+                          photo ? "text-[#9ed3b0]" : "text-win-400"
+                        }`}
+                      >
+                        {item.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div>
-                <span className={`block ${match.image ? "text-[#cfc7bb]" : "text-mist-500"}`}>X</span>
-                <span
-                  className={`font-semibold tabular-nums ${
-                    match.image ? "text-[#fff]" : "text-mist-300"
-                  }`}
-                >
-                  {match.draw}
-                </span>
-              </div>
-              <div>
-                <span className={`block ${match.image ? "text-[#cfc7bb]" : "text-mist-500"}`}>V</span>
-                <span
-                  className={`font-semibold tabular-nums ${
-                    match.image ? "text-[#fff]" : "text-mist-300"
-                  }`}
-                >
-                  {match.away}
-                </span>
-              </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          );
+        })}
       </div>
 
       <button

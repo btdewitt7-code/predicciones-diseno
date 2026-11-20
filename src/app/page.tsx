@@ -256,6 +256,9 @@ export default async function Home({
   const recent = allRecent.filter(matchesQuery).slice(0, 12);
   const searchResults = query ? await searchMatches(query, leagueFilter, 60) : [];
 
+  const featuredToday = todayKey();
+  const featuredTomorrow = dayKey(new Date(Date.now() + 86_400_000).toISOString());
+
   const featuredMatches: CarouselMatch[] = allUpcoming.slice(0, 10).map((match) => {
     const league = LEAGUE_BY_CODE[match.league_code];
     const prediction = match.prediction ?? match.cupPrediction;
@@ -266,7 +269,12 @@ export default async function Home({
       leagueName: league?.name ?? match.league_code,
       leagueCountry: league?.country ?? "",
       leagueLogo: leagueLogos.get(match.league_code),
-      day: dayLabel(match.kickoff),
+      day:
+        dayKey(match.kickoff) === featuredToday
+          ? "Hoy"
+          : dayKey(match.kickoff) === featuredTomorrow
+            ? "Mañana"
+            : dayLabel(match.kickoff),
       time: timeOf(match.kickoff),
       homeTeam: displayTeam(match.home_team),
       awayTeam: displayTeam(match.away_team),
@@ -276,6 +284,9 @@ export default async function Home({
       draw: pct(prediction?.draw),
       away: pct(prediction?.away_win),
       live: Number.isFinite(kickoffMs) && kickoffMs <= Date.now() && Date.now() - kickoffMs < 2.5 * 3600_000,
+      liveHome: match.live?.home ?? null,
+      liveAway: match.live?.away ?? null,
+      liveClock: match.live?.clock ?? null,
       image: carouselImage(match.home_team, match.away_team, match.league_code),
     };
   });
