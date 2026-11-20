@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getLeagueLogoMap, getLeagueSummaries } from "@/lib/queries";
 import { LEAGUES } from "@/lib/leagues";
+import { CoverageCheck } from "@/components/coverage-check";
 
 export const dynamic = "force-dynamic";
 
@@ -9,6 +10,9 @@ export default async function LeaguesPage() {
   const byCode = new Map(summaries.map((summary) => [summary.league_code, summary]));
 
   const totalPlayed = summaries.reduce((acc, item) => acc + item.played, 0);
+  const zeroCodes = LEAGUES.filter((league) => (byCode.get(league.code)?.upcoming ?? 0) === 0).map(
+    (league) => league.code,
+  );
 
   return (
     <div className="space-y-6">
@@ -91,6 +95,8 @@ export default async function LeaguesPage() {
           );
         })}
       </div>
+
+      <CoverageCheck codes={zeroCodes} />
 
       <p className="text-xs leading-relaxed text-mist-500">
         «Próx.» son los partidos próximos cargados. Toca una liga con partidos para ir directo a su
