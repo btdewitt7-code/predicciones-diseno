@@ -112,6 +112,14 @@ export default async function RootLayout({
                       <NavIcon href="/usuarios" className="size-4" />
                       <span className="hidden truncate xl:inline">Usuarios</span>
                     </Link>
+                    <Link
+                      href="/cobertura"
+                      title="Cobertura"
+                      className="flex items-center justify-center gap-2.5 rounded-lg border-l-2 border-transparent py-2 text-[13px] text-mist-400 transition hover:bg-ink-800 hover:text-white xl:justify-start xl:px-2.5"
+                    >
+                      <NavIcon href="/cobertura" className="size-4" />
+                      <span className="hidden truncate xl:inline">Cobertura</span>
+                    </Link>
                   </div>
                 ) : null}
               </div>

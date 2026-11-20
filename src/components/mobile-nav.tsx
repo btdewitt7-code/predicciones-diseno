@@ -112,6 +112,13 @@ export function MobileNav({ isAdmin }: { isAdmin: boolean }) {
                     <span className="size-1.5 rounded-full bg-ink-600" />
                     Usuarios
                   </Link>
+                  <Link
+                    href="/cobertura"
+                    className="flex items-center gap-2 rounded-lg border-l-2 border-transparent px-3 py-2 text-[13px] text-mist-400 transition hover:bg-ink-800 hover:text-white"
+                  >
+                    <span className="size-1.5 rounded-full bg-ink-600" />
+                    Cobertura
+                  </Link>
                 </div>
               ) : null}
             </div>

@@ -73,6 +73,11 @@ const paths: Record<string, ReactNode> = {
       <path d="M10.3 19a2 2 0 0 0 3.4 0" />
     </>
   ),
+  "/cobertura": (
+    <>
+      <path d="M3 12h3.5l2.5-6 4 12 2.5-6H21" />
+    </>
+  ),
 };
 
 export function NavIcon({ href, className = "size-4" }: IconProps & { href: string }) {
