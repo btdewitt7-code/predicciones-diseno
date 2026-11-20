@@ -50,3 +50,4 @@
 2026-11-20  chelsea*  https://img.chelseafc.com/image/upload/f_auto,w_1440,c_fill,g_faces,dpr_2.0,q_90/editorial/match-reports/2025-26/Arsenal%20H/Chelsea_cleebrate_2_vs_Arsenal.jpg + https://img.chelseafc.com/image/upload/f_auto,w_1440,c_fill,g_faces,dpr_2.0,q_90/editorial/news/2026/09/03/GettyImages-2292703802.jpg
 2026-11-20  tottenham*  https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRtbVZEKnp0MiFmnLyI7vX4CR8teTCEo6OYsSg1UbxYD6nVDOJB + https://cassette.sphdigital.com.sg/image/straitstimes/68db5d481af6b057b4bb714b358cf72979ffb31b8b65b5ff577e4d979cfd4486
 2026-11-20  newcastle*  https://contentfulproxy.stadion.io/9ec6988xevcz/5yBVaphLfOPONg0gvdVB6N/dd05b98b4808dd8756bd30a0bdea073b/ST2_6917-2966463.jpg + https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjoFKIcykJ5VrSHK3QKag0GB0_8SV3_PRWxjya2LcuHWunJXZQYEaW3wM
+2026-11-20  coventry*  https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTJNyy5ffEtRgLGpfwBZorGvzQKdD-erYdCeiNwV4hqUjzIeE7L
