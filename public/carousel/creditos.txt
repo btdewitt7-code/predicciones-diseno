@@ -86,3 +86,4 @@
 2026-11-20  real-madrid*  https://bc.gmg.io/image/upload/q_auto,c_lfill,w_2560,h_1707,f_webp/media/gmg/6SFCQW5KIRCXBACBDRMXAICHOI.jpg
 2026-11-20  real-madrid-2*  https://madriduniversal.com/wp-content/uploads/2024/10/real-madrid-cf-v-real-betis-balompie-la-liga-ea-sports-2-scaled.jpg
 2026-11-20  sociedad*  https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT4EGzcyB955RtRlmr_ZAHthSANjxjfnDXRPy6TOiN71bMZdYcQ8Smn6av
+2026-11-20  sevilla*  https://www.ole.com.ar/2019/10/24/tXfwOC1H_860x575__1.jpg
