@@ -59,6 +59,8 @@ export type Baseline = {
   avgAwayShots: number;
   avgHomeCards: number;
   avgAwayCards: number;
+  /** Corrección por liga de la tendencia reciente de tarjetas (1 = sin ajuste). */
+  cardFactor?: number;
   matches: number;
 };
 
@@ -195,6 +197,8 @@ export type FitOptions = {
   shrink?: number;
   /** "goals", "sot" (tiros al arco) o "ht" (goles del primer tiempo). */
   metric?: "goals" | "sot" | "ht";
+  /** Corrección de tarjetas por liga (1 = sin ajuste). */
+  cardFactor?: number;
 };
 
 /** Un tiro al arco vale ~0.32 goles (media histórica de 31.662 equipos-partido). */
@@ -341,6 +345,7 @@ export function fitRatings(
     avgAwayShots: shotWeight > 0 ? sumAwayShots / shotWeight : 11,
     avgHomeCards: cardWeight > 0 ? sumHomeCards / cardWeight : 2.0,
     avgAwayCards: cardWeight > 0 ? sumAwayCards / cardWeight : 2.1,
+    cardFactor: options.cardFactor ?? 1,
     matches: usable.length,
   };
 
@@ -610,12 +615,12 @@ export function predictMatch(
   );
 
   const cardsHome = clamp(
-    b.avgHomeCards * (home?.cardAttHome ?? 1) * (away?.cardDefAway ?? 1),
+    b.avgHomeCards * (home?.cardAttHome ?? 1) * (away?.cardDefAway ?? 1) * (b.cardFactor ?? 1),
     0.3,
     9,
   );
   const cardsAway = clamp(
-    b.avgAwayCards * (away?.cardAttAway ?? 1) * (home?.cardDefHome ?? 1),
+    b.avgAwayCards * (away?.cardAttAway ?? 1) * (home?.cardDefHome ?? 1) * (b.cardFactor ?? 1),
     0.3,
     9,
   );

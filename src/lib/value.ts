@@ -36,6 +36,16 @@ type Options = {
 
 const LABELS = ["Local", "Empate", "Visitante"] as const;
 
+/**
+ * Mercados en pausa hasta recalibrar (revisión del 2026-11-20).
+ *
+ * Las "tarjetas menos" perdieron 3,5u en dos días y los datos de 60 días
+ * muestran que el modelo subestima las tarjetas (Brasil 4,54 predichas vs 5,14
+ * reales). Los "córners menos" también van en contra. Se reactivan cuando haya
+ * 50 señales nuevas y el acierto real quede a ±3 puntos del modelo.
+ */
+const PAUSED_RULES = new Set(["cards_under", "corners_under"]);
+
 function fairTwoWay(
   over: number | null,
   under: number | null,
@@ -108,6 +118,7 @@ export function findValue(
       odds: number,
       rule: ComboRule,
     ) => {
+      if (PAUSED_RULES.has(rule.type)) return;
       if (!Number.isFinite(modelProb) || !Number.isFinite(marketProb)) return;
       if (!Number.isFinite(odds) || odds <= 1 || odds > maxOdds) return;
       if (modelProb < minProb) return;
