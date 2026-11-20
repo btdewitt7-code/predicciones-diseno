@@ -181,7 +181,7 @@ export async function getUpcoming(leagueCode?: string): Promise<RatedMatch[]> {
     sql += ` AND m.league_code = ?`;
     args.push(leagueCode);
   }
-  sql += ` ORDER BY m.kickoff ASC LIMIT 200`;
+  sql += ` ORDER BY m.kickoff ASC LIMIT 2000`;
 
   const res = await db.execute({ sql, args });
   const rows = res.rows
