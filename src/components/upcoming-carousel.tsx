@@ -302,18 +302,12 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
                   ].map((item) => (
                     <div
                       key={item.key}
-                      className={`rounded-lg px-1 py-1.5 text-center ${
-                        photo ? "bg-[#1b1815] ring-1 ring-white/10" : "bg-ink-850"
-                      }`}
+                      className="relative z-10 rounded-lg bg-ink-850 px-1 py-1.5 text-center ring-1 ring-ink-800/60"
                     >
-                      <span className={`block text-[11px] ${photo ? "text-white/55" : "text-mist-500"}`}>
+                      <span className="block text-[11px] text-mist-500">
                         {item.key}
                       </span>
-                      <span
-                        className={`block text-[16px] font-semibold tabular-nums ${
-                          photo ? "text-[#9ed3b0]" : "text-win-400"
-                        }`}
-                      >
+                      <span className="block text-[16px] font-semibold tabular-nums text-win-400">
                         {item.value}
                       </span>
                     </div>
