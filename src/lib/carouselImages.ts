@@ -15,6 +15,11 @@ const TEAM_ALIASES: Record<string, Record<string, string>> = {
     liverpool: "liverpool-montevideo",
     "montevideo-wanderers": "wanderers",
   },
+  d1: {
+    mgladbach: "gladbach",
+    "rb-leipzig": "leipzig",
+    "ein-frankfurt": "frankfurt",
+  },
   ucl: {
     "manchester-city": "man-city",
     "manchester-united": "man-united",
@@ -22,6 +27,7 @@ const TEAM_ALIASES: Record<string, Record<string, string>> = {
     "real-betis": "betis",
     internazionale: "inter",
     "as-roma": "roma",
+    "borussia-dortmund": "dortmund",
   },
   uel: {
     "afc-bournemouth": "bournemouth",
@@ -29,6 +35,7 @@ const TEAM_ALIASES: Record<string, Record<string, string>> = {
     "real-sociedad": "sociedad",
     "brighton-hove-albion": "brighton",
     "ac-milan": "milan",
+    "bayer-leverkusen": "leverkusen",
   },
   uecl: {
     "brighton-hove-albion": "brighton",
