@@ -1,10 +1,16 @@
 import { NextResponse } from "next/server";
 import { espnUpcoming } from "@/lib/coverage";
 import { LEAGUE_BY_CODE } from "@/lib/leagues";
+import { currentUser } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
+  const user = await currentUser();
+  if (!user?.isAdmin) {
+    return NextResponse.json({ error: "Solo el administrador" }, { status: 403 });
+  }
+
   const { searchParams } = new URL(request.url);
   const codes = (searchParams.get("codes") ?? "")
     .split(",")

@@ -2,11 +2,16 @@ import Link from "next/link";
 import { getLeagueLogoMap, getLeagueSummaries } from "@/lib/queries";
 import { LEAGUES } from "@/lib/leagues";
 import { CoverageCheck } from "@/components/coverage-check";
+import { currentUser } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 
 export default async function LeaguesPage() {
-  const [summaries, leagueLogos] = await Promise.all([getLeagueSummaries(), getLeagueLogoMap()]);
+  const [summaries, leagueLogos, user] = await Promise.all([
+    getLeagueSummaries(),
+    getLeagueLogoMap(),
+    currentUser(),
+  ]);
   const byCode = new Map(summaries.map((summary) => [summary.league_code, summary]));
 
   const totalPlayed = summaries.reduce((acc, item) => acc + item.played, 0);
@@ -96,7 +101,7 @@ export default async function LeaguesPage() {
         })}
       </div>
 
-      <CoverageCheck codes={zeroCodes} />
+      {user?.isAdmin ? <CoverageCheck codes={zeroCodes} /> : null}
 
       <p className="text-xs leading-relaxed text-mist-500">
         «Próx.» son los partidos próximos cargados. Toca una liga con partidos para ir directo a su
