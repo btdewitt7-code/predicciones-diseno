@@ -64,3 +64,4 @@
 2026-11-20  man-united*  https://dynamic-crop-cdn.scoreplay.io/472/7011389/media_132816834_132436394.jpg + https://theleaderng.com/wp-content/uploads/2026/02/Manchester-United.jpg
 2026-11-20  liverpool-man-united*  https://ichef.bbci.co.uk/ace/standard/1024/cpsprodpb/2f07/live/8a7eb2c0-632d-11ec-b71e-ed1445e5adf5.jpg + https://static.independent.co.uk/2022/04/13/21/GettyImages-1391294861.jpg
 2026-11-20  everton*  https://dims.apnews.com/dims4/default/88f7b38/2147483647/strip/true/crop/3500x2422+0+0/resize/599x415!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2Fcf%2F78%2F9e23ef109d38cfd274f2209a799c%2F033fd79c62fd47bcac87a42fe99090cb
+2026-11-20  liverpool-montevideo*  foto propia del Liverpool de Uruguay (alias por liga URU)

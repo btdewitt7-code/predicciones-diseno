@@ -5,6 +5,18 @@ const EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp"];
 const MAX_VARIANTS = 5;
 const DIR = path.join(process.cwd(), "public", "carousel");
 
+/**
+ * Equipos que se llaman igual en ligas distintas y no deben compartir foto.
+ * Clave: código de liga → nombre normalizado del equipo → nombre del archivo.
+ * Ej.: el Liverpool uruguayo usa `liverpool-montevideo.*` y no el del Premier.
+ */
+const TEAM_ALIASES: Record<string, Record<string, string>> = {
+  uru: {
+    liverpool: "liverpool-montevideo",
+    "montevideo-wanderers": "wanderers",
+  },
+};
+
 /** Convierte "São Paulo" en "sao-paulo" para usarlo como nombre de archivo. */
 export function imageSlug(value: string): string {
   return value
@@ -13,6 +25,18 @@ export function imageSlug(value: string): string {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+}
+
+/**
+ * Nombre de archivo de un equipo. Aplica alias por liga para los homónimos
+ * (por ejemplo, Liverpool inglés vs. Liverpool uruguayo).
+ */
+export function teamImageSlug(value: string, leagueCode?: string): string {
+  const base = imageSlug(value);
+  const alias = leagueCode
+    ? TEAM_ALIASES[leagueCode.toLowerCase()]?.[base]
+    : undefined;
+  return alias ?? base;
 }
 
 /**
@@ -54,10 +78,12 @@ export function carouselImage(
   awayTeam: string,
   leagueCode: string,
 ): string | null {
+  const home = teamImageSlug(homeTeam, leagueCode);
+  const away = teamImageSlug(awayTeam, leagueCode);
   return (
-    pick(findFiles(`${imageSlug(homeTeam)}-${imageSlug(awayTeam)}`)) ??
-    pick(findFiles(imageSlug(homeTeam))) ??
-    pick(findFiles(imageSlug(awayTeam))) ??
+    pick(findFiles(`${home}-${away}`)) ??
+    pick(findFiles(home)) ??
+    pick(findFiles(away)) ??
     pick(findFiles(`liga-${leagueCode.toLowerCase()}`)) ??
     null
   );
