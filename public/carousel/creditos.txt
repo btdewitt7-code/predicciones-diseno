@@ -66,3 +66,4 @@
 2026-11-20  everton*  https://dims.apnews.com/dims4/default/88f7b38/2147483647/strip/true/crop/3500x2422+0+0/resize/599x415!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2Fcf%2F78%2F9e23ef109d38cfd274f2209a799c%2F033fd79c62fd47bcac87a42fe99090cb
 2026-11-20  liverpool-montevideo*  foto propia del Liverpool de Uruguay (alias por liga URU)
 2026-11-20  brentford*  https://www.sportsbreaks.com/wp-content/smush-webp/sites/2/2025/09/Resize-image-project-2025-09-02T161630.230-2-edited.png.webp (via Wayback Machine: 20260314100619)
+2026-11-20  ath-bilbao*  https://static.independent.co.uk/2021/04/16/09/newFile-17.jpg
