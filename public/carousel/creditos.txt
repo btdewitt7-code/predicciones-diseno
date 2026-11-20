@@ -107,3 +107,4 @@
 2026-11-20  sassuolo*  https://livesport-ott-images.ssl.cdn.cra.cz/r900xfq60/f0280450-f883-465f-a4ec-f2936b34a90c.jpeg
 2026-11-20  udinese*  https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbtmUk7XIQOITpu9ao3RQR_AfgyMRZhvPj1RWdRaYN_9amwDNy05Naxp5L
 2026-11-20  venezia*  https://livesport-ott-images.ssl.cdn.cra.cz/r1200xfq60/78ab8861-9813-4f52-8414-b4fc14f9ea51.jpeg
+2026-11-20  torino*  https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT__s7fn99QnD6P0jFJ7cGGd78fgDSHSKFoC_Xg6HeiwNcZ5X2oagKsk6U
