@@ -52,3 +52,10 @@
 2026-11-20  newcastle*  https://contentfulproxy.stadion.io/9ec6988xevcz/5yBVaphLfOPONg0gvdVB6N/dd05b98b4808dd8756bd30a0bdea073b/ST2_6917-2966463.jpg + https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjoFKIcykJ5VrSHK3QKag0GB0_8SV3_PRWxjya2LcuHWunJXZQYEaW3wM
 2026-11-20  coventry*  https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTJNyy5ffEtRgLGpfwBZorGvzQKdD-erYdCeiNwV4hqUjzIeE7L
 2026-11-20  fulham.jpg / man-city-fulham-3.jpg  https://ichef.bbci.co.uk/ace/standard/932/cpsprodpb/d0cb/live/07c44c50-e267-11f1-900c-895604014268.jpg
+2026-11-20  sunderland*  https://ichef.bbci.co.uk/ace/standard/2560/cpsprodpb/7699/live/b79230e0-819b-11ef-b732-9d507d15282c.jpg + https://platform.rokerreport.sbnation.com/wp-content/uploads/sites/137/2026/05/gettyimages-2276717295.jpg
+2026-11-20  sunderland*  https://ichef.bbci.co.uk/ace/standard/2560/cpsprodpb/7699/live/b79230e0-819b-11ef-b732-9d507d15282c.jpg + https://platform.rokerreport.sbnation.com/wp-content/uploads/sites/137/2026/05/gettyimages-2276717295.jpg
+2026-11-20  nottm-forest.jpg / bournemouth-nottm-forest-3.jpg  https://www.malaymail.com/malaymail/uploads/images/2025/08/18/294519.JPG
+2026-11-20  leeds.jpg / chelsea-leeds-3.jpg  https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQbBQ_hauOJXt6-hKR-g37hLkWGdK1rQ0Nu-bS8-7c1XhaBUXRB
+2026-11-20  crystal-palace*  https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXtCToXEPkCksiBn00F8zICSqqEOrX5N8kJOVrc7Mcb_DVvk64 + https://www.sportscasting.com/uk/wp-content/uploads/sites/3/2025/04/TELEMMGLPICT000421650856_17456867216860_trans_NvBQzQNjv4BqpVlberWd9EgFPZtcLiMQf0Rf_Wk3V23H2268P_XkPxc.webp
+2026-11-20  arsenal*  https://dailypost.ng/wp-content/uploads/2025/08/Arsenal-vs-Leeds_5b6592198-1000x600.jpeg + https://cdn-media.theathletic.com/cdn-cgi/image/width=1200,height=630,fit=crop/U6lIf2KeoLcv_aAyd6E0BPNVU_1440x960.jpg
+2026-11-20  ipswich.jpg / tottenham-ipswich-3.jpg  https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR4N6Oz3UEehHkhfSs3y18UCIF0rocstcO_j-SllvjjL72eNlZO
