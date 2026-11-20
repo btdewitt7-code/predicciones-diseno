@@ -84,3 +84,4 @@
 2026-11-20  betis*  https://static.srpcdigital.com/styles/1037xauto/public/2026-10/1822705.jpeg.webp
 2026-11-20  betis-2*  https://static.grupojoly.com/clip/4c81b30f-e453-4d89-90e4-eee904d11c7d_twitter-aspect-ratio_default_0.jpg
 2026-11-20  real-madrid*  https://bc.gmg.io/image/upload/q_auto,c_lfill,w_2560,h_1707,f_webp/media/gmg/6SFCQW5KIRCXBACBDRMXAICHOI.jpg
+2026-11-20  real-madrid-2*  https://madriduniversal.com/wp-content/uploads/2024/10/real-madrid-cf-v-real-betis-balompie-la-liga-ea-sports-2-scaled.jpg
