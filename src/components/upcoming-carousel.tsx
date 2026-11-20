@@ -229,7 +229,7 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
               key={match.id}
               href={`/partido/${match.id}`}
               data-carousel-card
-              className="card group relative flex h-[238px] w-[82vw] max-w-[320px] shrink-0 snap-start flex-col justify-end overflow-hidden transition hover:border-mint-500/35 sm:w-[300px]"
+              className="card group relative flex h-[246px] w-[84vw] max-w-[322px] shrink-0 snap-start flex-col justify-end overflow-hidden transition hover:border-mint-500/35 sm:w-[302px]"
             >
               {match.image ? (
                 <>
@@ -243,7 +243,7 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
               ) : null}
 
               <span
-                className={`absolute left-2.5 top-2.5 z-10 inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-[10px] font-semibold ${
+                className={`absolute left-2.5 top-2.5 z-10 inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-[11px] font-semibold ${
                   photo
                     ? "bg-black/55 text-[#fff] backdrop-blur"
                     : "bg-ink-850 text-mist-300 ring-1 ring-ink-700"
@@ -275,7 +275,7 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
                     <div key={team.name} className="flex items-center gap-2">
                       <TeamLogo name={team.name} logo={team.logo} small />
                       <span
-                        className={`min-w-0 flex-1 truncate text-[12px] font-semibold uppercase tracking-wide ${
+                        className={`min-w-0 flex-1 truncate text-[13px] font-semibold uppercase tracking-wide ${
                           photo ? "text-[#fff] drop-shadow-[0_1px_3px_rgba(0,0,0,0.85)]" : "text-white"
                         }`}
                       >
@@ -283,7 +283,7 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
                       </span>
                       {team.score !== null ? (
                         <span
-                          className={`shrink-0 text-base font-bold tabular-nums ${
+                          className={`shrink-0 text-lg font-bold tabular-nums ${
                             photo ? "text-[#fff]" : "text-white"
                           }`}
                         >
@@ -306,11 +306,11 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
                         photo ? "bg-black/50 backdrop-blur-sm" : "bg-ink-850"
                       }`}
                     >
-                      <span className={`block text-[9px] ${photo ? "text-white/55" : "text-mist-500"}`}>
+                      <span className={`block text-[10px] ${photo ? "text-white/55" : "text-mist-500"}`}>
                         {item.key}
                       </span>
                       <span
-                        className={`block text-[13px] font-semibold tabular-nums ${
+                        className={`block text-[15px] font-semibold tabular-nums ${
                           photo ? "text-[#9ed3b0]" : "text-win-400"
                         }`}
                       >
