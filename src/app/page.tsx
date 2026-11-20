@@ -259,7 +259,34 @@ export default async function Home({
   const featuredToday = todayKey();
   const featuredTomorrow = dayKey(new Date(Date.now() + 86_400_000).toISOString());
 
-  const featuredMatches: CarouselMatch[] = allUpcoming.slice(0, 10).map((match) => {
+  // Carrusel: próximas 24 h, hasta 14 tarjetas.
+  const carouselEnd = Date.now() + 24 * 3600_000;
+  const carouselPool = allUpcoming.filter(
+    (match) => Date.parse(`${match.kickoff}Z`) <= carouselEnd,
+  );
+
+  const tierOf = (code: string) => LEAGUE_BY_CODE[code]?.tier ?? 9;
+  const carouselSorted = [...carouselPool].sort((a, b) => {
+    if (!leagueFilter) {
+      const diff = tierOf(a.league_code) - tierOf(b.league_code);
+      if (diff !== 0) return diff;
+    }
+    return Date.parse(`${a.kickoff}Z`) - Date.parse(`${b.kickoff}Z`);
+  });
+
+  const perLeague = new Map<string, number>();
+  const carouselSelection: RatedMatch[] = [];
+  for (const match of carouselSorted) {
+    if (!leagueFilter) {
+      const used = perLeague.get(match.league_code) ?? 0;
+      if (used >= 2) continue;
+      perLeague.set(match.league_code, used + 1);
+    }
+    carouselSelection.push(match);
+    if (carouselSelection.length >= 14) break;
+  }
+
+  const featuredMatches: CarouselMatch[] = carouselSelection.map((match) => {
     const league = LEAGUE_BY_CODE[match.league_code];
     const prediction = match.prediction ?? match.cupPrediction;
     const kickoffMs = Date.parse(`${match.kickoff}Z`);
