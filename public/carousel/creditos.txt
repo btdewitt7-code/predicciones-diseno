@@ -98,3 +98,4 @@
 2026-11-20  inter*  https://a.espncdn.com/photo/2022/1029/r1083024_1296x729_16-9.jpg + https://ichef.bbci.co.uk/ace/standard/1024/cpsprodpb/414C/production/_132561761_gettyimages-1987475573.jpg
 2026-11-20  juventus*  https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkqcywnZ0d5_italpNuNMNMgiaSgRU2YyBC6wcsv3UGM3FV0oFs5nvfGAv
 2026-11-20  lazio*  https://asmedia.epimg.net/les/20251013/46e28de2162f3291a8bfddc7f7faaf07/f93be5103c3884c35d4e650a5e1c6b1d_720.jpeg
+2026-11-20  lecce*  https://icdn.football-italia.net/wp-content/uploads/2023/01/Lecce-Lorenzo-Colombo-celebrate-e1672927167805.jpg
