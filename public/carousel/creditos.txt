@@ -99,3 +99,11 @@
 2026-11-20  juventus*  https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkqcywnZ0d5_italpNuNMNMgiaSgRU2YyBC6wcsv3UGM3FV0oFs5nvfGAv
 2026-11-20  lazio*  https://asmedia.epimg.net/les/20251013/46e28de2162f3291a8bfddc7f7faaf07/f93be5103c3884c35d4e650a5e1c6b1d_720.jpeg
 2026-11-20  lecce*  https://icdn.football-italia.net/wp-content/uploads/2023/01/Lecce-Lorenzo-Colombo-celebrate-e1672927167805.jpg
+2026-11-20  milan*  https://www.acmilan.com/_next/image?url=https%3A%2F%2Fassets-eu-01.kc-usercontent.com%3A443%2F006f7528-416b-01e4-8ef2-ab6ab3f4e177%2F8d33febc-06bd-40c2-9732-5d26227de687%2FCover-Landing-MVP-2026_27.png
+2026-11-20  monza*  https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQPi38QYamkaXKBSfVCjb6JE8H2XR_WDwdvXrwflePqn61q-qxl
+2026-11-20  napoli*  https://s.yimg.com/lo/mysterio/api/20742f2b5fdccb19d0ab686d292188b252a4ae48edc89adb50869d909c2e935a/lightyear_networkapi/resizefill_w960;quality_80;format_webp/https://media.zenfs.com/en/football_italia_articles_132/e813abe674cad642da5c531f723a92b1.jpg
+2026-11-20  parma*  https://www.shutterstock.com/editorial/image-editorial/MbT8A62dM3T9cew8NTM0NTk=/parma-players-celebrate-1-1-goal-during-italian-440nw-10530435v.jpg
+2026-11-20  roma*  https://sport.quotidiano.net/image-service/view/acePublic/alias/contentid/M2Y1YzJhNjAtNzFiNi00/0/roma-parma-allo-stadio-olimpico.webp
+2026-11-20  sassuolo*  https://livesport-ott-images.ssl.cdn.cra.cz/r900xfq60/f0280450-f883-465f-a4ec-f2936b34a90c.jpeg
+2026-11-20  udinese*  https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbtmUk7XIQOITpu9ao3RQR_AfgyMRZhvPj1RWdRaYN_9amwDNy05Naxp5L
+2026-11-20  venezia*  https://livesport-ott-images.ssl.cdn.cra.cz/r1200xfq60/78ab8861-9813-4f52-8414-b4fc14f9ea51.jpeg

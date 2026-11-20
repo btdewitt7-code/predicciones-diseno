@@ -21,12 +21,14 @@ const TEAM_ALIASES: Record<string, Record<string, string>> = {
     "atletico-madrid": "ath-madrid",
     "real-betis": "betis",
     internazionale: "inter",
+    "as-roma": "roma",
   },
   uel: {
     "afc-bournemouth": "bournemouth",
     "celta-vigo": "celta",
     "real-sociedad": "sociedad",
     "brighton-hove-albion": "brighton",
+    "ac-milan": "milan",
   },
   uecl: {
     "brighton-hove-albion": "brighton",
