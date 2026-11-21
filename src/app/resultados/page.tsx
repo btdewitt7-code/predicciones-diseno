@@ -128,38 +128,45 @@ export default async function ComboResultsPage({
 
   return (
     <div className="space-y-6">
-      <header className="space-y-2">
-        <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-          Resultados de las jugadas
-        </h1>
-        <p className="max-w-2xl text-sm leading-relaxed text-mist-400">
-          Aquí aparecen las jugadas que hayas guardado desde la sección{" "}
-          <Link href="/jugadas" className="text-mint-400 hover:underline">Jugadas</Link>. Cada
-          selección se evalúa cuando el partido termina.
-        </p>
-        <div className="flex flex-wrap gap-2 text-xs">
-          <Pill label="Ganadas" value={String(totals.won)} tone="good" />
-          <Pill label="Perdidas" value={String(totals.lost)} tone="warn" />
-          <Pill label="Pendientes" value={String(totals.pending)} />
+      <header className="space-y-4">
+        <div className="space-y-2">
+          <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+            Resultados de las jugadas
+          </h1>
+          <p className="max-w-2xl text-sm leading-relaxed text-mist-400">
+            Aquí aparecen las jugadas que hayas guardado desde la sección{" "}
+            <Link href="/jugadas" className="text-mint-400 hover:underline">Jugadas</Link>. Cada
+            selección se evalúa cuando el partido termina.
+          </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-          <span className="text-mist-500">Ver:</span>
-          {[7, 30, 90].map((option) => (
-            <Link
-              key={option}
-              href={hrefFor({ dias: option })}
-              className={`rounded-lg border px-3 py-1.5 transition ${
-                range === option
-                  ? "border-mint-500/40 bg-mint-500/10 text-mint-400"
-                  : "border-ink-700 bg-ink-850 text-mist-300 hover:border-mint-500/40 hover:text-white"
-              }`}
-            >
-              {option} días
-            </Link>
-          ))}
-          <div className="ml-2 flex items-center gap-1.5">
-            <span className="text-win-400">Fuente:</span>
+        <div className="card space-y-3 p-3">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="flex flex-wrap items-center gap-2 text-xs">
+              <Pill label="Ganadas" value={String(totals.won)} tone="good" />
+              <Pill label="Perdidas" value={String(totals.lost)} tone="warn" />
+              <Pill label="Pendientes" value={String(totals.pending)} />
+            </div>
+            <CleanSavedButton days={range} />
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 border-t border-ink-800/70 pt-3 text-xs">
+            <span className="text-mist-500">Ver</span>
+            {[7, 30, 90].map((option) => (
+              <Link
+                key={option}
+                href={hrefFor({ dias: option })}
+                className={`rounded-lg border px-3 py-1.5 transition ${
+                  range === option
+                    ? "border-mint-500/40 bg-mint-500/10 text-mint-400"
+                    : "border-ink-700 bg-ink-850 text-mist-300 hover:border-mint-500/40 hover:text-white"
+                }`}
+              >
+                {option} días
+              </Link>
+            ))}
+
+            <span className="ml-2 text-mist-500">Fuente</span>
             {(
               [
                 ["ligas", "Ligas", "model"],
@@ -174,30 +181,28 @@ export default async function ComboResultsPage({
                   href={hrefFor({ fuente: key, pagina: 1 })}
                   className={`rounded-lg border px-3 py-1.5 transition ${
                     active
-                      ? "border-win-400/50 bg-win-400/15 font-semibold text-win-400"
-                      : "border-win-400/25 bg-win-400/5 text-win-400/80 hover:border-win-400/50 hover:text-win-400"
+                      ? "border-mint-500/40 bg-mint-500/10 font-semibold text-mint-400"
+                      : "border-ink-700 bg-ink-850 text-mist-300 hover:border-mint-500/40 hover:text-white"
                   }`}
                 >
                   {label}
                 </Link>
               );
             })}
-          </div>
-          <Link
-            href={hrefFor({
-              tipo: typeFilter === "multi" ? "todas" : "combinadas",
-              pagina: 1,
-            })}
-            className={`ml-2 rounded-lg border px-3 py-1.5 font-semibold transition ${
-              typeFilter === "multi"
-                ? "border-amber-400/60 bg-amber-400/20 text-amber-300"
-                : "border-amber-400/40 bg-amber-400/10 text-amber-300 hover:bg-amber-400/20"
-            }`}
-          >
-            Combinadas
-          </Link>
-          <div className="ml-auto">
-            <CleanSavedButton days={range} />
+
+            <Link
+              href={hrefFor({
+                tipo: typeFilter === "multi" ? "todas" : "combinadas",
+                pagina: 1,
+              })}
+              className={`ml-2 rounded-lg border px-3 py-1.5 font-semibold transition ${
+                typeFilter === "multi"
+                  ? "border-amber-400/60 bg-amber-400/20 text-amber-300"
+                  : "border-ink-700 bg-ink-850 text-mist-300 hover:border-amber-400/50 hover:text-amber-300"
+              }`}
+            >
+              Combinadas
+            </Link>
           </div>
         </div>
       </header>
