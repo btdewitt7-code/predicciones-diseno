@@ -427,35 +427,18 @@ function SummaryCard({
   right: string;
   kind: "over15" | "over25" | "btts" | "xg" | "cards" | "corners" | "shots" | "sot";
 }) {
-  const icon = SUMMARY_ICONS[kind];
   return (
     <div className="flex items-center gap-3 py-2.5">
-      <div className="flex min-w-0 flex-1 items-center gap-2 text-xs text-mist-300">
-        {icon ? (
-          <img
-            src={icon}
-            alt=""
-            width={16}
-            height={16}
-            loading="lazy"
-            decoding="async"
-            className="size-4 shrink-0 object-contain"
-          />
-        ) : (
-          <SummaryIcon kind={kind} />
-        )}
-        <span className="truncate">{label}</span>
-      </div>
-      <span className="shrink-0 text-sm font-semibold tabular-nums text-white">{value}</span>
-      <div className="h-1 w-16 shrink-0 overflow-hidden rounded-full bg-ink-800">
+      <span className="min-w-0 flex-1 truncate text-sm text-mist-300">{label}</span>
+      <span className="w-14 shrink-0 text-right text-sm font-semibold tabular-nums text-white">
+        {value}
+      </span>
+      <div className="h-1 w-20 shrink-0 overflow-hidden rounded-full bg-ink-800">
         <div
           className="h-full rounded-full bg-win-400/80"
           style={{ width: `${Math.max(0, Math.min(100, bar))}%` }}
         />
       </div>
-      <span className="hidden w-24 shrink-0 text-right text-[10px] text-mist-500 sm:block">
-        {right}
-      </span>
     </div>
   );
 }
@@ -1397,8 +1380,8 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         <>
           <section className="grid gap-4">
             <div className="border-b border-ink-800/70 pb-4" data-match-panel="resumen">
-              <h2 className="mb-2 text-ui-card-title font-semibold text-white">Resultado (1X2)</h2>
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+              <h2 className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-mist-500">Resultado (1X2)</h2>
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-1 text-sm tracking-wide">
                 <span className="text-mist-500">
                   Local{" "}
                   <span className="font-semibold tabular-nums text-win-400">
@@ -1431,34 +1414,32 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               </div>
 
               {!isCup && market && edges ? (
-                <div className="mt-4 rounded-xl border border-ink-700 bg-ink-900 p-3">
-                  <div className="mb-2 flex items-center justify-between">
+                <div className="mt-3 border-t border-ink-800/70 pt-2.5">
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-xs">
                     <span className="text-[10px] uppercase tracking-wide text-mist-500">
-                      Modelo vs. mercado
+                      Modelo vs mercado
                     </span>
-                    <span className="text-[10px] text-mist-500">
-                      {match.close_home ? "cuota de cierre" : "cuota media"}
-                    </span>
-                  </div>
-                  <div className="grid grid-cols-3 gap-2 text-center text-xs">
                     {["Local", "Empate", "Visitante"].map((label, index) => {
                       const edge = edges[index];
                       const positive = edge > 0.03;
                       return (
-                        <div key={label}>
-                          <div className="text-[10px] text-mist-500">{label}</div>
-                          <div className={positive ? "font-semibold text-win-400" : "text-mist-400"}>
+                        <span key={label} className="text-mist-500">
+                          {label}{" "}
+                          <span
+                            className={
+                              positive ? "font-semibold text-win-400" : "text-mist-400"
+                            }
+                          >
                             {edge > 0 ? "+" : ""}
                             {(edge * 100).toFixed(1)}%
-                          </div>
-                        </div>
+                          </span>
+                        </span>
                       );
                     })}
+                    <span className="text-[10px] text-mist-500">
+                      {match.close_home ? "cuota de cierre" : "cuota media"}
+                    </span>
                   </div>
-                  <p className="mt-2 text-[10px] leading-relaxed text-mist-500">
-                    Diferencia entre probabilidad del modelo y probabilidad implícita en las cuotas.
-                    Positivo = el modelo ve más probable ese resultado de lo que paga el mercado.
-                  </p>
                 </div>
               ) : !isCup ? (
                 <p className="mt-4 text-ui-body-sm text-mist-500">
@@ -2219,10 +2200,10 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
       ) : null}
 
       <section className="grid gap-4">
-        <div className="card p-4 sm:p-5">
+        <div className="border-b border-ink-800/70 pb-4">
           <div data-match-panel-except="posiciones">
           <div className="mb-4">
-            <h2 className="text-ui-card-title font-semibold text-white">Forma reciente</h2>
+            <h2 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-mist-500">Forma reciente</h2>
             <p className="text-[11px] leading-relaxed text-mist-500 sm:text-xs">
               {isCup ? "Posición en la competición y promedio" : "Promedio"} por partido en los
               últimos {Math.max(homeRecent8.length, awayRecent8.length) || 8}. Entre paréntesis, el total.
