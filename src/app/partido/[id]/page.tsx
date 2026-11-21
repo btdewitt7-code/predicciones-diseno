@@ -1409,7 +1409,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           <section className="grid gap-4">
             <div className="card p-4 sm:p-5" data-match-panel="general">
               <h2 className="mb-4 text-ui-card-title font-semibold text-white">Resultado final (1X2)</h2>
-              <div className="grid max-w-2xl grid-cols-3 gap-2">
+              <div className="grid grid-cols-3 gap-2">
                 {[
                   { label: "Local", value: prediction.home_win, tone: "text-win-400" },
                   { label: "Empate", value: prediction.draw, tone: "text-mist-300" },
@@ -1479,52 +1479,6 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                 );
               })()}
 
-              <div className="mt-4 space-y-1 text-[11px] text-mist-500">
-                <p>
-                  Goles esperados:{" "}
-                  <span className="text-mist-300">
-                    {homeDisplay} {num(prediction.exp_home_goals)} — {num(prediction.exp_away_goals)}{" "}
-                    {awayDisplay}
-                  </span>
-                </p>
-                <p>Confianza del modelo: {pct(prediction.confidence)} de datos</p>
-              </div>
-
-              {!isCup && market && edges ? (
-                <div className="mt-4 rounded-xl border border-ink-700 bg-ink-900 p-3">
-                  <div className="mb-2 flex items-center justify-between">
-                    <span className="text-[10px] uppercase tracking-wide text-mist-500">
-                      Modelo vs. mercado
-                    </span>
-                    <span className="text-[10px] text-mist-500">
-                      {match.close_home ? "cuota de cierre" : "cuota media"}
-                    </span>
-                  </div>
-                  <div className="grid grid-cols-3 gap-2 text-center text-xs">
-                    {["Local", "Empate", "Visitante"].map((label, index) => {
-                      const edge = edges[index];
-                      const positive = edge > 0.03;
-                      return (
-                        <div key={label}>
-                          <div className="text-[10px] text-mist-500">{label}</div>
-                          <div className={positive ? "font-semibold text-win-400" : "text-mist-400"}>
-                            {edge > 0 ? "+" : ""}
-                            {(edge * 100).toFixed(1)}%
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <p className="mt-2 text-[10px] leading-relaxed text-mist-500">
-                    Diferencia entre probabilidad del modelo y probabilidad implícita en las cuotas.
-                    Positivo = el modelo ve más probable ese resultado de lo que paga el mercado.
-                  </p>
-                </div>
-              ) : !isCup ? (
-                <p className="mt-4 text-ui-body-sm text-mist-500">
-                  Sin cuotas de mercado para comparar en este partido.
-                </p>
-              ) : null}
             </div>
 
             <div className="card p-4 sm:p-5" data-match-panel="goles">
