@@ -448,8 +448,8 @@ function SummaryCard({
         ) : (
           <SummaryIcon kind={kind} />
         )}
-        <span className="min-w-0 truncate text-xs text-mist-200 sm:text-sm">{label}</span>
-        <span className="ml-auto shrink-0 text-lg font-semibold tabular-nums text-white sm:text-xl">
+        <span className="min-w-0 text-[11px] leading-tight text-mist-200 sm:text-sm">{label}</span>
+        <span className="ml-auto shrink-0 text-base font-semibold tabular-nums text-white sm:text-xl">
           {value}
         </span>
       </div>
@@ -459,9 +459,9 @@ function SummaryCard({
           style={{ width: `${Math.max(0, Math.min(100, bar))}%` }}
         />
       </div>
-      <div className="mt-1 flex items-center justify-between gap-2 text-[10px] text-mist-500 sm:text-[11px]">
-        <span className="truncate">{footerLeft}</span>
-        <span className="shrink-0">{right}</span>
+      <div className="mt-1 flex flex-wrap items-center justify-between gap-x-2 text-[9px] text-mist-500 sm:text-[11px]">
+        <span className="whitespace-nowrap">{footerLeft}</span>
+        <span className="whitespace-nowrap">{right}</span>
       </div>
     </div>
   );
