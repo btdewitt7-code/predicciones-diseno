@@ -5,16 +5,17 @@ import { useEffect, useState } from "react";
 export type MatchTab = { id: string; label: string };
 
 const STAT_FILTERS = [
-  { id: "todos", label: "Todos" },
   { id: "goles", label: "Goles" },
-  { id: "tiros", label: "Tiros" },
+  { id: "tiros", label: "Remates" },
+  { id: "arco", label: "Al arco" },
   { id: "corners", label: "Córners" },
+  { id: "faltas", label: "Faltas" },
   { id: "tarjetas", label: "Tarjetas" },
 ];
 
 export function MatchTabs({ tabs }: { tabs: MatchTab[] }) {
   const [active, setActive] = useState(tabs[0]?.id ?? "resumen");
-  const [stat, setStat] = useState("todos");
+  const [stat, setStat] = useState("goles");
 
   useEffect(() => {
     const apply = () => {
@@ -22,7 +23,7 @@ export function MatchTabs({ tabs }: { tabs: MatchTab[] }) {
         const isActive = panel.dataset.matchPanel === active;
         const panelStat = panel.dataset.stat;
         const statOk =
-          active !== "estadisticas" || !panelStat || stat === "todos" || panelStat === stat;
+          active !== "estadisticas" || !panelStat || panelStat === stat;
         panel.style.display = isActive && statOk ? "block" : "none";
       });
       document.querySelectorAll<HTMLElement>("[data-match-panel-except]").forEach((panel) => {

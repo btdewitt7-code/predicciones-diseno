@@ -429,38 +429,33 @@ function SummaryCard({
 }) {
   const icon = SUMMARY_ICONS[kind];
   return (
-    <div className="card flex h-full flex-col p-2.5 sm:p-4">
-      <div className="flex items-start justify-between gap-1.5 sm:gap-2">
-        <div className="flex min-w-0 items-center gap-1.5 text-[10px] leading-tight text-mist-300 sm:gap-2 sm:text-xs">
-          {icon ? (
-            <img
-              src={icon}
-              alt=""
-              width={24}
-              height={24}
-              loading="lazy"
-              decoding="async"
-              className="size-5 shrink-0 object-contain sm:size-6"
-            />
-          ) : (
-            <SummaryIcon kind={kind} />
-          )}
-          <span className="min-w-0">{label}</span>
-        </div>
-        <span className="shrink-0 text-[18px] font-semibold tabular-nums text-white sm:text-[22px]">
-          {value}
-        </span>
+    <div className="flex items-center gap-3 py-2.5">
+      <div className="flex min-w-0 flex-1 items-center gap-2 text-xs text-mist-300">
+        {icon ? (
+          <img
+            src={icon}
+            alt=""
+            width={16}
+            height={16}
+            loading="lazy"
+            decoding="async"
+            className="size-4 shrink-0 object-contain"
+          />
+        ) : (
+          <SummaryIcon kind={kind} />
+        )}
+        <span className="truncate">{label}</span>
       </div>
-      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-ink-800 sm:mt-3">
+      <span className="shrink-0 text-sm font-semibold tabular-nums text-white">{value}</span>
+      <div className="h-1 w-16 shrink-0 overflow-hidden rounded-full bg-ink-800">
         <div
           className="h-full rounded-full bg-win-400/80"
           style={{ width: `${Math.max(0, Math.min(100, bar))}%` }}
         />
       </div>
-      <div className="mt-1.5 flex flex-wrap items-center justify-between gap-x-2 gap-y-0.5 text-ui-body-sm text-mist-500 sm:mt-2">
-        <span>{left}</span>
-        <span>{right}</span>
-      </div>
+      <span className="hidden w-24 shrink-0 text-right text-[10px] text-mist-500 sm:block">
+        {right}
+      </span>
     </div>
   );
 }
@@ -998,18 +993,15 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   return (
     <div className="space-y-5">
       <LiveAutoRefresh active={isLive} seconds={20} />
-      <div className="flex items-center justify-between">
-        <Link href="/" className="-my-1 inline-flex items-center py-1 text-xs text-mist-500 transition hover:text-win-400">
-          ← Volver a partidos
-        </Link>
-        <Link
-          href={`/?liga=${match.league_code}#liga-${match.league_code}`}
-          title="Ver partidos de esta competición"
-          className="transition hover:opacity-80"
-        >
+      <nav className="flex flex-wrap items-center gap-1.5 text-[11px] text-mist-500">
+        <Link href="/" className="transition hover:text-mint-300">Partidos</Link>
+        <span className="opacity-50">/</span>
+        <Link href={`/?liga=${match.league_code}#liga-${match.league_code}`} title="Ver partidos de esta competición" className="transition hover:opacity-80">
           <LeagueTag code={match.league_code} logo={leagueLogos.get(match.league_code)} size="md" />
         </Link>
-      </div>
+        <span className="opacity-50">/</span>
+        <span className="text-mist-400">{fullDate(match.kickoff)}</span>
+      </nav>
 
       {displayRecommendations.length > 0 ? (
         <details className="card overflow-hidden" suppressHydrationWarning open>
@@ -1404,21 +1396,27 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
       {prediction ? (
         <>
           <section className="grid gap-4">
-            <div className="card p-4 sm:p-5" data-match-panel="resumen">
-              <h2 className="mb-4 text-ui-card-title font-semibold text-white">Resultado final (1X2)</h2>
-              <div className="grid max-w-2xl grid-cols-3 gap-2">
-                {[
-                  { label: "Local", value: prediction.home_win, tone: "text-win-400" },
-                  { label: "Empate", value: prediction.draw, tone: "text-mist-300" },
-                  { label: "Visitante", value: prediction.away_win, tone: "text-mist-400" },
-                ].map((item) => (
-                  <div key={item.label} className="rounded-xl border border-ink-700 bg-ink-850 p-2.5 text-center">
-                    <div className="text-[10px] uppercase tracking-wide text-mist-500">{item.label}</div>
-                    <div className={`mt-1 text-lg font-semibold tabular-nums sm:text-xl ${item.tone}`}>
-                      {pct(item.value)}
-                    </div>
-                  </div>
-                ))}
+            <div className="border-b border-ink-800/70 pb-4" data-match-panel="resumen">
+              <h2 className="mb-2 text-ui-card-title font-semibold text-white">Resultado (1X2)</h2>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+                <span className="text-mist-500">
+                  Local{" "}
+                  <span className="font-semibold tabular-nums text-win-400">
+                    {pct(prediction.home_win)}
+                  </span>
+                </span>
+                <span className="text-mist-500">
+                  Empate{" "}
+                  <span className="font-semibold tabular-nums text-white">
+                    {pct(prediction.draw)}
+                  </span>
+                </span>
+                <span className="text-mist-500">
+                  Visitante{" "}
+                  <span className="font-semibold tabular-nums text-mist-300">
+                    {pct(prediction.away_win)}
+                  </span>
+                </span>
               </div>
 
               <div className="mt-4 space-y-1 text-[11px] text-mist-500">
@@ -1515,7 +1513,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           {prediction ? (
             <div data-match-panel="resumen">
               <h2 className="mb-2 text-ui-card-title font-semibold text-white">Probabilidades clave</h2>
-              <section className="grid grid-cols-2 gap-2 sm:gap-3">
+              <section className="divide-y divide-ink-800/70">
                 <SummaryCard
                   label="Más de 1.5 goles"
                   value={pct(prediction.over15)}
@@ -1927,7 +1925,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               </div>
             </div>
 
-            <div className="card p-4 sm:p-5" data-match-panel="estadisticas" data-stat="tiros">
+            <div className="card p-4 sm:p-5" data-match-panel="estadisticas" data-stat="arco">
               <h2 className="mb-1 text-ui-card-title font-semibold text-white">Remates al arco</h2>
               <p className="mb-4 text-ui-body-sm text-mist-500">
                 Remates a puerta esperados. Más de / menos de la línea.
@@ -1986,7 +1984,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               emptyLabel="Sin remates registrados."
             />
 
-            <div className="card p-4 sm:p-5" data-match-panel="estadisticas" data-stat="tiros">
+            <div className="card p-4 sm:p-5" data-match-panel="estadisticas" data-stat="arco">
               <PlayerShotLeaders
                 matchId={match.id}
                 home={match.home_team}
@@ -2076,7 +2074,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               </div>
             </div>
 
-            <div className="card p-4 sm:p-5" data-match-panel="estadisticas" data-stat="tarjetas">
+            <div className="card p-4 sm:p-5" data-match-panel="estadisticas" data-stat="faltas">
               <h2 className="mb-1 text-ui-card-title font-semibold text-white">Faltas recientes</h2>
               <p className="mb-3 text-[13px] text-mist-500">
                 Últimos 8 partidos. Faltas cometidas por cada equipo. Contexto: el modelo no calcula
