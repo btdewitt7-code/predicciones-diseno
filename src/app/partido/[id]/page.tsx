@@ -326,7 +326,7 @@ function FormStat({ label, value, tone }: { label: string; value: string; tone?:
   return (
     <div className="min-w-0">
       <div className="text-[10px] uppercase tracking-wide text-mist-500">{label}</div>
-      <div className={`mt-1 text-lg font-semibold tabular-nums sm:text-xl ${tone ?? "text-white"}`}>
+      <div className={`mt-0.5 text-base font-semibold tabular-nums ${tone ?? "text-white"}`}>
         {value}
       </div>
     </div>
@@ -2250,7 +2250,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                       logo={teamLogos.get(`${match.league_code}:${team}`)} plain
                     />
                     <div className="min-w-0 flex-1">
-                      <div className="truncate text-base font-semibold text-white sm:text-[17px]">{displayTeam(team)}</div>
+                      <div className="truncate text-sm font-semibold text-white sm:text-[15px]">{displayTeam(team)}</div>
                       {isCup && standing ? (
                         <div className="whitespace-nowrap text-ui-caption text-mist-500">
                           {standing.group_name
@@ -2266,7 +2266,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                     </div>
                   </div>
                   {stats ? (
-                    <div className="mt-3 grid grid-cols-3 gap-3 border-t border-ink-800/60 pt-3">
+                    <div className="mt-2.5 grid grid-cols-3 gap-x-3 gap-y-2.5 border-t border-ink-800/60 pt-2.5">
                       <FormStat
                         label="Goles a favor"
                         value={`${num(stats.goalsFor)} (${stats.goalsForTotal})`}
