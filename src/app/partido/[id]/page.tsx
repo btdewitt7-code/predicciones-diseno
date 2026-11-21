@@ -2224,16 +2224,16 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
       ) : null}
 
       <section className="grid gap-4">
-        <div className="card p-4 sm:p-5">
+        <div className="space-y-3">
           <div data-match-panel-except="posiciones">
-          <div className="mb-4">
+          <div className="mb-1">
             <h2 className="text-ui-card-title font-semibold text-white">Forma reciente</h2>
             <p className="text-[11px] leading-relaxed text-mist-500 sm:text-xs">
               {isCup ? "Posición en la competición y promedio" : "Promedio"} por partido en los
               últimos {Math.max(homeRecent8.length, awayRecent8.length) || 8}. Entre paréntesis, el total.
             </p>
           </div>
-          <div className="space-y-3">
+          <div className="grid gap-3 lg:grid-cols-2">
             {[
               { team: match.home_team, matches: homeRecent8 },
               { team: match.away_team, matches: awayRecent8 },
@@ -2242,7 +2242,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               const standing =
                 standings.find((row) => teamSimilarity(row.team, team) >= 0.85) ?? null;
               return (
-                <div key={team} className="space-y-1.5 border-b border-ink-800/60 pb-3 last:border-0 last:pb-0">
+                <div key={team} className="card space-y-1.5 p-3 sm:p-4">
                   <div className="flex min-w-0 items-center gap-3">
                     <TeamBadge
                       name={displayTeam(team)}
@@ -2266,7 +2266,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                     </div>
                   </div>
                   {stats ? (
-                    <div className="mt-3 grid grid-cols-3 gap-3 border-t border-ink-800/60 pt-3 sm:grid-cols-5">
+                    <div className="mt-3 grid grid-cols-3 gap-3 border-t border-ink-800/60 pt-3">
                       <FormStat
                         label="Goles a favor"
                         value={`${num(stats.goalsFor)} (${stats.goalsForTotal})`}
@@ -2336,9 +2336,9 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                                 <span>{item.label}</span>
                                 <span className="tabular-nums text-mist-300">{num(item.value)}</span>
                               </div>
-                              <div className="mt-1 h-1 overflow-hidden rounded-full bg-ink-800">
+                              <div className="mt-1 h-2 overflow-hidden rounded-full bg-ink-800">
                                 <div
-                                  className="h-full rounded-full bg-win-400/70"
+                                  className="h-full rounded-full bg-win-400/80"
                                   style={{
                                     width: `${Math.min(100, (Number(item.value) / item.max) * 100)}%`,
                                   }}
