@@ -324,9 +324,11 @@ function Expected({
 
 function FormStat({ label, value, tone }: { label: string; value: string; tone?: string }) {
   return (
-    <div className="flex items-baseline justify-between gap-2 border-b border-ink-800/40 pb-0.5">
-      <span className="text-mist-500">{label}</span>
-      <span className={`tabular-nums ${tone ?? "text-mist-200"}`}>{value}</span>
+    <div className="min-w-0">
+      <div className="text-[10px] uppercase tracking-wide text-mist-500">{label}</div>
+      <div className={`mt-1 text-lg font-semibold tabular-nums sm:text-xl ${tone ?? "text-white"}`}>
+        {value}
+      </div>
     </div>
   );
 }
@@ -2241,14 +2243,14 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                 standings.find((row) => teamSimilarity(row.team, team) >= 0.85) ?? null;
               return (
                 <div key={team} className="space-y-1.5 border-b border-ink-800/60 pb-3 last:border-0 last:pb-0">
-                  <div className="flex min-w-0 items-center gap-2">
+                  <div className="flex min-w-0 items-center gap-3">
                     <TeamBadge
                       name={displayTeam(team)}
-                      size={26}
+                      size={40}
                       logo={teamLogos.get(`${match.league_code}:${team}`)} plain
                     />
-                    <div className="min-w-0">
-                      <div className="truncate text-[15px] text-mist-300 sm:text-[17px]">{displayTeam(team)}</div>
+                    <div className="min-w-0 flex-1">
+                      <div className="truncate text-base font-semibold text-white sm:text-[17px]">{displayTeam(team)}</div>
                       {isCup && standing ? (
                         <div className="whitespace-nowrap text-ui-caption text-mist-500">
                           {standing.group_name
@@ -2259,12 +2261,12 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                         </div>
                       ) : null}
                     </div>
-                  </div>
-                  <div className="mt-1.5">
-                    <FormStrip matches={matches} team={team} align="start" />
+                    <div className="ml-auto shrink-0">
+                      <FormStrip matches={matches} team={team} align="start" />
+                    </div>
                   </div>
                   {stats ? (
-                    <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 pt-1 text-ui-body sm:gap-x-6 xl:grid-cols-3">
+                    <div className="mt-3 grid grid-cols-3 gap-3 border-t border-ink-800/60 pt-3 sm:grid-cols-5">
                       <FormStat
                         label="Goles a favor"
                         value={`${num(stats.goalsFor)} (${stats.goalsForTotal})`}
@@ -2317,10 +2319,42 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                     </div>
                   ) : null}
 
+                  {stats ? (
+                    <div className="mt-3 border-t border-ink-800/60 pt-3">
+                      <div className="text-[10px] uppercase tracking-wide text-mist-500">
+                        Rendimiento ofensivo
+                      </div>
+                      <div className="mt-2 grid gap-2 sm:grid-cols-3">
+                        {[
+                          { label: "Remates", value: stats.shots, max: 20 },
+                          { label: "Tiros al arco", value: stats.sot, max: 8 },
+                          { label: "Córners", value: stats.corners, max: 12 },
+                        ].map((item) =>
+                          item.value === null ? null : (
+                            <div key={item.label}>
+                              <div className="flex items-center justify-between text-[11px] text-mist-500">
+                                <span>{item.label}</span>
+                                <span className="tabular-nums text-mist-300">{num(item.value)}</span>
+                              </div>
+                              <div className="mt-1 h-1 overflow-hidden rounded-full bg-ink-800">
+                                <div
+                                  className="h-full rounded-full bg-win-400/70"
+                                  style={{
+                                    width: `${Math.min(100, (Number(item.value) / item.max) * 100)}%`,
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          ),
+                        )}
+                      </div>
+                    </div>
+                  ) : null}
+
                   {matches.length > 0 ? (
                     <details className="text-ui-body-sm" suppressHydrationWarning>
                       <summary className="cursor-pointer select-none list-none text-mint-400 transition hover:text-mint-300 [&::-webkit-details-marker]:hidden">
-                        Ver últimos {matches.length} partidos <span className="ml-1 text-ui-caption">▾</span>
+                        Ver los {matches.length} <span className="ml-1 text-ui-caption">▾</span>
                       </summary>
                       <ul className="mt-2 space-y-1.5">
                         {matches.map((recent) => {
