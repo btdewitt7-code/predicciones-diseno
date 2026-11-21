@@ -1174,7 +1174,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         away={live ? live.away : (match.away_goals ?? null)}
         sound
       >
-        <section className="card match-hero p-5 sm:p-6">
+        <section className="card match-hero p-3.5 sm:p-5">
         <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-mist-500">
           <span className="flex items-center gap-2">
             <span>{league ? `${league.tag} ${league.name}` : match.league_code}</span>
@@ -1199,19 +1199,14 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           </span>
         </div>
 
-        <div className="mt-6 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-          <div className="flex min-w-0 flex-col items-center gap-2">
-            <div className="relative grid place-items-center">
-              <span className="pointer-events-none absolute inset-[-18px] rounded-full bg-mint-500/25 blur-2xl" />
-              <span className="relative z-10 grid place-items-center">
-                <TeamBadge
-                  name={homeDisplay}
-                  size={96}
-                  logo={homeLogo}
-                  className="h-16 w-16 sm:h-24 sm:w-24"
-                />
-              </span>
-            </div>
+        <div className="mt-4 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+          <div className="flex min-w-0 flex-col items-center gap-1.5">
+            <TeamBadge
+              name={homeDisplay}
+              size={56}
+              logo={homeLogo}
+              className="h-11 w-11 sm:h-14 sm:w-14"
+            />
             <span className="max-w-full break-words px-1 text-center text-[15px] font-semibold leading-snug text-white sm:text-xl">{homeDisplay}</span>
             <span className="text-[10px] uppercase tracking-wide text-mist-500">Local</span>
             <FormStrip matches={homeForm.slice(0, 5)} team={match.home_team} />
@@ -1229,12 +1224,12 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
           <div className="px-2 text-center" data-goal-score>
             {match.status === "played" ? (
-              <div className="text-3xl font-bold tabular-nums text-white">
+              <div className="text-2xl font-bold tabular-nums text-white">
                 {match.home_goals} - {match.away_goals}
               </div>
             ) : live ? (
               <div>
-                <div className="text-3xl font-bold tabular-nums text-amber-400">
+                <div className="text-2xl font-bold tabular-nums text-amber-400">
                   {live.home} - {live.away}
                 </div>
                 <div className="text-[10px] uppercase tracking-wide text-amber-400/80">
@@ -1251,18 +1246,13 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
             )}
           </div>
 
-          <div className="flex min-w-0 flex-col items-center gap-2">
-            <div className="relative grid place-items-center">
-              <span className="pointer-events-none absolute inset-[-18px] rounded-full bg-mint-500/25 blur-2xl" />
-              <span className="relative z-10 grid place-items-center">
-                <TeamBadge
-                  name={awayDisplay}
-                  size={96}
-                  logo={awayLogo}
-                  className="h-16 w-16 sm:h-24 sm:w-24"
-                />
-              </span>
-            </div>
+          <div className="flex min-w-0 flex-col items-center gap-1.5">
+            <TeamBadge
+              name={awayDisplay}
+              size={56}
+              logo={awayLogo}
+              className="h-11 w-11 sm:h-14 sm:w-14"
+            />
             <span className="max-w-full break-words px-1 text-center text-[15px] font-semibold leading-snug text-white sm:text-xl">{awayDisplay}</span>
             <span className="text-[10px] uppercase tracking-wide text-mist-500">Visitante</span>
             <FormStrip matches={awayForm.slice(0, 5)} team={match.away_team} />
@@ -1280,11 +1270,11 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         </div>
 
         {prediction ? (
-          <div className="mt-6">
+          <div className="mt-4">
             <MatchProbBar home={prediction.home_win} draw={prediction.draw} away={prediction.away_win} />
           </div>
         ) : (
-          <p className="mt-6 rounded-lg border border-ink-700 bg-ink-850 p-3 text-xs text-mist-400">
+          <p className="mt-4 rounded-lg border border-ink-700 bg-ink-850 p-3 text-xs text-mist-400">
             {league?.noModel
               ? "Esta competición no tiene modelo. Mostramos fixtures, estadísticas y enfrentamientos directos."
               : match.status === "played"
