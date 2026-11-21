@@ -430,37 +430,37 @@ function SummaryCard({
   kind: "over15" | "over25" | "btts" | "xg" | "cards" | "corners" | "shots" | "sot";
 }) {
   const icon = SUMMARY_ICONS[kind];
+  const footerLeft =
+    left === "Modelo" && bar > 0 ? `Modelo: ${(100 / bar).toFixed(2)}` : left;
   return (
-    <div className="card flex h-full flex-col p-2.5 sm:p-4">
-      <div className="flex items-start justify-between gap-1.5 sm:gap-2">
-        <div className="flex min-w-0 items-center gap-1.5 text-[10px] leading-tight text-mist-300 sm:gap-2 sm:text-xs">
-          {icon ? (
-            <img
-              src={icon}
-              alt=""
-              width={24}
-              height={24}
-              loading="lazy"
-              decoding="async"
-              className="size-5 shrink-0 object-contain sm:size-6"
-            />
-          ) : (
-            <SummaryIcon kind={kind} />
-          )}
-          <span className="min-w-0">{label}</span>
-        </div>
-        <span className="shrink-0 text-[18px] font-semibold tabular-nums text-white sm:text-[22px]">
+    <div className="py-3">
+      <div className="flex items-center gap-2">
+        {icon ? (
+          <img
+            src={icon}
+            alt=""
+            width={18}
+            height={18}
+            loading="lazy"
+            decoding="async"
+            className="size-[18px] shrink-0 object-contain"
+          />
+        ) : (
+          <SummaryIcon kind={kind} />
+        )}
+        <span className="min-w-0 truncate text-sm text-mist-200">{label}</span>
+        <span className="ml-auto shrink-0 text-xl font-semibold tabular-nums text-white">
           {value}
         </span>
       </div>
-      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-ink-800 sm:mt-3">
+      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-ink-800">
         <div
-          className="h-full rounded-full bg-win-400/80"
+          className="h-full rounded-full bg-[#8fc7f0]"
           style={{ width: `${Math.max(0, Math.min(100, bar))}%` }}
         />
       </div>
-      <div className="mt-1.5 flex flex-wrap items-center justify-between gap-x-2 gap-y-0.5 text-ui-body-sm text-mist-500 sm:mt-2">
-        <span>{left}</span>
+      <div className="mt-1 flex items-center justify-between gap-2 text-[11px] text-mist-500">
+        <span>{footerLeft}</span>
         <span>{right}</span>
       </div>
     </div>
@@ -1525,9 +1525,12 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           </section>
 
           {prediction ? (
-            <div data-match-panel="general">
-              <h2 className="mb-2 text-ui-card-title font-semibold text-white">Probabilidades clave</h2>
-              <section className="grid grid-cols-2 gap-2 sm:gap-3">
+            <div className="card p-4 sm:p-5" data-match-panel="general">
+              <h2 className="flex items-center gap-2 text-ui-card-title font-semibold text-white">
+                <span className="h-4 w-1 rounded-full bg-mint-400" />
+                Probabilidades clave
+              </h2>
+              <section className="mt-1 grid gap-x-8 sm:grid-cols-2">
                 <SummaryCard
                   label="Más de 1.5 goles"
                   value={pct(prediction.over15)}
