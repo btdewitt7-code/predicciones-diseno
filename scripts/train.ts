@@ -8,6 +8,7 @@ import {
 } from "../src/lib/model";
 import { LEAGUES } from "../src/lib/leagues";
 import { cardFactorFor } from "../src/lib/cardCalibration";
+import { SHOTS_FACTOR } from "../src/lib/shotCalibration";
 import { buildHistoryStatements } from "../src/lib/predictionHistory";
 import {
   applyAbsenceAdjustments,
@@ -144,6 +145,7 @@ async function main() {
     const ratings = fitRatings(matches, refDate, {
       halfLifeDays: HALF_LIFE_DAYS,
       cardFactor: cardFactorFor(league.code),
+      shotsFactor: SHOTS_FACTOR,
     });
     const ratingsSot = fitRatings(matches, refDate, {
       halfLifeDays: HALF_LIFE_DAYS,

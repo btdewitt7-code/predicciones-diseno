@@ -18,6 +18,9 @@ export type PlayedMatch = {
   awayYellow?: number | null;
   homeRed?: number | null;
   awayRed?: number | null;
+  oddsHome?: number | null;
+  oddsDraw?: number | null;
+  oddsAway?: number | null;
 };
 
 export type TeamRating = {
@@ -61,6 +64,8 @@ export type Baseline = {
   avgAwayCards: number;
   /** Corrección por liga de la tendencia reciente de tarjetas (1 = sin ajuste). */
   cardFactor?: number;
+  /** Corrección global de remates totales (1 = sin ajuste). */
+  shotsFactor?: number;
   matches: number;
 };
 
@@ -199,6 +204,8 @@ export type FitOptions = {
   metric?: "goals" | "sot" | "ht";
   /** Corrección de tarjetas por liga (1 = sin ajuste). */
   cardFactor?: number;
+  /** Corrección global de remates totales (1 = sin ajuste). */
+  shotsFactor?: number;
 };
 
 /** Un tiro al arco vale ~0.32 goles (media histórica de 31.662 equipos-partido). */
@@ -346,6 +353,7 @@ export function fitRatings(
     avgHomeCards: cardWeight > 0 ? sumHomeCards / cardWeight : 2.0,
     avgAwayCards: cardWeight > 0 ? sumAwayCards / cardWeight : 2.1,
     cardFactor: options.cardFactor ?? 1,
+    shotsFactor: options.shotsFactor ?? 1,
     matches: usable.length,
   };
 
@@ -604,12 +612,12 @@ export function predictMatch(
   );
 
   const shotsHome = clamp(
-    b.avgHomeShots * (home?.shAttHome ?? 1) * (away?.shDefAway ?? 1),
+    b.avgHomeShots * (home?.shAttHome ?? 1) * (away?.shDefAway ?? 1) * (b.shotsFactor ?? 1),
     3,
     30,
   );
   const shotsAway = clamp(
-    b.avgAwayShots * (away?.shAttAway ?? 1) * (home?.shDefHome ?? 1),
+    b.avgAwayShots * (away?.shAttAway ?? 1) * (home?.shDefHome ?? 1) * (b.shotsFactor ?? 1),
     3,
     30,
   );

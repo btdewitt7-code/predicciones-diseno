@@ -23,6 +23,7 @@
     "fotos": "tsx scripts/carousel-photos.ts",
     "duplicados": "tsx scripts/clean-duplicates.ts",
     "calibrar-tarjetas": "tsx scripts/calibrate-cards.ts",
+    "calibrar-mercados": "tsx scripts/calibrate-markets.ts",
     "alineaciones": "tsx scripts/ingest-lineups.ts",
     "ajuste-lineup": "tsx scripts/adjust-lineups.ts",
     "cuotas-copas": "tsx scripts/ingest-cup-cards.ts",
