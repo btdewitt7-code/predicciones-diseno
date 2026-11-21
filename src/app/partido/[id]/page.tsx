@@ -1424,6 +1424,61 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                 ))}
               </div>
 
+              {(() => {
+                const homeStats = formStats(homeRecent8, match.home_team);
+                const awayStats = formStats(awayRecent8, match.away_team);
+                if (!homeStats || !awayStats) return null;
+                const rows = [
+                  { label: "Goles por partido", home: homeStats.goalsFor, away: awayStats.goalsFor },
+                  { label: "Córners por partido", home: homeStats.corners, away: awayStats.corners },
+                  { label: "Tiros al arco por partido", home: homeStats.sot, away: awayStats.sot },
+                ];
+                return (
+                  <div className="mt-4">
+                    <h3 className="text-sm font-semibold text-white">Rendimiento ofensivo</h3>
+                    <div className="mt-1 flex items-center justify-between text-[11px] text-mist-500">
+                      <span>{homeDisplay}</span>
+                      <span>{awayDisplay}</span>
+                    </div>
+                    <div className="mt-2 space-y-2">
+                      {rows.map((row) => {
+                        const homeValue = Number(row.home ?? 0);
+                        const awayValue = Number(row.away ?? 0);
+                        const max = Math.max(homeValue, awayValue, 0.1);
+                        return (
+                          <div
+                            key={row.label}
+                            className="grid grid-cols-[2.5rem_1fr_auto_1fr_2.5rem] items-center gap-2"
+                          >
+                            <span className="text-right text-sm font-semibold tabular-nums text-white">
+                              {num(row.home)}
+                            </span>
+                            <div className="h-2 overflow-hidden rounded-full bg-ink-800">
+                              <div
+                                className="h-full rounded-full bg-win-400/80"
+                                style={{ width: `${(homeValue / max) * 100}%` }}
+                              />
+                            </div>
+                            <span className="whitespace-nowrap text-center text-[11px] text-mist-500">
+                              {row.label}
+                            </span>
+                            <div className="h-2 overflow-hidden rounded-full bg-ink-800">
+                              <div
+                                className="h-full rounded-full bg-mist-400/70"
+                                style={{ width: `${(awayValue / max) * 100}%` }}
+                              />
+                            </div>
+                            <span className="text-sm font-semibold tabular-nums text-white">
+                              {num(row.away)}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })()}
+
               <div className="mt-4 space-y-1 text-[11px] text-mist-500">
                 <p>
                   Goles esperados:{" "}
