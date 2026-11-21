@@ -1012,7 +1012,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
       </div>
 
       {displayRecommendations.length > 0 ? (
-        <details className="card overflow-hidden" suppressHydrationWarning>
+        <details className="card overflow-hidden" suppressHydrationWarning open>
           <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-5 py-3 text-sm font-semibold text-white transition hover:bg-ink-850/60 [&::-webkit-details-marker]:hidden">
             <span>⚡ {isCup ? "Opciones informativas" : "Recomendaciones del partido"}</span>
             <span className="flex items-center gap-2">
@@ -1174,7 +1174,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         away={live ? live.away : (match.away_goals ?? null)}
         sound
       >
-        <section className="card match-hero p-5 sm:p-6">
+        <section className="card match-hero p-3.5 sm:p-5">
         <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-mist-500">
           <span className="flex items-center gap-2">
             <span>{league ? `${league.tag} ${league.name}` : match.league_code}</span>
@@ -1199,21 +1199,16 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           </span>
         </div>
 
-        <div className="mt-6 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-          <div className="flex min-w-0 flex-col items-center gap-2">
-            <div className="relative grid place-items-center">
-              <span className="pointer-events-none absolute inset-[-18px] rounded-full bg-mint-500/25 blur-2xl" />
-              <span className="relative z-10 grid place-items-center">
-                <TeamBadge
-                  name={homeDisplay}
-                  size={96}
-                  logo={homeLogo}
-                  className="h-16 w-16 sm:h-24 sm:w-24"
-                />
-              </span>
-            </div>
-            <span className="max-w-full break-words px-1 text-center text-[15px] font-semibold leading-snug text-white sm:text-xl">{homeDisplay}</span>
-            <span className="text-[10px] uppercase tracking-wide text-mist-500">Local</span>
+        <div className="mt-4 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+          <div className="flex min-w-0 flex-col items-center gap-1.5">
+            <TeamBadge
+              name={homeDisplay}
+              size={56}
+              logo={homeLogo}
+              className="h-11 w-11 sm:h-14 sm:w-14"
+            />
+            <span className="max-w-full truncate px-1 text-center text-sm font-semibold leading-tight text-white sm:text-lg">{homeDisplay}</span>
+            <span className="text-[9px] uppercase tracking-wide text-mist-500">Local</span>
             <FormStrip matches={homeForm.slice(0, 5)} team={match.home_team} />
             {homeVetoed ? (
               <span className="rounded bg-rose-400/10 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-rose-400 ring-1 ring-rose-400/30">
@@ -1229,12 +1224,12 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
           <div className="px-2 text-center" data-goal-score>
             {match.status === "played" ? (
-              <div className="text-3xl font-bold tabular-nums text-white">
+              <div className="text-2xl font-bold tabular-nums text-white sm:text-3xl">
                 {match.home_goals} - {match.away_goals}
               </div>
             ) : live ? (
               <div>
-                <div className="text-3xl font-bold tabular-nums text-amber-400">
+                <div className="text-2xl font-bold tabular-nums text-amber-400 sm:text-3xl">
                   {live.home} - {live.away}
                 </div>
                 <div className="text-[10px] uppercase tracking-wide text-amber-400/80">
@@ -1251,20 +1246,15 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
             )}
           </div>
 
-          <div className="flex min-w-0 flex-col items-center gap-2">
-            <div className="relative grid place-items-center">
-              <span className="pointer-events-none absolute inset-[-18px] rounded-full bg-mint-500/25 blur-2xl" />
-              <span className="relative z-10 grid place-items-center">
-                <TeamBadge
-                  name={awayDisplay}
-                  size={96}
-                  logo={awayLogo}
-                  className="h-16 w-16 sm:h-24 sm:w-24"
-                />
-              </span>
-            </div>
-            <span className="max-w-full break-words px-1 text-center text-[15px] font-semibold leading-snug text-white sm:text-xl">{awayDisplay}</span>
-            <span className="text-[10px] uppercase tracking-wide text-mist-500">Visitante</span>
+          <div className="flex min-w-0 flex-col items-center gap-1.5">
+            <TeamBadge
+              name={awayDisplay}
+              size={56}
+              logo={awayLogo}
+              className="h-11 w-11 sm:h-14 sm:w-14"
+            />
+            <span className="max-w-full truncate px-1 text-center text-sm font-semibold leading-tight text-white sm:text-lg">{awayDisplay}</span>
+            <span className="text-[9px] uppercase tracking-wide text-mist-500">Visitante</span>
             <FormStrip matches={awayForm.slice(0, 5)} team={match.away_team} />
             {awayVetoed ? (
               <span className="rounded bg-rose-400/10 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-rose-400 ring-1 ring-rose-400/30">
@@ -1280,11 +1270,11 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         </div>
 
         {prediction ? (
-          <div className="mt-6">
+          <div className="mt-4">
             <MatchProbBar home={prediction.home_win} draw={prediction.draw} away={prediction.away_win} />
           </div>
         ) : (
-          <p className="mt-6 rounded-lg border border-ink-700 bg-ink-850 p-3 text-xs text-mist-400">
+          <p className="mt-4 rounded-lg border border-ink-700 bg-ink-850 p-3 text-xs text-mist-400">
             {league?.noModel
               ? "Esta competición no tiene modelo. Mostramos fixtures, estadísticas y enfrentamientos directos."
               : match.status === "played"
@@ -1346,24 +1336,23 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         tabs={
           prediction
             ? [
-                { id: "general", label: "General" },
-                { id: "goles", label: "Goles" },
-                { id: "tiros", label: "Tiros" },
-                { id: "corners", label: "Córners" },
-                { id: "tarjetas", label: "Tarjetas" },
-                { id: "posiciones", label: "Posiciones" },
+                { id: "resumen", label: "Resumen" },
+                { id: "estadisticas", label: "Estadísticas" },
+                { id: "alineaciones", label: "Alineaciones" },
                 { id: "h2h", label: "H2H" },
+                { id: "tabla", label: "Tabla" },
               ]
             : [
-                { id: "general", label: "General" },
-                { id: "posiciones", label: "Posiciones" },
+                { id: "resumen", label: "Resumen" },
+                { id: "alineaciones", label: "Alineaciones" },
                 { id: "h2h", label: "H2H" },
+                { id: "tabla", label: "Tabla" },
               ]
         }
       />
 
       {goalsWithSide.length > 0 ? (
-        <section className="card p-4 sm:p-5" data-match-panel="goles">
+        <section className="card p-4 sm:p-5" data-match-panel="estadisticas" data-stat="goles">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
             <h2 className="text-sm font-semibold text-white">Goles</h2>
             <span className="text-[10px] text-mist-500">Goleadores y asistencias</span>
@@ -1415,7 +1404,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
       {prediction ? (
         <>
           <section className="grid gap-4">
-            <div className="card p-4 sm:p-5" data-match-panel="general">
+            <div className="card p-4 sm:p-5" data-match-panel="resumen">
               <h2 className="mb-4 text-ui-card-title font-semibold text-white">Resultado final (1X2)</h2>
               <div className="grid max-w-2xl grid-cols-3 gap-2">
                 {[
@@ -1480,7 +1469,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               ) : null}
             </div>
 
-            <div className="card p-4 sm:p-5" data-match-panel="goles">
+            <div className="card p-4 sm:p-5" data-match-panel="estadisticas" data-stat="goles">
               <h2 className="mb-1 text-ui-card-title font-semibold text-white">Goles y ambos marcan</h2>
               <p className="mb-4 text-ui-body-sm text-mist-500">
                 Primera cifra: más de / sí. Segunda: menos de / no.
@@ -1500,7 +1489,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               </div>
             </div>
 
-            <div className="card p-4 sm:p-5" data-match-panel="goles">
+            <div className="card p-4 sm:p-5" data-match-panel="estadisticas" data-stat="goles">
               <h2 className="mb-1 text-ui-card-title font-semibold text-white">Marcadores más probables</h2>
               <p className="mb-4 text-ui-body-sm text-mist-500">
                 Los seis resultados exactos con mayor probabilidad.
@@ -1524,7 +1513,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           </section>
 
           {prediction ? (
-            <div data-match-panel="general">
+            <div data-match-panel="resumen">
               <h2 className="mb-2 text-ui-card-title font-semibold text-white">Probabilidades clave</h2>
               <section className="grid grid-cols-2 gap-2 sm:gap-3">
                 <SummaryCard
@@ -1595,7 +1584,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
             </div>
           ) : null}
 
-          <section className="card p-4 sm:p-5" data-match-panel="general">
+          <section className="card p-4 sm:p-5" data-match-panel="alineaciones">
             <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
               <div>
                 <h2 className="text-ui-card-title font-semibold text-white">Rotación y XI base</h2>
@@ -1683,7 +1672,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           </section>
 
           {injuriesAt && hasInjuryCoverage ? (
-            <section className="card p-4 sm:p-5" data-match-panel="general">
+            <section className="card p-4 sm:p-5" data-match-panel="alineaciones">
               <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
                 <h2 className="text-ui-card-title font-semibold text-white">Bajas</h2>
                 <span className="text-[10px] text-mist-500">
@@ -1772,7 +1761,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           ) : null}
 
           {lineups.length > 0 ? (
-            <section className="card p-4 sm:p-5" data-match-panel="general">
+            <section className="card p-4 sm:p-5" data-match-panel="alineaciones">
               <div className="mb-4 flex flex-wrap items-start justify-between gap-2">
                 <div>
                   <h2 className="text-ui-card-title font-semibold text-white">Alineaciones</h2>
@@ -1870,7 +1859,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
           {league?.hasStats !== false ? (
           <section className="grid gap-4">
-            <div className="card p-4 sm:p-5" data-match-panel="corners">
+            <div className="card p-4 sm:p-5" data-match-panel="estadisticas" data-stat="corners">
               <h2 className="mb-1 text-ui-card-title font-semibold text-white">Córners</h2>
               <p className="mb-4 text-ui-body-sm text-mist-500">
                 Más de / menos de la línea. Totales esperados arriba.
@@ -1889,7 +1878,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               </div>
             </div>
 
-            <div className="card p-4 sm:p-5" data-match-panel="corners">
+            <div className="card p-4 sm:p-5" data-match-panel="estadisticas" data-stat="corners">
               <h2 className="mb-1 text-ui-card-title font-semibold text-white">Córners recientes</h2>
               <p className="mb-3 text-[13px] text-mist-500">
                 Últimos 8 partidos de cada equipo. Formato: equipo-rival y total. L = local · V =
@@ -1938,7 +1927,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               </div>
             </div>
 
-            <div className="card p-4 sm:p-5" data-match-panel="tiros">
+            <div className="card p-4 sm:p-5" data-match-panel="estadisticas" data-stat="tiros">
               <h2 className="mb-1 text-ui-card-title font-semibold text-white">Remates al arco</h2>
               <p className="mb-4 text-ui-body-sm text-mist-500">
                 Remates a puerta esperados. Más de / menos de la línea.
@@ -1967,7 +1956,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               emptyLabel="Sin tiros al arco registrados."
             />
 
-            <div className="card p-4 sm:p-5" data-match-panel="tiros">
+            <div className="card p-4 sm:p-5" data-match-panel="estadisticas" data-stat="tiros">
               <h2 className="mb-1 text-ui-card-title font-semibold text-white">Remates</h2>
               <p className="mb-4 text-ui-body-sm text-mist-500">
                 Remates totales esperados (todos los tiros, no solo al arco). Más de / menos de.
@@ -1997,7 +1986,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               emptyLabel="Sin remates registrados."
             />
 
-            <div className="card p-4 sm:p-5" data-match-panel="tiros">
+            <div className="card p-4 sm:p-5" data-match-panel="estadisticas" data-stat="tiros">
               <PlayerShotLeaders
                 matchId={match.id}
                 home={match.home_team}
@@ -2005,7 +1994,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               />
             </div>
 
-            <div className="card p-4 sm:p-5" data-match-panel="tarjetas">
+            <div className="card p-4 sm:p-5" data-match-panel="estadisticas" data-stat="tarjetas">
               <h2 className="mb-1 text-ui-card-title font-semibold text-white">Tarjetas</h2>
               <p className="mb-4 text-ui-body-sm text-mist-500">
                 Amarillas y rojas esperadas (cada roja cuenta). Más de / menos de.
@@ -2030,7 +2019,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               ) : null}
             </div>
 
-            <div className="card p-4 sm:p-5" data-match-panel="tarjetas">
+            <div className="card p-4 sm:p-5" data-match-panel="estadisticas" data-stat="tarjetas">
               <h2 className="mb-1 text-ui-card-title font-semibold text-white">Tarjetas recientes</h2>
               <p className="mb-3 text-[13px] text-mist-500">
                 Últimos 8 partidos de cada equipo. Amarillas + rojas (R = roja); formato:
@@ -2087,7 +2076,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               </div>
             </div>
 
-            <div className="card p-4 sm:p-5" data-match-panel="tarjetas">
+            <div className="card p-4 sm:p-5" data-match-panel="estadisticas" data-stat="tarjetas">
               <h2 className="mb-1 text-ui-card-title font-semibold text-white">Faltas recientes</h2>
               <p className="mb-3 text-[13px] text-mist-500">
                 Últimos 8 partidos. Faltas cometidas por cada equipo. Contexto: el modelo no calcula
@@ -2141,7 +2130,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               </div>
             </div>
 
-            <div className="card p-4 sm:p-5" data-match-panel="tarjetas">
+            <div className="card p-4 sm:p-5" data-match-panel="estadisticas" data-stat="tarjetas">
               <PlayerCardLeaders
                 matchId={match.id}
                 home={match.home_team}
@@ -2152,7 +2141,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
             </div>
 
             {prediction.ht_over05 > 0 ? (
-              <div className="card p-4 sm:p-5" data-match-panel="goles">
+              <div className="card p-4 sm:p-5" data-match-panel="estadisticas" data-stat="goles">
                 <h2 className="mb-1 text-ui-card-title font-semibold text-white">Primer tiempo</h2>
                 <p className="mb-4 text-ui-body-sm text-mist-500">
                   Goles esperados antes del descanso. Más de / menos de.
@@ -2174,7 +2163,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
             {prediction.ht_over05 > 0.7 &&
             (homeHalfHistory.length > 0 || awayHalfHistory.length > 0) ? (
-              <div className="card p-4 sm:p-5" data-match-panel="goles">
+              <div className="card p-4 sm:p-5" data-match-panel="estadisticas" data-stat="goles">
                 <h2 className="mb-1 text-ui-card-title font-semibold text-white">1T reciente</h2>
                 <p className="mb-4 text-ui-body-sm text-mist-500">
                   Últimos 5 partidos con gol antes del descanso: minuto del primer gol y marcador al
@@ -2466,7 +2455,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           ) : null}
           </div>
 
-          <div data-match-panel="posiciones">
+          <div data-match-panel="tabla">
             <StandingsPanel
               leagueCode={match.league_code}
               leagueName={league?.name ?? match.league_code}
