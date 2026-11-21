@@ -114,6 +114,10 @@ export function AlertsSheet() {
   return createPortal(
     <div
       className={`fixed inset-0 z-[60] lg:hidden ${open ? "" : "pointer-events-none"}`}
+      style={{
+        visibility: open ? "visible" : "hidden",
+        transition: open ? "none" : "visibility 0s linear 250ms",
+      }}
       aria-hidden={!open}
       inert={!open}
     >
@@ -122,8 +126,8 @@ export function AlertsSheet() {
         aria-label="Cerrar alertas"
         onClick={close}
         tabIndex={open ? 0 : -1}
-        className={`absolute inset-0 h-full w-full cursor-default bg-black/55 backdrop-blur-sm transition-opacity duration-200 ${
-          open ? "opacity-100" : "opacity-0"
+        className={`absolute inset-0 h-full w-full cursor-default bg-black/55 transition-opacity duration-200 ${
+          open ? "opacity-100 backdrop-blur-sm" : "pointer-events-none opacity-0 backdrop-blur-none"
         }`}
       />
 
