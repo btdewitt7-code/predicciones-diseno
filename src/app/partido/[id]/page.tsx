@@ -448,8 +448,8 @@ function SummaryCard({
         ) : (
           <SummaryIcon kind={kind} />
         )}
-        <span className="min-w-0 truncate text-sm text-mist-200">{label}</span>
-        <span className="ml-auto shrink-0 text-xl font-semibold tabular-nums text-white">
+        <span className="min-w-0 truncate text-xs text-mist-200 sm:text-sm">{label}</span>
+        <span className="ml-auto shrink-0 text-lg font-semibold tabular-nums text-white sm:text-xl">
           {value}
         </span>
       </div>
@@ -459,9 +459,9 @@ function SummaryCard({
           style={{ width: `${Math.max(0, Math.min(100, bar))}%` }}
         />
       </div>
-      <div className="mt-1 flex items-center justify-between gap-2 text-[11px] text-mist-500">
-        <span>{footerLeft}</span>
-        <span>{right}</span>
+      <div className="mt-1 flex items-center justify-between gap-2 text-[10px] text-mist-500 sm:text-[11px]">
+        <span className="truncate">{footerLeft}</span>
+        <span className="shrink-0">{right}</span>
       </div>
     </div>
   );
@@ -1530,7 +1530,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                 <span className="h-4 w-1 rounded-full bg-mint-400" />
                 Probabilidades clave
               </h2>
-              <section className="mt-1 grid gap-x-8 sm:grid-cols-2">
+              <section className="mt-1 grid grid-cols-2 gap-x-4 sm:gap-x-8">
                 <SummaryCard
                   label="Más de 1.5 goles"
                   value={pct(prediction.over15)}
