@@ -32,6 +32,8 @@ type Options = {
   minEdge: number;
   minProb: number;
   maxOdds: number;
+  /** Solo para análisis: incluye mercados en pausa. */
+  includePaused?: boolean;
 };
 
 const LABELS = ["Local", "Empate", "Visitante"] as const;
@@ -118,7 +120,7 @@ export function findValue(
       odds: number,
       rule: ComboRule,
     ) => {
-      if (PAUSED_RULES.has(rule.type)) return;
+      if (!options.includePaused && PAUSED_RULES.has(rule.type)) return;
       if (!Number.isFinite(modelProb) || !Number.isFinite(marketProb)) return;
       if (!Number.isFinite(odds) || odds <= 1 || odds > maxOdds) return;
       if (modelProb < minProb) return;

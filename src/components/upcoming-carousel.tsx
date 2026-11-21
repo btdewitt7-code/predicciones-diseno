@@ -232,14 +232,11 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
               className="card group relative flex h-[252px] w-[88vw] max-w-[346px] shrink-0 snap-start flex-col justify-end overflow-hidden transition hover:border-mint-500/35 sm:w-[324px]"
             >
               {match.image ? (
-                <>
-                  <img
-                    src={match.image}
-                    alt=""
-                    className="pointer-events-none absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-105"
-                  />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/10" />
-                </>
+                <img
+                  src={match.image}
+                  alt=""
+                  className="pointer-events-none absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-105"
+                />
               ) : null}
 
               <span
@@ -284,7 +281,7 @@ export function UpcomingCarousel({ matches }: { matches: CarouselMatch[] }) {
                       {team.score !== null ? (
                         <span
                           className={`shrink-0 text-xl font-bold tabular-nums ${
-                            photo ? "text-[#fff]" : "text-white"
+                            photo ? "text-[#fff] drop-shadow-[0_1px_3px_rgba(0,0,0,0.85)]" : "text-white"
                           }`}
                         >
                           {team.score}
