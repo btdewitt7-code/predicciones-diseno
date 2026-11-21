@@ -119,7 +119,7 @@ export function MatchTabs({ tabs }: { tabs: MatchTab[] }) {
   }, [active]);
 
   return (
-    <div className="sticky top-[57px] z-10 -mx-1 mb-2 flex items-center gap-0 overflow-x-auto border-b border-ink-800 bg-ink-950/95 px-1 backdrop-blur [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:top-[57px]">
+    <div className="-mx-1 mb-2 flex items-center gap-0 overflow-x-auto border-b border-ink-800 px-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       {tabs.map((tab) => {
         const isActive = tab.id === active;
         return (
